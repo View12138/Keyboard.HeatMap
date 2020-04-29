@@ -1,0 +1,152 @@
+﻿<Window x:Class="Keyboard.HeatMap.Controls.TaskMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Keyboard.HeatMap.Controls"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ShowInTaskbar="False"
+        AllowsTransparency="True"
+        Opacity="0"
+        Topmost="True"
+        Background="Transparent"
+        SizeToContent="WidthAndHeight"
+        Foreground="{DynamicResource ThemeFore}"
+        Title="TaskMenu">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style x:Key="IconBox" TargetType="Grid">
+            <Setter Property="Width" Value="28"/>
+            <Setter Property="Height" Value="28"/>
+        </Style>
+        <Style x:Key="MenuItemBox" TargetType="Grid">
+            <Setter Property="Margin" Value="0,0"/>
+            <Setter Property="Background" Value="{DynamicResource ThemeBack}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#ededed"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="MenuItemGrid" TargetType="Grid">
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+        <Style x:Key="SplitLine" TargetType="Rectangle">
+            <Setter Property="Height" Value="1"/>
+            <Setter Property="Fill" Value="#ededed"/>
+            <Setter Property="Margin" Value="0,6"/>
+        </Style>
+        <Style x:Key="MenuItemText" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10,0" />
+        </Style>
+        <Style x:Key="IconEllipse" TargetType="Ellipse">
+            <Setter Property="Width" Value="10" />
+            <Setter Property="Height" Value="10" />
+        </Style>
+    </Window.Resources>
+    <Grid Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Border CornerRadius="3" Background="#FFFFFF" >
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="#FF888888" Opacity="0.2" />
+            </Border.Effect>
+        </Border>
+        <StackPanel Margin="0,5" Height="auto">
+
+            <Grid Background="{DynamicResource ThemeBack}">
+                <Grid Style="{StaticResource MenuItemGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Style="{StaticResource IconBox}">
+                        <Ellipse Fill="#FF5CC230" Style="{StaticResource IconEllipse}" Visibility="{Binding ElementName=StopKeyReadGrid,Path=Visibility}"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Visibility="{Binding ElementName=StopKeyReadGrid,Path=Visibility}">
+                        <TextBlock Text="记录中" Style="{StaticResource MenuItemText}"/>
+                    </Grid>
+                    <Grid Grid.Column="0" Style="{StaticResource IconBox}" Visibility="{Binding ElementName=StartKeyReadGrid,Path=Visibility}">
+                        <Ellipse Fill="#FFFF8E2F" Style="{StaticResource IconEllipse}"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Visibility="{Binding ElementName=StartKeyReadGrid,Path=Visibility}">
+                        <TextBlock Text="已暂停" Style="{StaticResource MenuItemText}"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Rectangle Height="1" Fill="#ededed" Margin="20,0"/>
+
+            <Grid x:Name="StopKeyReadGrid" MouseUp="StopKeyReadGrid_MouseUp" Style="{StaticResource MenuItemBox}" Visibility="Collapsed">
+                <Grid Style="{StaticResource MenuItemGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Style="{StaticResource IconBox}">
+                        <Viewbox Width="12" Height="12">
+                            <Path Stroke="#FFFF8E2F" StrokeThickness="3" Data="M0,0 L0,10 M4,0 L4,10" Stretch="Fill" />
+                        </Viewbox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBlock Text="暂 停" FontWeight="Bold" Style="{StaticResource MenuItemText}"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Grid x:Name="StartKeyReadGrid" MouseUp="StartKeyReadGrid_MouseUp" Style="{StaticResource MenuItemBox}">
+                <Grid Style="{StaticResource MenuItemGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Style="{StaticResource IconBox}">
+                        <Viewbox Width="12" Height="12">
+                            <Path Fill="#FF5CC230" Data="M0,0 L5,5 L0,10 Z"/>
+                        </Viewbox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBlock Text="开 始" FontWeight="Bold" Style="{StaticResource MenuItemText}"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Rectangle Style="{StaticResource SplitLine}"/>
+
+            <Grid x:Name="ShowHomeGrid" MouseUp="ShowHomeGrid_MouseUp" Style="{StaticResource MenuItemBox}">
+                <Grid Style="{StaticResource MenuItemGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Style="{StaticResource IconBox}">
+                        <Viewbox Child="{StaticResource IconHome}" Width="14" Height="14"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBlock Text="打开主界面" Style="{StaticResource MenuItemText}"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Rectangle Style="{StaticResource SplitLine}"/>
+
+            <Grid Name="CloseGrid" MouseUp="CloseGrid_MouseUp" Style="{StaticResource MenuItemBox}">
+                <Grid Style="{StaticResource MenuItemGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Style="{StaticResource IconBox}">
+                        <Viewbox Child="{StaticResource IconExit}" Width="14" Height="14"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBlock Text="退出" Style="{StaticResource MenuItemText}"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

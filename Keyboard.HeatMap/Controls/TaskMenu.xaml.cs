@@ -1,0 +1,105 @@
+﻿using Keyboard.HeatMap.Common;
+using Keyboard.HeatMap.Owner;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace Keyboard.HeatMap.Controls
+{
+    /// <summary>
+    /// TaskMenu.xaml 的交互逻辑
+    /// </summary>
+    public partial class TaskMenu : Window
+    {
+        DoubleAnimation showMenu;
+
+        public event EventHandler StartR;
+        public event EventHandler StopR;
+        public event EventHandler ShowH;
+        public event EventHandler CloseH;
+
+        public TaskMenu()
+        {
+            InitializeComponent();
+            showMenu = new DoubleAnimation(1, TimeSpan.FromMilliseconds(200));
+            Deactivated += (s, e) =>
+            {
+                Visibility = Visibility.Collapsed;
+            };
+        }
+
+        /// <summary>
+        /// 显示菜单
+        /// </summary>
+        public void ShowMenu()
+        {
+            Visibility = Visibility.Visible;
+            var mousePosition = System.Windows.Forms.Control.MousePosition;
+            float dpiX, dpiY;
+            IntPtr dc = Win32.GetDC(IntPtr.Zero);
+            using (System.Drawing.Graphics g = System.Drawing.Graphics.FromHdc(dc))
+            {
+                dpiX = g.DpiX;
+                dpiY = g.DpiY;
+            }
+            Left = (mousePosition.X) / (dpiY / 96);
+            Top = (mousePosition.Y - ActualHeight * (dpiY / 96) - 5) / (dpiY / 96);
+            BeginAnimation(OpacityProperty, showMenu);
+            Activate();
+        }
+
+        public void Show(KeyState state)
+        {
+            Show();
+            SetState(state);
+        }
+
+        /// <summary>
+        /// 设置当前状态
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="hideMenu">是否隐藏菜单</param>
+        public void SetState(KeyState state, bool hideMenu = false)
+        {
+            if (state == KeyState.Open)
+            {
+                StopKeyReadGrid.Visibility = Visibility.Visible;
+                StartKeyReadGrid.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                StopKeyReadGrid.Visibility = Visibility.Collapsed;
+                StartKeyReadGrid.Visibility = Visibility.Visible;
+            }
+            if (hideMenu)
+            { Visibility = Visibility.Collapsed; }
+        }
+
+        private void CloseGrid_MouseUp(object sender, MouseButtonEventArgs e) => Handle(CloseH);
+
+        private void ShowHomeGrid_MouseUp(object sender, MouseButtonEventArgs e) => Handle(ShowH);
+
+        private void StopKeyReadGrid_MouseUp(object sender, MouseButtonEventArgs e) => Handle(StopR, false);
+
+        private void StartKeyReadGrid_MouseUp(object sender, MouseButtonEventArgs e) => Handle(StartR, false);
+
+        private void Handle(EventHandler @event, bool hideMenu = true)
+        {
+            @event?.Invoke(this, new EventArgs());
+            if (hideMenu)
+            { Visibility = Visibility.Collapsed; }
+        }
+    }
+}

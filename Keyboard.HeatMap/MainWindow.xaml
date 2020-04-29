@@ -1,0 +1,40 @@
+﻿<Window x:Class="Keyboard.HeatMap.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:controls="clr-namespace:Keyboard.HeatMap.Controls"
+        mc:Ignorable="d"
+        ShowInTaskbar="False"
+        Width="1300"
+        Height="500"
+        SizeToContent="Width"
+        ResizeMode="NoResize"
+        Title="{Binding ProductName}">
+    <Window.Resources>
+    </Window.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Viewbox Margin="0" MaxHeight="284" VerticalAlignment="Top" Focusable="False">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Rectangle Height="{Binding ElementName=KeyBox,Path=Height}" Width="8" Margin="0,0,12,0">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="1,1" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
+                            <GradientStop Color="#fe4607" Offset="0"/>
+                            <GradientStop Color="#ebe8e7" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Grid x:Name="KeyBox" >
+                    <controls:KeyBoard x:Name="KeyBoardControl" Background="White"/>
+                </Grid>
+            </StackPanel>
+        </Viewbox>
+        <TextBox x:Name="InputBox" Grid.Row="1" Focusable="True" Margin="10">
+            
+        </TextBox>
+    </Grid>
+</Window>
