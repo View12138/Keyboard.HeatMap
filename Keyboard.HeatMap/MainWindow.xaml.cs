@@ -99,7 +99,7 @@ namespace Keyboard.HeatMap
 
             KeyBoardControl.CloseKeyClick += (s, e) =>
             {
-                Visibility = Visibility.Collapsed;
+                Close();
             };
             KeyBoardControl.ResetClick += (s, e) =>
             {
@@ -243,6 +243,7 @@ namespace Keyboard.HeatMap
                         }
                         Properties.Settings.Default.Save();
                         Show();
+
                         Activate();
                     }
                     else

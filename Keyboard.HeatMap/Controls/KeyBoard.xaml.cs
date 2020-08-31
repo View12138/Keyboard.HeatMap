@@ -20,7 +20,6 @@ using Keys = System.Windows.Forms.Keys;
 
 namespace Keyboard.HeatMap.Controls
 {
-
     /// <summary>
     /// KeyBoard.xaml 的交互逻辑
     /// </summary>
@@ -137,13 +136,13 @@ namespace Keyboard.HeatMap.Controls
         /// <param name="e"></param>
         private void Setting_Click(object sender, RoutedEventArgs e)
         {
-            if (Setting.IsChecked.HasValue && Setting.IsChecked.Value)
+            if (NumKeyVisibility == Visibility.Visible)
             {
-                SetNumpadBoardBoxVisiblity(Visibility.Visible);
+                SetNumpadBoardBoxVisiblity(Visibility.Collapsed);
             }
             else
             {
-                SetNumpadBoardBoxVisiblity(Visibility.Collapsed);
+                SetNumpadBoardBoxVisiblity(Visibility.Visible);
             }
         }
 
@@ -269,12 +268,14 @@ namespace Keyboard.HeatMap.Controls
                 ThicknessAnimation showNumpad = new ThicknessAnimation(new Thickness(12, 0, 0, 0), TimeSpan.FromMilliseconds(200));
                 showNumpad.EasingFunction = new SineEase() { EasingMode = EasingMode.EaseInOut };
                 Numpadbox.BeginAnimation(MarginProperty, showNumpad);
+                NumKeyVisibility = Visibility.Visible;
             }
             else
             {
                 ThicknessAnimation hideNumpad = new ThicknessAnimation(new Thickness(-350, 0, 0, 0), TimeSpan.FromMilliseconds(100));
                 hideNumpad.EasingFunction = new SineEase() { EasingMode = EasingMode.EaseInOut };
                 Numpadbox.BeginAnimation(MarginProperty, hideNumpad);
+                NumKeyVisibility = Visibility.Collapsed;
             }
         }
 
