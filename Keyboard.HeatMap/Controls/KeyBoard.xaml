@@ -9,96 +9,38 @@
              x:Name="BoardBox"
              Padding="0,0,4,4" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
     <UserControl.Resources>
-        <Style  x:Key="Key0.5" TargetType="Button">
+        <Style x:Key="KeyBase" TargetType="Button">
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="FontSize" Value="24" />
+            <Setter Property="Height" Value="56" />
+            <Setter Property="Margin" Value="4,4,0,0" />
+            <Setter Property="BorderBrush" Value="#0078D4" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{Binding ElementName=BoardBox,Path=Foreground}" />
+            <Setter Property="Template" Value="{DynamicResource ButtonNoOverTemplate}" />
+        </Style>
+        <Style  x:Key="Key0.5" TargetType="Button" BasedOn="{StaticResource KeyBase}">
             <Setter Property="Width" Value="36" />
-            <Setter Property="Height" Value="56" />
-            <Setter Property="Margin" Value="4,4,0,0" />
-            <Setter Property="BorderBrush" Value="#0078D4" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{Binding ElementName=BoardBox,Path=Foreground}" />
-            <Setter Property="Template" Value="{DynamicResource ButtonNoOverTemplate}" />
         </Style>
-        <Style  x:Key="Key1" TargetType="Button">
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="FontSize" Value="24" />
+        <Style  x:Key="Key1" TargetType="Button" BasedOn="{StaticResource KeyBase}">
             <Setter Property="Width" Value="76" />
-            <Setter Property="Height" Value="56" />
-            <Setter Property="Margin" Value="4,4,0,0" />
-            <Setter Property="BorderBrush" Value="#0078D4" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{Binding ElementName=BoardBox,Path=Foreground}" />
-            <Setter Property="Template" Value="{DynamicResource ButtonNoOverTemplate}" />
         </Style>
-        <Style  x:Key="Key1.5" TargetType="Button">
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="FontSize" Value="24" />
+        <Style  x:Key="Key1.5" TargetType="Button" BasedOn="{StaticResource KeyBase}">
             <Setter Property="Width" Value="116" />
-            <Setter Property="Height" Value="56" />
-            <Setter Property="Margin" Value="4,4,0,0" />
-            <Setter Property="BorderBrush" Value="#0078D4" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{Binding ElementName=BoardBox,Path=Foreground}" />
-            <Setter Property="Template" Value="{DynamicResource ButtonNoOverTemplate}" />
         </Style>
-        <Style  x:Key="Key2" TargetType="Button">
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="FontSize" Value="24" />
+        <Style  x:Key="Key2" TargetType="Button" BasedOn="{StaticResource KeyBase}">
             <Setter Property="Width" Value="156" />
-            <Setter Property="Height" Value="56" />
-            <Setter Property="Margin" Value="4,4,0,0" />
-            <Setter Property="BorderBrush" Value="#0078D4" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{Binding ElementName=BoardBox,Path=Foreground}" />
-            <Setter Property="Template" Value="{DynamicResource ButtonNoOverTemplate}" />
         </Style>
-        <Style  x:Key="Key2.5" TargetType="Button">
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="FontSize" Value="24" />
+        <Style  x:Key="Key2.5" TargetType="Button" BasedOn="{StaticResource KeyBase}">
             <Setter Property="Width" Value="196" />
-            <Setter Property="Height" Value="56" />
-            <Setter Property="Margin" Value="4,4,0,0" />
-            <Setter Property="BorderBrush" Value="#0078D4" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{Binding ElementName=BoardBox,Path=Foreground}" />
-            <Setter Property="Template" Value="{DynamicResource ButtonNoOverTemplate}" />
         </Style>
-        <Style  x:Key="Key3" TargetType="Button">
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="FontSize" Value="24" />
+        <Style  x:Key="Key3" TargetType="Button" BasedOn="{StaticResource KeyBase}">
             <Setter Property="Width" Value="236" />
-            <Setter Property="Height" Value="56" />
-            <Setter Property="Margin" Value="4,4,0,0" />
-            <Setter Property="BorderBrush" Value="#0078D4" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{Binding ElementName=BoardBox,Path=Foreground}" />
-            <Setter Property="Template" Value="{DynamicResource ButtonNoOverTemplate}" />
         </Style>
-        <Style  x:Key="Key5" TargetType="Button">
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="FontSize" Value="24" />
+        <Style  x:Key="Key5" TargetType="Button" BasedOn="{StaticResource KeyBase}">
             <Setter Property="Width" Value="396" />
-            <Setter Property="Height" Value="56" />
-            <Setter Property="Margin" Value="4,4,0,0" />
-            <Setter Property="BorderBrush" Value="#0078D4" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{Binding ElementName=BoardBox,Path=Foreground}" />
-            <Setter Property="Template" Value="{DynamicResource ButtonNoOverTemplate}" />
         </Style>
 
         <Style  x:Key="TBKey1" TargetType="ToggleButton">
@@ -115,20 +57,10 @@
             <Setter Property="Template" Value="{DynamicResource ButtonNoOverTemplate}" />
         </Style>
 
-        <Style  x:Key="KeyGroup" TargetType="Button">
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
+        <Style  x:Key="KeyGroup" TargetType="Button" BasedOn="{StaticResource KeyBase}">
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalContentAlignment" Value="Stretch" />
-            <Setter Property="FontSize" Value="24" />
             <Setter Property="Width" Value="76" />
-            <Setter Property="Height" Value="56" />
-            <Setter Property="Margin" Value="4,4,0,0" />
-            <Setter Property="BorderBrush" Value="#0078D4" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{Binding ElementName=BoardBox,Path=Foreground}" />
-            <Setter Property="Template" Value="{DynamicResource ButtonNoOverTemplate}" />
         </Style>
         <Style x:Key="KeySecondary" TargetType="TextBlock">
             <Setter Property="Foreground" Value="{Binding Path=SecondaryForeground}" />
