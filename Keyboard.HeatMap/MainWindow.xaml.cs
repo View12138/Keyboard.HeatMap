@@ -37,10 +37,6 @@ namespace Keyboard.HeatMap
         /// </summary>
         private bool MenuClickClose;
         /// <summary>
-        /// 开始统计按键数的时间
-        /// </summary>
-        private DateTime StartQueryTime;
-        /// <summary>
         /// 快捷方式帮助类
         /// </summary>
         private Shortcut Shortcut;
@@ -90,7 +86,6 @@ namespace Keyboard.HeatMap
 
             // 初始化字段
             MenuClickClose = false;
-            StartQueryTime = DateTime.Now;
             Shortcut = new Shortcut("别敲键盘");
             KeyBoard = new KeyBoardHandle();
             Menu = new TaskMenu();
@@ -103,10 +98,10 @@ namespace Keyboard.HeatMap
             };
             KeyBoardControl.ResetClick += (s, e) =>
             {
-                StartQueryTime = DateTime.Now;
+                App.StartQueryTime = DateTime.Now;
                 TodayKeyUpList.Clear();
                 KeyBoardControl.ResetKeyBoardHot();
-                Title = $"{Shortcut.ProductName} - 自 {StartQueryTime:M月d日 H点m分} 以来的统计数据";
+                Title = $"{Shortcut.ProductName} - 自 {App.StartQueryTime:M月d日 H点m分} 以来的统计数据";
             };
             KeyBoardControl.StartWithWindowsChanged += (check) =>
             {
@@ -174,12 +169,12 @@ namespace Keyboard.HeatMap
                     time = DateTime.Now;
                     KeyBoardControl.SetKeyListHot(TodayKeyUpList);
                 }
-                Title = $"{Shortcut.ProductName} —— 自 {StartQueryTime:M月d日 H点m分} 以来共击键 {TodayKeyUpList.Values.Sum()} 次";
+                Title = $"{Shortcut.ProductName} —— 自 {App.StartQueryTime:yy年M月d日 H点m分} 以来共击键 {TodayKeyUpList.Values.Sum()} 次";
             };
             KeyBoard.KeyStateChanged += (s, e) =>
             {
-                Menu.SetState(e, false);
                 notifyIcon.Text = $"{Shortcut.ProductName} - {(e == KeyState.Open ? "记录中" : "已暂停")}";
+                Menu.SetState(KeyBoard.KeyState);
             };
 
             Menu.Show(KeyBoard.KeyState);
@@ -219,6 +214,13 @@ namespace Keyboard.HeatMap
             };
 
             {
+                if (Properties.Settings.Default.Version == 0)
+                {
+                    MigrationWindows migration = new MigrationWindows();
+                    migration.ShowDialog();
+                    Properties.Settings.Default.Version = 1;
+                    Properties.Settings.Default.Save();
+                }
                 if (Properties.Settings.Default.FirstRun)
                 {
                     string content = "也许你不知道，你都敲了多少次键盘，也许你也根本不关心。但是现在你可以，为了键盘的健康，让我们一起别敲键盘吧！";
@@ -272,13 +274,12 @@ namespace Keyboard.HeatMap
                 if (autoPlay)
                 {
                     KeyBoard.Start();
-                    Menu.SetState(KeyBoard.KeyState);
                 }
 
-                TodayKeyUpList = KeyBoard.Count(StartQueryTime, DateTime.Now);
+                TodayKeyUpList = KeyBoard.Count(App.StartQueryTime, DateTime.Now);
                 KeyBoardControl.SetKeyListHot(TodayKeyUpList);
                 KeyBoardControl.SetSettingState(startWithWindows, backgroundRun, autoPlay);
-                Title = $"{Shortcut.ProductName} - 自 {StartQueryTime:M月d日 H点m分} 以来的统计数据";
+                Title = $"{Shortcut.ProductName} - 自 {App.StartQueryTime:yy年M月d日 H点m分} 以来的统计数据";
             };
         }
     }

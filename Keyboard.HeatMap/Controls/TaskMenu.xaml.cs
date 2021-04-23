@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -55,7 +56,11 @@ namespace Keyboard.HeatMap.Controls
                 dpiY = g.DpiY;
             }
             Left = (mousePosition.X) / (dpiY / 96);
+            if (Left < 0) { Left = 0; }
+            if (Left + Width > System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width) { Left = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width - Width; }
             Top = (mousePosition.Y - ActualHeight * (dpiY / 96) - 5) / (dpiY / 96);
+            if (Top < 0) { Top = 0; }
+            if (Top + Width > System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height) { Top = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height - Height; }
             BeginAnimation(OpacityProperty, showMenu);
             Activate();
         }
@@ -73,18 +78,39 @@ namespace Keyboard.HeatMap.Controls
         /// <param name="hideMenu">是否隐藏菜单</param>
         public void SetState(KeyState state, bool hideMenu = false)
         {
-            if (state == KeyState.Open)
+            if (this.Dispatcher.Thread != Thread.CurrentThread)
             {
-                StopKeyReadGrid.Visibility = Visibility.Visible;
-                StartKeyReadGrid.Visibility = Visibility.Collapsed;
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    if (state == KeyState.Open)
+                    {
+                        StopKeyReadGrid.Visibility = Visibility.Visible;
+                        StartKeyReadGrid.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        StopKeyReadGrid.Visibility = Visibility.Collapsed;
+                        StartKeyReadGrid.Visibility = Visibility.Visible;
+                    }
+                    if (hideMenu)
+                    { Visibility = Visibility.Collapsed; }
+                }));
             }
             else
             {
-                StopKeyReadGrid.Visibility = Visibility.Collapsed;
-                StartKeyReadGrid.Visibility = Visibility.Visible;
+                if (state == KeyState.Open)
+                {
+                    StopKeyReadGrid.Visibility = Visibility.Visible;
+                    StartKeyReadGrid.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    StopKeyReadGrid.Visibility = Visibility.Collapsed;
+                    StartKeyReadGrid.Visibility = Visibility.Visible;
+                }
+                if (hideMenu)
+                { Visibility = Visibility.Collapsed; }
             }
-            if (hideMenu)
-            { Visibility = Visibility.Collapsed; }
         }
 
         private void CloseGrid_MouseUp(object sender, MouseButtonEventArgs e) => Handle(CloseH);

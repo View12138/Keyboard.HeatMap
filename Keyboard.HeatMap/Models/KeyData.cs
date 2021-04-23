@@ -3,28 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using View.SQL;
 
 namespace Keyboard.HeatMap.Models
 {
     /// <summary>
     /// 按键数据
     /// </summary>
-    public class KeyData : IModel
+    [Dapper.Contrib.Extensions.Table("vk_key")]
+    public class KeyData
     {
-        public string TableName => "vk_key";
         /// <summary>
         /// 主键
         /// </summary>
-        [Key]
+        public long Id { get; set; }
+        /// <summary>
+        /// 键码
+        /// </summary>
+        public int Code { get; set; }
+        /// <summary>
+        /// 击键时间
+        /// </summary>
+        public DateTime Time { get; set; }
+        /// <summary>
+        /// 击键状态
+        /// <para>1:按下 , 2:抬起</para>
+        /// </summary>
+        public int Status { get; set; }
+    }
+
+    public class KeyDataOld
+    {
+        /// <summary>
+        /// 主键
+        /// </summary>
         public long Id { get; set; }
         /// <summary>
         /// 按键名
         /// </summary>
-        public string KeyName { get; set; }
+        public string Name { get; set; }
+        /// <summary>
+        /// 键码
+        /// </summary>
+        public int Code { get; set; }
         /// <summary>
         /// 击键时间
         /// </summary>
-        public DateTime DateTime { get; set; }
+        public DateTime Time { get; set; }
+        /// <summary>
+        /// 击键状态
+        /// <para>1:按下 , 2:抬起</para>
+        /// </summary>
+        public int Status { get; set; }
     }
 }

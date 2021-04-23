@@ -37,23 +37,27 @@ namespace Keyboard.HeatMap.Controls
             Buttons = new Dictionary<int, Button>();
             foreach (StackPanel stack in PrimaryBoardBox.Children)
             {
-                foreach (var button in stack.Children)
+                foreach (var buttonItem in stack.Children)
                 {
-                    if (button is ToggleButton)
-                    { continue; }
-                    if (int.TryParse($"{((Button)button).Tag}", out int index))
+                    if (buttonItem is Button button)
                     {
-                        Buttons.Add(index, ((Button)button));
+                        if (int.TryParse(button.Tag?.ToString(), out int index))
+                        {
+                            if (index != 0)
+                            { Buttons.Add(index, (Button)buttonItem); }
+                        }
                     }
                 }
             }
             foreach (var buttonNumpad in NumpadBoardBox.Children)
             {
-                if (buttonNumpad is ToggleButton)
-                { continue; }
-                if (int.TryParse($"{((Button)buttonNumpad).Tag}", out int index))
+                if (buttonNumpad is Button button)
                 {
-                    Buttons.Add(index, ((Button)buttonNumpad));
+                    if (int.TryParse(button.Tag?.ToString(), out int index))
+                    {
+                        if (index != 0)
+                        { Buttons.Add(index, (Button)buttonNumpad); }
+                    }
                 }
             }
             SetNumpadBoardBoxVisiblity(NumKeyVisibility);
@@ -192,10 +196,10 @@ namespace Keyboard.HeatMap.Controls
         /// </summary>
         public void ResetKeyBoardHot()
         {
-            foreach (System.Windows.Controls.Button item in Buttons.Values)
+            foreach (var button in Buttons.Values)
             {
-                item.Background = Brushes.Transparent;
-                item.ToolTip = null;
+                button.Background = Brushes.Transparent;
+                button.ToolTip = "尝试在键盘上按下它";
             }
         }
         /// <summary>

@@ -77,21 +77,15 @@ namespace Keyboard.HeatMap.HookGlobal
         /// </summary>
         private void Start()
         {
-            //安装键盘钩子
             if (hKeyboardHook == 0)
-            {
+            { // 安装键盘钩子
                 KeyboardHookProcedure = new Win32.HookProc(KeyboardHookProc);
-                //hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProcedure, Marshal.GetHINSTANCE(Assembly.GetExecutingAssembly().GetModules()[0]), 0);
-                Process curProcess = Process.GetCurrentProcess();
-                ProcessModule curModule = curProcess.MainModule;
-
-                hKeyboardHook = Win32.SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProcedure, Win32.GetModuleHandle(curModule.ModuleName), 0);
+                ProcessModule curModule = Process.GetCurrentProcess().MainModule;
+                IntPtr moduleHandle = Win32.GetModuleHandle(curModule.ModuleName);
+                hKeyboardHook = Win32.SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProcedure, moduleHandle, 0);
 
                 if (hKeyboardHook == 0)
-                {
-                    Stop();
-                    throw new Exception("SetWindowsHookEx ist failed.");
-                }
+                { throw new Exception("SetWindowsHookEx ist failed."); }
             }
         }
         /// <summary>
@@ -99,18 +93,16 @@ namespace Keyboard.HeatMap.HookGlobal
         /// </summary>
         private void Stop()
         {
-            bool retKeyboard = true;
-
             if (hKeyboardHook != 0)
-            {
-                retKeyboard = Win32.UnhookWindowsHookEx(hKeyboardHook);
-                hKeyboardHook = 0;
+            { // 卸载键盘钩子
+                if (!Win32.UnhookWindowsHookEx(hKeyboardHook))
+                { throw new Exception("UnhookWindowsHookEx failed."); }
+                else
+                { hKeyboardHook = 0; }
             }
-            //如果卸下钩子失败
-            if (!(retKeyboard)) throw new Exception("UnhookWindowsHookEx failed.");
         }
 
-        private int KeyboardHookProc(int nCode, Int32 wParam, IntPtr lParam)
+        private int KeyboardHookProc(int nCode, int wParam, IntPtr lParam)
         {
             if (nCode >= 0)
             {

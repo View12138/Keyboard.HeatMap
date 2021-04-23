@@ -1,0 +1,32 @@
+﻿<Window x:Class="Keyboard.HeatMap.MigrationWindows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Keyboard.HeatMap"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        BorderThickness="0"
+        BorderBrush="Transparent"
+        Background="Transparent"
+        WindowState="Normal"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight"
+        Title="MigrationWindows">
+    <Grid>
+        <Border Background="White" Margin="8">
+            <Border.Effect>
+                <DropShadowEffect Direction="0" ShadowDepth="0" BlurRadius="8" Opacity="0.8"/>
+            </Border.Effect>
+        </Border>
+        <Border Margin="8">
+            <Grid Margin="16">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="正则更新数据，请稍候..." Margin="6" HorizontalAlignment="Center"/>
+                    <ProgressBar IsIndeterminate="True" Height="4" Width="300"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

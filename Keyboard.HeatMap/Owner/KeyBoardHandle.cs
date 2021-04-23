@@ -1,19 +1,14 @@
-﻿using Keyboard.HeatMap.HookGlobal;
+﻿using Dapper;
+using Dapper.Contrib.Extensions;
+using Keyboard.HeatMap.HookGlobal;
 using Keyboard.HeatMap.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media;
-using View.SQL;
-using View.SQL.Extensions;
-using View.SQLite;
 
 namespace Keyboard.HeatMap.Owner
 {
@@ -28,10 +23,6 @@ namespace Keyboard.HeatMap.Owner
         /// 键盘钩子
         /// </summary>
         KeyBoardHook KeyHook;
-        /// <summary>
-        /// 数据库连接
-        /// </summary>
-        SQLiteHandle db;
         /// <summary>
         /// 记录器状态
         /// </summary>
@@ -73,60 +64,31 @@ namespace Keyboard.HeatMap.Owner
                 KeyUp?.Invoke(this, e);
             };
             keyState = KeyState.Closed;
-            db = CreatDB();
-            db.Open();
         }
 
-        /// <summary>
-        /// 关闭数据库连接
-        /// </summary>
         ~KeyBoardHandle()
         {
-            db.Close();
-        }
-
-        // private
-        /// <summary>
-        /// 每月一个数据库
-        /// </summary>
-        /// <returns></returns>
-        private SQLiteHandle CreatDB()
-        {
-            string dateDir = $@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\{Application.ProductName}";
-            string dbDir = dateDir + "\\Database";
-            string dbName = dbDir + $"\\{DateTime.Now:yyyy-MM}.db";
-            if (!Directory.Exists(dateDir))
-            {
-                Directory.CreateDirectory(dateDir);
-            }
-            if (!Directory.Exists(dbDir))
-            {
-                Directory.CreateDirectory(dbDir);
-            }
-            if (!File.Exists(dbName))
-            {
-                if (new CreateHandle(dbName).CreateDBFile())
-                {
-                    string sql = Sentence.CreateTable(new KeyData());
-                    var db = new SQLiteHandle(dbName);
-
-                    db.Open();
-                    using (SQLiteCommand command = new SQLiteCommand(sql, db.Connection))
-                    {
-                        command.ExecuteNonQuery();
-                    }
-                    db.Close();
-                    return db;
-                }
-                else throw new Exception();
-            }
-            else
-            {
-                return new SQLiteHandle(dbName);
-            }
+            Stop();
         }
 
         // event handle
+
+        private void Hook_OnKeyDownEvent(object sender, KeyEventArgs e)
+        {
+            KeyData keyData = new KeyData()
+            {
+                Time = DateTime.Now,
+                Code = (int)e.KeyCode,
+                Status = 1,
+            };
+            using (var handle = new DbHandle())
+            {
+                var db = handle.GetConnection();
+                db.Open();
+                var res = db.Insert(keyData);
+                db.Close();
+            }
+        }
         /// <summary>
         /// 记录击键
         /// </summary>
@@ -136,10 +98,17 @@ namespace Keyboard.HeatMap.Owner
         {
             KeyData keyData = new KeyData()
             {
-                DateTime = DateTime.Now,
-                KeyName = $"{e.KeyCode}",
+                Time = DateTime.Now,
+                Code = (int)e.KeyCode,
+                Status = 2,
             };
-            var res = db.Insert(keyData);
+            using (var handle = new DbHandle())
+            {
+                var db = handle.GetConnection();
+                db.Open();
+                var res = db.Insert(keyData);
+                db.Close();
+            }
         }
 
         // public
@@ -151,6 +120,7 @@ namespace Keyboard.HeatMap.Owner
             if (KeyState == KeyState.Closed)
             {
                 keyState = KeyState.Open;
+                KeyHook.OnKeyDownEvent += Hook_OnKeyDownEvent;
                 KeyHook.OnKeyUpEvent += Hook_OnKeyUpEvent;
                 KeyStateChanged?.Invoke(this, keyState);
             }
@@ -164,10 +134,12 @@ namespace Keyboard.HeatMap.Owner
             if (KeyState == KeyState.Open)
             {
                 keyState = KeyState.Closed;
+                KeyHook.OnKeyDownEvent -= Hook_OnKeyDownEvent;
                 KeyHook.OnKeyUpEvent -= Hook_OnKeyUpEvent;
                 KeyStateChanged?.Invoke(this, keyState);
             }
         }
+
 
         /// <summary>
         /// 获取指定时间段内，每个键的击键记录数。
@@ -181,19 +153,29 @@ namespace Keyboard.HeatMap.Owner
             { return new Dictionary<Keys, long>(); }
             var min = start < end ? start : end;
             var max = start > end ? start : end;
-            string sql = $"select KeyName,count(*) as Count from vk_key where {"DateTime".Between(min, max)} group by KeyName;";
-            using (SQLiteCommand command = new SQLiteCommand(sql, db.Connection))
+            string sql = $"select Code,count(*) as Count from vk_key where Status=2 and Time between '{start:yyyy-MM-dd HH:mm:ss}' and '{end:yyyy-MM-dd HH:mm:ss}' group by Code;";
+
+            Dictionary<Keys, long> vals = new Dictionary<Keys, long>();
+            using (DbHandle handle = new DbHandle(start, end))
             {
-                using (SQLiteDataReader reader = command.ExecuteReader())
+                foreach (var date in handle.GetDates())
                 {
-                    Dictionary<Keys, long> vals = new Dictionary<Keys, long>();
-                    while (reader.Read())
+                    var _db = handle.GetConnection(date);
+                    _db.Open();
+                    var datas = _db.Query<KeyCount>(sql);
+                    _db.Close();
+                    foreach (var data in datas)
                     {
-                        vals.Add((Keys)Enum.Parse(typeof(Keys), (string)reader["KeyName"]), (long)reader["Count"]);
+                        Keys key = (Keys)data.Code;
+
+                        if (vals.ContainsKey(key))
+                        { vals[key] += data.Count; }
+                        else
+                        { vals.Add(key, data.Count); }
                     }
-                    return vals;
                 }
             }
+            return vals;
         }
         /// <summary>
         /// 获取每个键的所有击键记录数。
@@ -201,20 +183,29 @@ namespace Keyboard.HeatMap.Owner
         /// <returns></returns>
         public Dictionary<Keys, long> Count()
         {
-            string sql = $"select KeyName,count(*) as Count from vk_key group by KeyName;";
-            using (SQLiteCommand command = new SQLiteCommand(sql, db.Connection))
+            string sql = $"select Code,count(*) as Count from vk_key where Status=2 group by Code;";
+
+            Dictionary<Keys, long> vals = new Dictionary<Keys, long>();
+            var dbs = DbHandle.GetAllConnections();
+            foreach (var db in dbs)
             {
-                using (SQLiteDataReader reader = command.ExecuteReader())
+                db.Open();
+                var datas = db.Query<KeyCount>(sql);
+                db.Close();
+                db.Dispose();
+                foreach (var data in datas)
                 {
-                    Dictionary<Keys, long> vals = new Dictionary<Keys, long>();
-                    while (reader.Read())
-                    {
-                        vals.Add((Keys)Enum.Parse(typeof(Keys), (string)reader["KeyName"]), (long)reader["Count"]);
-                    }
-                    return vals;
+                    Keys key = (Keys)data.Code;
+
+                    if (vals.ContainsKey(key))
+                    { vals[key] += data.Count; }
+                    else
+                    { vals.Add(key, data.Count); }
                 }
             }
+            return vals;
         }
+
         /// <summary>
         /// 获取指定时间段内，指定的键的击键记录数。
         /// </summary>
@@ -222,46 +213,44 @@ namespace Keyboard.HeatMap.Owner
         /// <param name="start">开始时间</param>
         /// <param name="end">结束时间</param>
         /// <returns></returns>
-        public long KeyCount(Keys keys, DateTime start, DateTime end)
+        public long KeyCounts(Keys keys, DateTime start, DateTime end)
         {
             if (start == end)
             { return 0L; }
             var min = start < end ? start : end;
             var max = start > end ? start : end;
-            string sql = $"select count(*) as Count from vk_key where {"DateTime".Between(min, max).And("KeyName".EQ(keys))};";
-            using (SQLiteCommand command = new SQLiteCommand(sql, db.Connection))
+            long count = 0;
+            string sql = $"select count(*) from vk_key where Status=2 and Time between '{min:yyyy-MM-dd HH:mm:ss}' and '{max:yyyy-MM-dd HH:mm:ss}' and Code={(int)keys};";
+            using (DbHandle handle = new DbHandle(start, end))
             {
-                using (SQLiteDataReader reader = command.ExecuteReader())
+                var dates = handle.GetDates();
+                foreach (var date in dates)
                 {
-                    long vals = 0L;
-                    while (reader.Read())
-                    {
-                        vals = (long)reader["Count"];
-                    }
-                    return vals;
+                    var db = handle.GetConnection(date);
+                    db.Open();
+                    count = db.QueryFirstOrDefault<long>(sql);
+                    db.Close();
                 }
             }
+            return count;
         }
         /// <summary>
         /// 获取指定的键的所有击键记录数。
         /// </summary>
         /// <param name="keys">指定按键</param>
         /// <returns></returns>
-        public long KeyCount(Keys keys)
+        public long KeyCounts(Keys keys)
         {
-            string sql = $"select count(*) as Count from vk_key where {"KeyName".EQ(keys)};";
-            using (SQLiteCommand command = new SQLiteCommand(sql, db.Connection))
+            string sql = $"select count(*) as Count from vk_key where Status=2 and Code={(int)keys};";
+            long count = 0;
+            foreach (var item in DbHandle.GetAllConnections())
             {
-                using (SQLiteDataReader reader = command.ExecuteReader())
-                {
-                    long vals = 0L;
-                    while (reader.Read())
-                    {
-                        vals = (long)reader["Count"];
-                    }
-                    return vals;
-                }
+                item.Open();
+                count += item.QueryFirstOrDefault<long>(sql);
+                item.Close();
+                item.Dispose();
             }
+            return count;
         }
     }
 }
