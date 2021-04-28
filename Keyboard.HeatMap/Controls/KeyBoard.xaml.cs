@@ -74,7 +74,7 @@ namespace Keyboard.HeatMap.Controls
             { SetValue(NumKeyVisibilityProperty, value); }
         }
         public static readonly DependencyProperty NumKeyVisibilityProperty =
-            DependencyProperty.Register("NumKeyVisibility", typeof(Visibility), typeof(KeyBoard), new PropertyMetadata(Visibility.Collapsed));
+            DependencyProperty.Register(nameof(NumKeyVisibility), typeof(Visibility), typeof(KeyBoard), new PropertyMetadata(Visibility.Collapsed));
 
         /// <summary>
         /// 第二功能键前景色
@@ -85,7 +85,7 @@ namespace Keyboard.HeatMap.Controls
             set { SetValue(SecondForegroundProperty, value); }
         }
         public static readonly DependencyProperty SecondForegroundProperty =
-            DependencyProperty.Register("SecondaryForeground", typeof(Brush), typeof(KeyBoard), new PropertyMetadata(new SolidColorBrush(Color.FromRgb(101, 101, 101))));
+            DependencyProperty.Register(nameof(SecondaryForeground), typeof(Brush), typeof(KeyBoard), new PropertyMetadata(new SolidColorBrush(Color.FromRgb(101, 101, 101))));
 
         /// <summary>
         /// 主功能键前景色
@@ -96,7 +96,7 @@ namespace Keyboard.HeatMap.Controls
             set { SetValue(PrimaryForegroundProperty, value); }
         }
         public static readonly DependencyProperty PrimaryForegroundProperty =
-            DependencyProperty.Register("PrimaryForeground", typeof(Brush), typeof(KeyBoard), new PropertyMetadata(new SolidColorBrush(Colors.Black)));
+            DependencyProperty.Register(nameof(PrimaryForeground), typeof(Brush), typeof(KeyBoard), new PropertyMetadata(new SolidColorBrush(Colors.Black)));
 
         /// <summary>
         /// 设置 - 随 Windows 启动
@@ -107,7 +107,7 @@ namespace Keyboard.HeatMap.Controls
             set { SetValue(StartWithWindowsTipProperty, value); }
         }
         public static readonly DependencyProperty StartWithWindowsTipProperty =
-            DependencyProperty.Register("StartWithWindowsTip", typeof(string), typeof(KeyBoard), new PropertyMetadata("随 Windows 启动"));
+            DependencyProperty.Register(nameof(StartWithWindowsTip), typeof(string), typeof(KeyBoard), new PropertyMetadata("随 Windows 启动"));
 
         /// <summary>
         /// 设置 - 启动后后台运行
@@ -118,7 +118,7 @@ namespace Keyboard.HeatMap.Controls
             set { SetValue(StartBackRunProperty, value); }
         }
         public static readonly DependencyProperty StartBackRunProperty =
-            DependencyProperty.Register("BackgroundRunTip", typeof(string), typeof(KeyBoard), new PropertyMetadata("启动后最小化"));
+            DependencyProperty.Register(nameof(BackgroundRunTip), typeof(string), typeof(KeyBoard), new PropertyMetadata("启动后最小化"));
 
         /// <summary>
         /// 设置 - 自动开始录制
@@ -129,7 +129,20 @@ namespace Keyboard.HeatMap.Controls
             set { SetValue(AutoPlayTipProperty, value); }
         }
         public static readonly DependencyProperty AutoPlayTipProperty =
-            DependencyProperty.Register("AutoPlayTip", typeof(string), typeof(KeyBoard), new PropertyMetadata("启动后开始录制"));
+            DependencyProperty.Register(nameof(AutoPlayTip), typeof(string), typeof(KeyBoard), new PropertyMetadata("启动后开始录制"));
+
+        /// <summary>
+        /// 设置 - 以管理员身份启动
+        /// </summary>
+        public string AsAdminTip
+        {
+            get { return (string)GetValue(AsAdminTipProperty); }
+            set { SetValue(AsAdminTipProperty, value); }
+        }
+        public static readonly DependencyProperty AsAdminTipProperty =
+            DependencyProperty.Register(nameof(AsAdminTip), typeof(string), typeof(KeyBoard), new PropertyMetadata("以管理员身份启动"));
+
+
 
 
         // handle
@@ -205,12 +218,16 @@ namespace Keyboard.HeatMap.Controls
         /// <summary>
         /// 设置设置按钮的状态
         /// </summary>
+        /// <param name="asAdmin"></param>
         /// <param name="startWithWindows"></param>
         /// <param name="backgroundRun"></param>
         /// <param name="autoPlay"></param>
-        public void SetSettingState(bool startWithWindows, bool backgroundRun, bool autoPlay)
+        public void SetSettingState(bool asAdmin, bool startWithWindows, bool backgroundRun, bool autoPlay)
         {
-            string settingState = startWithWindows ? "开启" : "关闭";
+            string settingState = asAdmin ? "开启" : "关闭";
+            AsAdminTip = $"以管理员身份启动 : {settingState}";
+            AsAdmin.IsChecked = asAdmin;
+            settingState = startWithWindows ? "开启" : "关闭";
             StartWithWindowsTip = $"随 Windows 启动 : {settingState}";
             StartWithWindows.IsChecked = startWithWindows;
             settingState = backgroundRun ? "开启" : "关闭";
@@ -295,6 +312,10 @@ namespace Keyboard.HeatMap.Controls
         /// </summary>
         public event System.Windows.Forms.KeyEventHandler CloseKeyClick;
         /// <summary>
+        /// 以管理员身份启动
+        /// </summary>
+        public event SettingEventHandler AsAdminChanged;
+        /// <summary>
         ///小键盘“随 Windows 启动”改变事件
         /// </summary>
         public event SettingEventHandler StartWithWindowsChanged;
@@ -313,9 +334,11 @@ namespace Keyboard.HeatMap.Controls
 
         // notify event
         private void Close_Click(object sender, RoutedEventArgs e) => CloseKeyClick?.Invoke(this, new System.Windows.Forms.KeyEventArgs(Keys.None));
+        private void AsAdmin_Click(object sender, RoutedEventArgs e) => AsAdminChanged?.Invoke(AsAdmin.IsChecked);
         private void StartWithWindows_Click(object sender, RoutedEventArgs e) => StartWithWindowsChanged?.Invoke(StartWithWindows.IsChecked);
         private void BackgroundRun_Click(object sender, RoutedEventArgs e) => BackgroundRunChanged?.Invoke(BackgroundRun.IsChecked);
         private void AutoPlay_Click(object sender, RoutedEventArgs e) => AutoPlayChanged?.Invoke(AutoPlay.IsChecked);
         private void Reset_Click(object sender, RoutedEventArgs e) => ResetClick?.Invoke(this, new EventArgs());
+
     }
 }

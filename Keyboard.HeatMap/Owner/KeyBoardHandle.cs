@@ -16,7 +16,7 @@ namespace Keyboard.HeatMap.Owner
     /// <summary>
     /// 键盘按键记录器
     /// </summary>
-    public class KeyBoardHandle
+    public class KeyBoardHandle : IDisposable
     {
 
         // Field
@@ -44,6 +44,7 @@ namespace Keyboard.HeatMap.Owner
         public event KeyStateEventHandle KeyStateChanged;
         DbHandle handle;
         SQLiteConnection db;
+        private bool disposed = false;
 
         // Property
         /// <summary>
@@ -73,8 +74,33 @@ namespace Keyboard.HeatMap.Owner
 
         ~KeyBoardHandle()
         {
-            Stop();
-            handle.Dispose();
+            Dispose(false);
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                Stop();
+                if (disposing)
+                {
+                    try
+                    {
+                        handle.Dispose();
+                        KeyHook.Dispose();
+                    }
+                    finally
+                    {
+
+                    }
+                }
+                disposed = true;
+            }
         }
 
         // event handle

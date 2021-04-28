@@ -30,10 +30,7 @@ namespace Keyboard.HeatMap.Owner
             { Connections.Add(date.ToString(), new SQLiteConnection($"Data Source={GetDbName(date)};Version=3;")); }
         }
 
-        ~DbHandle()
-        {
-            Dispose(false);
-        }
+        ~DbHandle() => Dispose(false);
         public void Dispose()
         {
             Dispose(true);

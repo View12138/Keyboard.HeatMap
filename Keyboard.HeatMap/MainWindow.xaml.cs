@@ -72,6 +72,7 @@ namespace Keyboard.HeatMap
                 {
                     notifyIcon.Visible = false;
                     Menu.Close();
+                    KeyBoard.Dispose();
                 }
                 else
                 {
@@ -254,6 +255,7 @@ namespace Keyboard.HeatMap
                         Close();
                     }
                 }
+                bool asAdmin = Properties.Settings.Default.AsAdmin;
                 bool startWithWindows = Properties.Settings.Default.StartWithWindows;
                 bool backgroundRun = Properties.Settings.Default.BackgroundRun;
                 bool autoPlay = Properties.Settings.Default.AutoPlay;
@@ -278,7 +280,7 @@ namespace Keyboard.HeatMap
 
                 TodayKeyUpList = KeyBoard.Count(App.StartQueryTime, DateTime.Now);
                 KeyBoardControl.SetKeyListHot(TodayKeyUpList);
-                KeyBoardControl.SetSettingState(startWithWindows, backgroundRun, autoPlay);
+                KeyBoardControl.SetSettingState(asAdmin, startWithWindows, backgroundRun, autoPlay);
                 Title = $"{Shortcut.ProductName} - 自 {App.StartQueryTime:yy年M月d日 H点m分} 以来的统计数据";
             };
         }

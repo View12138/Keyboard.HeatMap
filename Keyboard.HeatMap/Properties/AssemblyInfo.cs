@@ -7,10 +7,10 @@ using System.Windows;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Keyboard.HeatMap")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("别敲键盘")]
+[assembly: AssemblyDescription("一款帮助你记录每天键盘按键情况的App。")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("View(Personal)")]
 [assembly: AssemblyProduct("Keyboard.HeatMap")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
@@ -52,4 +52,5 @@ using System.Windows;
 //通过使用 "*"，如下所示:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
+[assembly: NeutralResourcesLanguage("zh-CN")]

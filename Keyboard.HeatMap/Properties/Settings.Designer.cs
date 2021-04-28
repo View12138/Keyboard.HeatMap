@@ -94,5 +94,17 @@ namespace Keyboard.HeatMap.Properties {
                 this["Version"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AsAdmin {
+            get {
+                return ((bool)(this["AsAdmin"]));
+            }
+            set {
+                this["AsAdmin"] = value;
+            }
+        }
     }
 }

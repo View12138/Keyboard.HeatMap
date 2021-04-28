@@ -17,12 +17,12 @@ namespace Keyboard.HeatMap.HookGlobal
     /// 修改:lihx
     /// 修改时间:04.11.8
     /// </remarks>
-    public class KeyBoardHook
+    public class KeyBoardHook : IDisposable
     {
-        private const int WM_KEYDOWN = 0x100;
-        private const int WM_KEYUP = 0x101;
-        private const int WM_SYSKEYDOWN = 0x104;
-        private const int WM_SYSKEYUP = 0x105;
+        private const int WM_KeyDown = 0x100;
+        private const int WM_KeyUp = 0x101;
+        private const int WM_SysKeyDown = 0x104;
+        private const int WM_SysKeyUp = 0x105;
 
         //全局的事件
         /// <summary>
@@ -41,103 +41,103 @@ namespace Keyboard.HeatMap.HookGlobal
         /// <summary>
         /// 键盘钩子句柄
         /// </summary>
-        static int hKeyboardHook = 0;
-
-        /// <summary>
-        /// 鼠标常量
-        /// </summary>
-        public const int WH_KEYBOARD_LL = 13; //keyboard hook constant
-
-        /// <summary>
-        /// 声明键盘钩子事件类型
-        /// </summary>
-        Win32.HookProc KeyboardHookProcedure;
+        private static int hKeyboardHook = 0;
 
         /// <summary>
         /// 先前按下的键
         /// </summary>
-        public List<Keys> preKeys = new List<Keys>();
+        private List<Keys> preKeys = new List<Keys>();
+
+        private HookProc KeyboardHookProc;
+        private bool disposed = false;
 
         /// <summary>
         /// 墨认的构造函数构造当前类的实例并自动的运行起来.
         /// </summary>
         public KeyBoardHook()
         {
-            Start();
-        }
-
-        //析构函数.
-        ~KeyBoardHook()
-        {
-            Stop();
-        }
-
-        /// <summary>
-        /// 安装键盘钩子
-        /// </summary>
-        private void Start()
-        {
             if (hKeyboardHook == 0)
             { // 安装键盘钩子
-                KeyboardHookProcedure = new Win32.HookProc(KeyboardHookProc);
+                KeyboardHookProc = KeyboardHookMethod;
+                GC.KeepAlive(KeyboardHookProc);
                 ProcessModule curModule = Process.GetCurrentProcess().MainModule;
                 IntPtr moduleHandle = Win32.GetModuleHandle(curModule.ModuleName);
-                hKeyboardHook = Win32.SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProcedure, moduleHandle, 0);
+                hKeyboardHook = Win32.SetWindowsHookKeyboard(IdHook.KeyboardLL, KeyboardHookProc, moduleHandle);
 
                 if (hKeyboardHook == 0)
                 { throw new Exception("SetWindowsHookEx ist failed."); }
             }
         }
-        /// <summary>
-        /// 卸载键盘钩子
-        /// </summary>
-        private void Stop()
+
+        ~KeyBoardHook() => Dispose(false);
+
+        public void Dispose()
         {
-            if (hKeyboardHook != 0)
-            { // 卸载键盘钩子
-                if (!Win32.UnhookWindowsHookEx(hKeyboardHook))
-                { throw new Exception("UnhookWindowsHookEx failed."); }
-                else
-                { hKeyboardHook = 0; }
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    try
+                    {
+                        if (hKeyboardHook != 0)
+                        { // 卸载键盘钩子
+                            if (Win32.UnhookWindowsHookEx(hKeyboardHook))
+                            { hKeyboardHook = 0; }
+                            else
+                            { throw new Exception("UnhookWindowsHookEx failed."); }
+                        }
+                    }
+                    finally
+                    {
+
+                    }
+                }
+                disposed = true;
             }
         }
 
-        private int KeyboardHookProc(int nCode, int wParam, IntPtr lParam)
+        private int KeyboardHookMethod(int nCode, int wParam, IntPtr lParam)
         {
             if (nCode >= 0)
             {
-                KeyboardHookStruct MyKeyboardHookStruct = (KeyboardHookStruct)Marshal.PtrToStructure(lParam, typeof(KeyboardHookStruct));
-                //当有OnKeyDownEvent 或 OnKeyPressEvent不为null时,ctrl alt shift keyup时 preKeys
+                var param = Marshal.PtrToStructure<KeyboardLL>(lParam);
+                //当有OnKeyDownEvent 或 OnKeyPressEvent 不为null时,ctrl alt shift keyup时 preKeys
                 //中的对应的键增加                  
-                if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
+                if (wParam == WM_KeyDown || wParam == WM_SysKeyDown)
                 {
-                    Keys keyData = (Keys)MyKeyboardHookStruct.vkCode;
+                    Keys keyData = (Keys)param.vkCode;
                     if (IsCtrlAltShiftKeys(keyData) && preKeys.IndexOf(keyData) == -1)
                     {
                         preKeys.Add(keyData);
                     }
                 }
                 //引发OnKeyDownEvent
-                if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
+                if (wParam == WM_KeyDown || wParam == WM_SysKeyDown)
                 {
-                    Keys keyData = (Keys)MyKeyboardHookStruct.vkCode;
+                    Keys keyData = (Keys)param.vkCode;
                     KeyEventArgs e = new KeyEventArgs(GetDownKeys(keyData));
 
                     OnKeyDownEvent?.Invoke(this, e);
                 }
 
                 //引发OnKeyPressEvent
-                if (wParam == WM_KEYDOWN)
+                if (wParam == WM_KeyDown)
                 {
                     byte[] keyState = new byte[256];
                     Win32.GetKeyboardState(keyState);
 
                     byte[] inBuffer = new byte[2];
-                    if (Win32.ToAscii(MyKeyboardHookStruct.vkCode,
-                    MyKeyboardHookStruct.scanCode,
+                    if (Win32.ToAscii(param.vkCode,
+                    param.scanCode,
                     keyState,
                     inBuffer,
-                    MyKeyboardHookStruct.flags) == 1)
+                    param.flags) == 1)
                     {
                         KeyPressEventArgs e = new KeyPressEventArgs((char)inBuffer[0]);
                         OnKeyPressEvent?.Invoke(this, e);
@@ -146,9 +146,9 @@ namespace Keyboard.HeatMap.HookGlobal
 
                 //当有OnKeyDownEvent 或 OnKeyPressEvent不为null时,ctrl alt shift keyup时 preKeys
                 //中的对应的键删除
-                if (wParam == WM_KEYUP || wParam == WM_SYSKEYUP)
+                if (wParam == WM_KeyUp || wParam == WM_SysKeyUp)
                 {
-                    Keys keyData = (Keys)MyKeyboardHookStruct.vkCode;
+                    Keys keyData = (Keys)param.vkCode;
                     if (IsCtrlAltShiftKeys(keyData))
                     {
                         for (int i = preKeys.Count - 1; i >= 0; i--)
@@ -161,14 +161,14 @@ namespace Keyboard.HeatMap.HookGlobal
                     }
                 }
                 //引发OnKeyUpEvent
-                if (wParam == WM_KEYUP || wParam == WM_SYSKEYUP)
+                if (wParam == WM_KeyUp || wParam == WM_SysKeyUp)
                 {
-                    Keys keyData = (Keys)MyKeyboardHookStruct.vkCode;
+                    Keys keyData = (Keys)param.vkCode;
                     KeyEventArgs e = new KeyEventArgs(GetDownKeys(keyData));
                     OnKeyUpEvent?.Invoke(this, e);
                 }
             }
-            return Win32.CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
+            return Win32.CallNextHookEx(IdHook.KeyboardLL, nCode, wParam, lParam);
         }
 
         private Keys GetDownKeys(Keys key)
