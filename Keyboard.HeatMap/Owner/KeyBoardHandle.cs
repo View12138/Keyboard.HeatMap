@@ -4,6 +4,7 @@ using Keyboard.HeatMap.HookGlobal;
 using Keyboard.HeatMap.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -41,6 +42,8 @@ namespace Keyboard.HeatMap.Owner
         /// 状态改变时发生
         /// </summary>
         public event KeyStateEventHandle KeyStateChanged;
+        DbHandle handle;
+        SQLiteConnection db;
 
         // Property
         /// <summary>
@@ -64,11 +67,14 @@ namespace Keyboard.HeatMap.Owner
                 KeyUp?.Invoke(this, e);
             };
             keyState = KeyState.Closed;
+            handle = new DbHandle();
+            db = handle.GetConnection();
         }
 
         ~KeyBoardHandle()
         {
             Stop();
+            handle.Dispose();
         }
 
         // event handle
@@ -104,10 +110,7 @@ namespace Keyboard.HeatMap.Owner
             };
             using (var handle = new DbHandle())
             {
-                var db = handle.GetConnection();
-                db.Open();
                 var res = db.Insert(keyData);
-                db.Close();
             }
         }
 
@@ -119,6 +122,7 @@ namespace Keyboard.HeatMap.Owner
         {
             if (KeyState == KeyState.Closed)
             {
+                db.Open();
                 keyState = KeyState.Open;
                 KeyHook.OnKeyDownEvent += Hook_OnKeyDownEvent;
                 KeyHook.OnKeyUpEvent += Hook_OnKeyUpEvent;
@@ -137,6 +141,7 @@ namespace Keyboard.HeatMap.Owner
                 KeyHook.OnKeyDownEvent -= Hook_OnKeyDownEvent;
                 KeyHook.OnKeyUpEvent -= Hook_OnKeyUpEvent;
                 KeyStateChanged?.Invoke(this, keyState);
+                db.Close();
             }
         }
 
