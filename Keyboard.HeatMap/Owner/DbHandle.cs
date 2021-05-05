@@ -86,7 +86,7 @@ namespace Keyboard.HeatMap.Owner
                         Connection.Close();
                     }
                 }
-                finally
+                catch
                 {
                     if (File.Exists(dbName))
                     { File.Delete(dbName); }
@@ -109,10 +109,16 @@ namespace Keyboard.HeatMap.Owner
             string dbFloder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Application.ProductName, "Database");
             if (toatlMonth == 0)
             {
-
+                //string dbName = GetDbName(endTime);
                 string dbName = Path.Combine(dbFloder, endTime.ToString("yyyy-MM") + ".db");
                 if (File.Exists(dbName))
                 { dates.Add(endTime); }
+                else if (endTime.Date >= DateTime.Now.Date)
+                {
+                    dbName = GetDbName(endTime);
+                    if (File.Exists(dbName))
+                    { dates.Add(endTime); }
+                }
             }
             else
             {
