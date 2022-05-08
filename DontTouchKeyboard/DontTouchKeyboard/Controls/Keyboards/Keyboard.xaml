@@ -1,0 +1,103 @@
+﻿<c:KeyboardBase
+    x:Class="DontTouchKeyboard.Controls.Keyboards.Keyboard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:DontTouchKeyboard.Controls.Keyboards"
+    xmlns:c="using:DontTouchKeyboard.Controls"
+    xmlns:ext="using:DontTouchKeyboard.Extensions"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="4">
+        <StackPanel Spacing="4" Orientation="Horizontal">
+            <c:KeyButton KeyCode="192" Size="Mini" />
+            <c:KeyButton Key="Number1" />
+            <c:KeyButton Key="Number2" />
+            <c:KeyButton Key="Number3" />
+            <c:KeyButton Key="Number4" />
+            <c:KeyButton Key="Number5" />
+            <c:KeyButton Key="Number6" />
+            <c:KeyButton Key="Number7" />
+            <c:KeyButton Key="Number8" />
+            <c:KeyButton Key="Number9" />
+            <c:KeyButton Key="Number0" />
+            <c:KeyButton KeyCode="189" />
+            <c:KeyButton KeyCode="187" />
+            <c:KeyButton Key="Back" Size="Medium" >
+                <Viewbox Width="14" Height="14">
+                    <PathIcon Data="F1 M 8.935547 12.685547 L 11.611328 10 L 8.935547 7.314453 L 9.814453 6.435547 L 12.5 9.111328 L 15.185547 6.435547 L 16.064453 7.314453 L 13.388672 10 L 16.064453 12.685547 L 15.185547 13.564453 L 12.5 10.888672 L 9.814453 13.564453 Z M 20 2.5 L 20 17.5 L 7.5 17.5 L 0 10 L 7.5 2.5 Z M 18.75 3.75 L 8.017578 3.75 L 1.767578 10 L 8.017578 16.25 L 18.75 16.25 Z " />
+                </Viewbox>
+            </c:KeyButton>
+        </StackPanel>
+        <StackPanel Spacing="4" Orientation="Horizontal">
+            <c:KeyButton Key="Tab" FontSize="13" />
+            <c:KeyButton Key="Q" />
+            <c:KeyButton Key="W" />
+            <c:KeyButton Key="E" />
+            <c:KeyButton Key="R" />
+            <c:KeyButton Key="T" />
+            <c:KeyButton Key="Y" />
+            <c:KeyButton Key="U" />
+            <c:KeyButton Key="I" />
+            <c:KeyButton Key="O" />
+            <c:KeyButton Key="P" />
+            <c:KeyButton KeyCode="219" />
+            <c:KeyButton KeyCode="221" />
+            <c:KeyButton KeyCode="220" />
+        </StackPanel>
+        <StackPanel Spacing="4" Orientation="Horizontal">
+            <c:KeyButton Key="CapitalLock" Size="CapsLock" FontSize="12" LockVisibility="{x:Bind ext:CoreVirtualKeyStatesExtension.ToLockedVisibility(CapitalLockState), Mode=OneWay}" />
+            <c:KeyButton Key="A" />
+            <c:KeyButton Key="S" />
+            <c:KeyButton Key="D" />
+            <c:KeyButton Key="F" LocationVisibility="Visible" />
+            <c:KeyButton Key="G" />
+            <c:KeyButton Key="H" />
+            <c:KeyButton Key="J" LocationVisibility="Visible" />
+            <c:KeyButton Key="K" />
+            <c:KeyButton Key="L" />
+            <c:KeyButton KeyCode="186" />
+            <c:KeyButton KeyCode="222" />
+            <c:KeyButton Key="Enter" Size="Medium" FontSize="13" />
+        </StackPanel>
+        <StackPanel Spacing="4" Orientation="Horizontal">
+            <c:KeyButton Key="LeftShift" Size="Large" FontSize="13" />
+            <c:KeyButton Key="Z" />
+            <c:KeyButton Key="X" />
+            <c:KeyButton Key="C" />
+            <c:KeyButton Key="V" />
+            <c:KeyButton Key="B" />
+            <c:KeyButton Key="N" />
+            <c:KeyButton Key="M" />
+            <c:KeyButton KeyCode="188" />
+            <c:KeyButton KeyCode="190" />
+            <c:KeyButton KeyCode="191" />
+            <c:KeyButton Key="RightShift" Size="Large" FontSize="13" />
+        </StackPanel>
+        <StackPanel Spacing="4" Orientation="Horizontal">
+            <c:KeyButton Key="LeftControl" Size="Medium" FontSize="13" />
+            <c:KeyButton Key="LeftWindows" >
+                <Viewbox Width="14" Height="14">
+                    <PathIcon Data="F1 M 0 8.75 L 0 2.617188 L 7.5 1.572266 L 7.5 8.75 Z M 8.75 1.396484 L 18.75 0 L 18.75 8.75 L 8.75 8.75 Z M 8.75 17.353516 L 8.75 10 L 18.75 10 L 18.75 18.75 Z M 0 16.132812 L 0 10 L 7.5 10 L 7.5 17.177734 Z " />
+                </Viewbox>
+            </c:KeyButton>
+            <c:KeyButton Key="LeftMenu" FontSize="13" />
+            <c:KeyButton Key="Space" Size="XXXLarge" >
+                <PathIcon Data="M0,0 L0,4 L50,4 L50,0 L48,0 L48,2 L2,2 L2,0 Z" />
+            </c:KeyButton>
+            <c:KeyButton Key="RightMenu" FontSize="13" />
+            <c:KeyButton Key="RightWindows" >
+                <Viewbox Width="14" Height="14">
+                    <PathIcon Data="F1 M 0 8.75 L 0 2.617188 L 7.5 1.572266 L 7.5 8.75 Z M 8.75 1.396484 L 18.75 0 L 18.75 8.75 L 8.75 8.75 Z M 8.75 17.353516 L 8.75 10 L 18.75 10 L 18.75 18.75 Z M 0 16.132812 L 0 10 L 7.5 10 L 7.5 17.177734 Z " />
+                </Viewbox>
+            </c:KeyButton>
+            <c:KeyButton Key="Application">
+                <Viewbox Width="14" Height="14">
+                    <PathIcon Data="M7,7 L17,7 L17,8.5 L7,8.5 z M7,10.5 L17,10.5 L17,12 L7,12 z M7,14 L17,14 L17,15.5 L7,15.5 z M3,3 L21,3 L21,19.5 L19.5,19.5 L19.5,4.5 L4.5,4.5 L4.5,18 L19.5,18 L19.5,19.5 L3,19.5 z"/>
+                </Viewbox>
+            </c:KeyButton>
+            <c:KeyButton Key="RightControl" Size="Medium" FontSize="13" />
+        </StackPanel>
+    </StackPanel>
+</c:KeyboardBase>
