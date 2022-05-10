@@ -1,4 +1,4 @@
-﻿using DontTouchKeyboard.Controls.Core;
+﻿using DontTouchKeyboard.Core;
 
 namespace DontTouchKeyboard.Extensions
 {

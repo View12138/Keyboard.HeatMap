@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using DontTouchKeyboard.Controls.Core;
+using DontTouchKeyboard.Core;
 using DontTouchKeyboard.Converters;
 using DontTouchKeyboard.Extensions;
 using Microsoft.UI.Input;
@@ -19,7 +19,7 @@ using Windows.UI.Core;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace DontTouchKeyboard.Controls
+namespace DontTouchKeyboard.Controls.Base
 {
     [ContentProperty(Name = nameof(Content))]
     [TemplateVisualState(Name = nameof(KeyType.Single), GroupName = "NormalState")]
@@ -87,11 +87,16 @@ namespace DontTouchKeyboard.Controls
 
         private static void KeyChanged(DependencyObject s, VirtualKey key)
         {
-            var visual = KeyToVisualConverter.ToVisual(key, new KeyStates());
+            var visual = key.ToVisual(new KeyStates());
             if (visual != null)
             {
                 s.SetValue(ContentProperty, visual);
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{Key}:{Key.ToVisual(KeyStates.Instance)}";
         }
 
     }

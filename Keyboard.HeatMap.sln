@@ -9,6 +9,8 @@ Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "DontTouchKeyboard (Package)
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DontTouchKeyboard", "DontTouchKeyboard\DontTouchKeyboard\DontTouchKeyboard.csproj", "{A3BEFF9A-4E3A-41F4-BD99-B71705E1842E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DontTouchKeyboard.Plugs", "DontTouchKeyboard.Plugs\DontTouchKeyboard.Plugs.csproj", "{EEAD4AF8-59DC-486A-BF3F-F66D17974633}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,22 @@ Global
 		{A3BEFF9A-4E3A-41F4-BD99-B71705E1842E}.Release|x64.Build.0 = Release|x64
 		{A3BEFF9A-4E3A-41F4-BD99-B71705E1842E}.Release|x86.ActiveCfg = Release|x86
 		{A3BEFF9A-4E3A-41F4-BD99-B71705E1842E}.Release|x86.Build.0 = Release|x86
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Debug|arm64.Build.0 = Debug|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Debug|x64.Build.0 = Debug|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Debug|x86.Build.0 = Debug|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Release|arm64.ActiveCfg = Release|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Release|arm64.Build.0 = Release|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Release|x64.ActiveCfg = Release|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Release|x64.Build.0 = Release|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Release|x86.ActiveCfg = Release|Any CPU
+		{EEAD4AF8-59DC-486A-BF3F-F66D17974633}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,6 +4,6 @@
     xmlns:local="using:DontTouchKeyboard">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="ms-appx:///Controls/KeyButton.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Base/KeyButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

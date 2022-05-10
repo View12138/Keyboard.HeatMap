@@ -1,26 +1,26 @@
-﻿<c:KeyboardBase
+﻿<base:KeyboardBase
     x:Class="DontTouchKeyboard.Controls.Keyboards.ControlKeys"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:DontTouchKeyboard.Controls.Keyboards"
-    xmlns:c="using:DontTouchKeyboard.Controls"
+    xmlns:base="using:DontTouchKeyboard.Controls.Base"
     xmlns:ext="using:DontTouchKeyboard.Extensions"
     mc:Ignorable="d">
 
     <StackPanel Spacing="{ThemeResource KeyDefaultSpacing}" Orientation="Horizontal">
         <StackPanel Spacing="{ThemeResource KeyDefaultSpacing}" >
-            <c:KeyButton Key="Insert" FontSize="12" LockVisibility="{x:Bind ext:CoreVirtualKeyStatesExtension.ToLockedVisibility(InsertState), Mode=OneWay}" />
-            <c:KeyButton Key="Delete" FontSize="12" />
+            <base:KeyButton Key="Insert" FontSize="12" LockVisibility="{x:Bind ext:CoreVirtualKeyStatesExtension.ToLockedVisibility(InsertState), Mode=OneWay}" />
+            <base:KeyButton Key="Delete" FontSize="12" />
         </StackPanel>
         <StackPanel Spacing="{ThemeResource KeyDefaultSpacing}">
-            <c:KeyButton Key="Home" FontSize="12" />
-            <c:KeyButton Key="End" FontSize="12" />
+            <base:KeyButton Key="Home" FontSize="12" />
+            <base:KeyButton Key="End" FontSize="12" />
         </StackPanel>
         <StackPanel Spacing="{ThemeResource KeyDefaultSpacing}">
-            <c:KeyButton Key="PageUp" FontSize="10" />
-            <c:KeyButton Key="PageDown" FontSize="10" />
+            <base:KeyButton Key="PageUp" FontSize="10" />
+            <base:KeyButton Key="PageDown" FontSize="10" />
         </StackPanel>
     </StackPanel>
-</c:KeyboardBase>
+</base:KeyboardBase>

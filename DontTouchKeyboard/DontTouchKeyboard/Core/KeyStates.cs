@@ -2,15 +2,12 @@
 using Windows.System;
 using Windows.UI.Core;
 
-namespace DontTouchKeyboard.Controls.Core
+namespace DontTouchKeyboard.Core
 {
     public class KeyStates
     {
-        public KeyStates()
-        {
-            Shift = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Shift);
-            CapsLock = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.CapitalLock);
-        }
+        public static KeyStates Instance => new(CoreVirtualKeyStates.None, CoreVirtualKeyStates.None);
+        public KeyStates() : this(InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Shift), InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.CapitalLock)) { }
 
         public KeyStates(CoreVirtualKeyStates shift, CoreVirtualKeyStates capsLock)
         {

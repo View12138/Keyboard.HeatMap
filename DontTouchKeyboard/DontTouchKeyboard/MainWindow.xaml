@@ -27,26 +27,43 @@
                VerticalAlignment="Center"
                Margin="28,0,0,0"/>
         </Grid>
-        <StackPanel x:Name="AppContent" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Spacing="12">
-            <StackPanel Spacing="12" HorizontalAlignment="Center">
-                <k:FunctionKeys/>
-                <k:Keyboard/>
-            </StackPanel>
-            <Grid>
+        <Grid x:Name="AppContent" Grid.Row="1" >
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Spacing="12">
                 <StackPanel Spacing="12" HorizontalAlignment="Center">
-                    <k:FunctionKeyEx/>
-                    <k:ControlKeys/>
+                    <k:FunctionKeys/>
+                    <k:Keyboard/>
                 </StackPanel>
-                <StackPanel VerticalAlignment="Bottom">
-                    <k:ArrowKeys/>
+                <Grid>
+                    <StackPanel Spacing="12" HorizontalAlignment="Center">
+                        <k:FunctionKeyEx/>
+                        <k:ControlKeys/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Bottom">
+                        <k:ArrowKeys/>
+                    </StackPanel>
+                </Grid>
+                <StackPanel Spacing="12" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <k:Keypad/>
                 </StackPanel>
-            </Grid>
-            <StackPanel Spacing="12" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                <k:Keypad/>
             </StackPanel>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Margin="20">
-            <TextBlock x:Name="keys" Grid.Row="2" PreviewKeyDown="TextBlock_PreviewKeyDown"/>
-        </StackPanel>
+            <StackPanel Grid.Row="2" Margin="20">
+                <TextBlock x:Name="keys" Grid.Row="2" PreviewKeyDown="TextBlock_PreviewKeyDown"/>
+            </StackPanel>
+
+
+            <InfoBar x:Name="ErrorInfoBar" 
+                 IsOpen="False"
+                 Severity="Error"
+                 IsClosable="True"
+                 IsIconVisible="True" 
+                     VerticalAlignment="Top"
+                     HorizontalAlignment="Right"
+                     Margin="12"
+                     >
+                <InfoBar.ActionButton>
+                    <Button x:Name="ErrorActionButton" Content="详细" Click="ErrorInfoBarButton_Click" Tag="false"/>
+                </InfoBar.ActionButton>
+            </InfoBar>
+        </Grid>
     </Grid>
 </Window>

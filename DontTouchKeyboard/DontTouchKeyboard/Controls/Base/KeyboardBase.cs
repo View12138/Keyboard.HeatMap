@@ -9,7 +9,7 @@ using Microsoft.UI.Xaml.Controls;
 using Windows.System;
 using Windows.UI.Core;
 
-namespace DontTouchKeyboard.Controls
+namespace DontTouchKeyboard.Controls.Base
 {
     public class KeyboardBase : UserControl
     {
@@ -108,8 +108,29 @@ namespace DontTouchKeyboard.Controls
             DependencyProperty.Register(nameof(ControlState), typeof(CoreVirtualKeyStates), typeof(KeyboardBase), new PropertyMetadata(CoreVirtualKeyStates.None));
 
 
+        private IEnumerable<KeyButton> keys;
+        /// <summary>
+        /// 获取当前键盘上的所有按键
+        /// </summary>
+        public IEnumerable<KeyButton> Keys => keys ??= GetKeys(Content);
 
-
+        private IEnumerable<KeyButton> GetKeys(UIElement element)
+        {
+            if (element is Panel panel)
+            {
+                foreach (UIElement child in panel.Children)
+                {
+                    foreach (var item in GetKeys(child))
+                    {
+                        yield return item;
+                    }
+                }
+            }
+            else if (element is KeyButton button)
+            {
+                yield return button;
+            }
+        }
 
     }
 }

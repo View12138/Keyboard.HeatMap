@@ -1,7 +1,7 @@
 ﻿// To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace DontTouchKeyboard.Controls.Core
+namespace DontTouchKeyboard.Core
 {
     /// <summary>
     /// 按键尺寸

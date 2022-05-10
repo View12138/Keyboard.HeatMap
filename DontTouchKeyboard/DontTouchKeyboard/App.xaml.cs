@@ -4,7 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using DontTouchKeyboard.Controls;
-using DontTouchKeyboard.Controls.Core;
+using DontTouchKeyboard.Core;
+using Microsoft.Management.Infrastructure;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -46,11 +47,12 @@ namespace DontTouchKeyboard
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            m_window = new MainWindow();
-            m_window.Activate();
+            window = new MainWindow();
+            window.Activate();
+            UnhandledException += window.Exception_Throwing;
         }
 
-        private Window m_window;
+        private MainWindow window;
 
         public static event EventHandler StatusChanged;
 
