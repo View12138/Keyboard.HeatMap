@@ -1,0 +1,19 @@
+﻿<base:KeyboardBase
+    x:Class="DontTouchKeyboard.UI.Controls.Keyboards.FunctionKeyEx"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:DontTouchKeyboard.UI.Controls.Keyboards"
+    xmlns:base="using:DontTouchKeyboard.UI.Controls.Base"
+    xmlns:ext="using:DontTouchKeyboard.UI.Extensions"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="{ThemeResource KeyLargeSpacing}" Orientation="Horizontal">
+        <StackPanel Spacing="{ThemeResource KeyDefaultSpacing}" Orientation="Horizontal">
+            <base:KeyButton Key="Print" Size="Function" />
+            <base:KeyButton Key="Scroll" Size="Function" LockVisibility="{x:Bind ext:CoreVirtualKeyStatesExtension.ToLockedVisibility(ScrollState), Mode=OneWay}" />
+            <base:KeyButton Key="Pause" Size="Function" />
+        </StackPanel>
+    </StackPanel>
+</base:KeyboardBase>

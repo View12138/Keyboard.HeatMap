@@ -1,0 +1,102 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="using:DontTouchKeyboard.UI.Converters"
+    xmlns:c="using:DontTouchKeyboard.UI.Controls.Base">
+
+    <converter:KeyToVisualConverter x:Key="KeyToVisualConverter"/>
+
+
+    <Style x:Key="DefaultKeyStyle" TargetType="c:KeyButton" >
+        <Setter Property="Width" Value="59" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Height" Value="44" />
+        <Setter Property="Background" Value="{ThemeResource KeyButtonBackground}" />
+        <Setter Property="Foreground" Value="{ThemeResource KeyButtonForeground}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="c:KeyButton">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="NormalState">
+                                <VisualState x:Name="Single">
+                                    <VisualState.Setters>
+                                        <!--<Setter Property="Background" Value="Red" />-->
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Double">
+                                    <VisualState.Setters>
+                                        <Setter Target="SecondContent.Visibility" Value="Visible" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                CornerRadius="{ThemeResource ControlCornerRadius}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                        </Border>
+                        <ContentControl x:Name="PrimaryContent"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            Content="{TemplateBinding Content}"  />
+                        <Ellipse Width="4" Height="4" Margin="6" 
+                                 VerticalAlignment="Top" HorizontalAlignment="Right" 
+                                 Fill="{ThemeResource KeyLockerBursh}" 
+                                 Visibility="{TemplateBinding LockVisibility}"/>
+                        <Rectangle Width="12" Height="2" RadiusX="1" RadiusY="1" Margin="3"
+                                   VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                                   Fill="{ThemeResource KeyLocationBrush}"
+                                   Visibility="{TemplateBinding LocationVisibility}"
+                            />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MiniKeyStyle" TargetType="c:KeyButton" BasedOn="{StaticResource DefaultKeyStyle}">
+        <Setter Property="Width" Value="28" />
+    </Style>
+
+    <Style x:Key="MediumKeyStyle" TargetType="c:KeyButton" BasedOn="{StaticResource DefaultKeyStyle}">
+        <Setter Property="Width" Value="90" />
+    </Style>
+
+    <Style x:Key="LargeKeyStyle" TargetType="c:KeyButton" BasedOn="{StaticResource DefaultKeyStyle}">
+        <Setter Property="Width" Value="122" />
+    </Style>
+
+    <Style x:Key="XLargeKeyStyle" TargetType="c:KeyButton" BasedOn="{StaticResource DefaultKeyStyle}">
+        <Setter Property="Width" Value="154" />
+    </Style>
+
+    <Style x:Key="XXLargeKeyStyle" TargetType="c:KeyButton" BasedOn="{StaticResource DefaultKeyStyle}">
+        <Setter Property="Width" Value="180" />
+    </Style>
+
+    <Style x:Key="XXXLargeKeyStyle" TargetType="c:KeyButton" BasedOn="{StaticResource DefaultKeyStyle}">
+        <Setter Property="Width" Value="375" />
+    </Style>
+
+    <Style x:Key="FunctionKeyStyle" TargetType="c:KeyButton" BasedOn="{StaticResource DefaultKeyStyle}">
+        <Setter Property="Height" Value="35" />
+        <Setter Property="FontSize" Value="11" />
+    </Style>
+
+    <Style x:Key="FunctionMediumKeyStyle" TargetType="c:KeyButton" BasedOn="{StaticResource MediumKeyStyle}">
+        <Setter Property="Height" Value="35" />
+        <Setter Property="FontSize" Value="11" />
+    </Style>
+
+    <Style x:Key="VerticalLargeKeyStyle" TargetType="c:KeyButton" BasedOn="{StaticResource DefaultKeyStyle}">
+        <Setter Property="Height" Value="92" />
+    </Style>
+
+    <Style x:Key="CapsLockKeyStyle" TargetType="c:KeyButton" BasedOn="{StaticResource DefaultKeyStyle}">
+        <Setter Property="Width" Value="91" />
+    </Style>
+
+</ResourceDictionary>
