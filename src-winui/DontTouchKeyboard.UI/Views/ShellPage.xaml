@@ -1,0 +1,36 @@
+﻿<UserControl
+    x:Class="DontTouchKeyboard.UI.Views.ShellPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DontTouchKeyboard.UI.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dtkc="using:DontTouchKeyboard.UI.Controls.Keyboards"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Shell}"
+    mc:Ignorable="d">
+
+    <Grid>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Spacing="12">
+            <StackPanel Spacing="12" HorizontalAlignment="Center">
+                <dtkc:FunctionKeys/>
+                <dtkc:Keyboard/>
+            </StackPanel>
+            <Grid>
+                <StackPanel Spacing="12" HorizontalAlignment="Center">
+                    <dtkc:FunctionKeyEx/>
+                    <dtkc:ControlKeys/>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Bottom">
+                    <dtkc:ArrowKeys/>
+                </StackPanel>
+            </Grid>
+            <StackPanel Spacing="12" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <dtkc:Keypad/>
+            </StackPanel>
+        </StackPanel>
+        <!--<StackPanel Grid.Row="2" Margin="20">
+            <TextBlock x:Name="keys" Grid.Row="2" PreviewKeyDown="TextBlock_PreviewKeyDown"/>
+        </StackPanel>-->
+    </Grid>
+</UserControl>

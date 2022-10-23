@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keyboard.HeatMap", "Keyboard.HeatMap\Keyboard.HeatMap.csproj", "{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DontTouchKeyboard.UI", "src-winui\DontTouchKeyboard.UI\DontTouchKeyboard.UI.csproj", "{86C2BA26-B607-44DF-9BBA-D83C3E560593}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DontTouchKeyboard.UI", "src\DontTouchKeyboard.UI\DontTouchKeyboard.UI.csproj", "{86C2BA26-B607-44DF-9BBA-D83C3E560593}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DontTouchKeyboard.Runner", "src-winui\DontTouchKeyboard.Runner\DontTouchKeyboard.Runner.csproj", "{B49C9776-4121-4D10-9BC9-66CEBC1B103F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DontTouchKeyboard.Runner", "src\DontTouchKeyboard.Runner\DontTouchKeyboard.Runner.csproj", "{B49C9776-4121-4D10-9BC9-66CEBC1B103F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DontTouchKeyboard.Plugs", "src-winui\DontTouchKeyboard.Plugs\DontTouchKeyboard.Plugs.csproj", "{5EA2FCF3-D36B-4594-9F2F-D68858985790}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DontTouchKeyboard.Plugs", "src\DontTouchKeyboard.Plugs\DontTouchKeyboard.Plugs.csproj", "{5EA2FCF3-D36B-4594-9F2F-D68858985790}"
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "DontTouchKeyboard.Package", "src-winui\DontTouchKeyboard.Package\DontTouchKeyboard.Package.wapproj", "{7C8FC46C-5A91-4F31-B838-FAB6FDEEFE63}"
 EndProject
-Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "DontTouchKeyboard.Package", "src\DontTouchKeyboard.Package\DontTouchKeyboard.Package.wapproj", "{7C8FC46C-5A91-4F31-B838-FAB6FDEEFE63}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src-winui", "src-winui", "{DDF0BDF7-50A0-4423-A0B6-4DF02C858685}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src-wpf", "src-wpf", "{156D3141-2B07-43E8-BCB1-057F60C504FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keyboard.HeatMap", "src-wpf\Keyboard.HeatMap\Keyboard.HeatMap.csproj", "{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,22 +29,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|arm64.ActiveCfg = Debug|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|arm64.Build.0 = Debug|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|x64.Build.0 = Debug|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|x86.Build.0 = Debug|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|arm64.ActiveCfg = Release|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|arm64.Build.0 = Release|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|x64.ActiveCfg = Release|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|x64.Build.0 = Release|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|x86.ActiveCfg = Release|Any CPU
-		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|x86.Build.0 = Release|Any CPU
 		{86C2BA26-B607-44DF-9BBA-D83C3E560593}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{86C2BA26-B607-44DF-9BBA-D83C3E560593}.Debug|Any CPU.Build.0 = Debug|x64
 		{86C2BA26-B607-44DF-9BBA-D83C3E560593}.Debug|arm64.ActiveCfg = Debug|arm64
@@ -113,9 +101,32 @@ Global
 		{7C8FC46C-5A91-4F31-B838-FAB6FDEEFE63}.Release|x86.ActiveCfg = Release|x86
 		{7C8FC46C-5A91-4F31-B838-FAB6FDEEFE63}.Release|x86.Build.0 = Release|x86
 		{7C8FC46C-5A91-4F31-B838-FAB6FDEEFE63}.Release|x86.Deploy.0 = Release|x86
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|arm64.Build.0 = Debug|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|x64.Build.0 = Debug|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Debug|x86.Build.0 = Debug|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|arm64.ActiveCfg = Release|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|arm64.Build.0 = Release|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|x64.ActiveCfg = Release|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|x64.Build.0 = Release|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|x86.ActiveCfg = Release|Any CPU
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{86C2BA26-B607-44DF-9BBA-D83C3E560593} = {DDF0BDF7-50A0-4423-A0B6-4DF02C858685}
+		{B49C9776-4121-4D10-9BC9-66CEBC1B103F} = {DDF0BDF7-50A0-4423-A0B6-4DF02C858685}
+		{5EA2FCF3-D36B-4594-9F2F-D68858985790} = {DDF0BDF7-50A0-4423-A0B6-4DF02C858685}
+		{7C8FC46C-5A91-4F31-B838-FAB6FDEEFE63} = {DDF0BDF7-50A0-4423-A0B6-4DF02C858685}
+		{5146DE30-3C7D-4601-981F-8EE3D2BBECBC} = {156D3141-2B07-43E8-BCB1-057F60C504FF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {335CAAA7-B01D-4F98-8F38-F079E264F99D}

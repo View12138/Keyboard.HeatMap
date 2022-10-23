@@ -5,7 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using DontTouchKeyboard.UI.ViewModels;
 using Microsoft.Management.Infrastructure;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -42,11 +44,12 @@ namespace DontTouchKeyboard.UI
             appWindow = AppWindow.GetFromWindowId(windowId);
             //appWindow.SetPresenter(AppWindowPresenterKind.Overlapped);
             appWindow.Title = "别敲键盘";
+            appWindow.SetIcon("Logo.ico");
 
             //var topWindow = AppWindow.Create(CompactOverlayPresenter.Create());
             //topWindow.Show();
 
-            ExtendsContentIntoTitleBar = true;
+            //ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
 
             //Task.Run(() =>
@@ -58,11 +61,6 @@ namespace DontTouchKeyboard.UI
             //        var p = instance.CimInstanceProperties;
             //    }
             //});
-        }
-
-        private void TextBlock_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            keys.Text = $"Key:{e.Key} ({(int)e.Key}) - OriginalKey:{e.OriginalKey} ({(int)e.OriginalKey})";
         }
 
         private void Grid_PreviewKeyUp(object sender, KeyRoutedEventArgs e)
@@ -79,7 +77,7 @@ namespace DontTouchKeyboard.UI
                  or VirtualKey.RightControl
                  )
             {
-                App.OnStatusChanged();
+                AppHost.OnStatusChanged(sender, e.Key);
             }
         }
 
@@ -96,46 +94,11 @@ namespace DontTouchKeyboard.UI
                  or VirtualKey.LeftControl
                  or VirtualKey.RightControl)
             {
-                App.OnStatusChanged();
+                AppHost.OnStatusChanged(sender, e.Key);
             }
             else
             {
                 throw new Exception("一个非常难以处理的错误, 并且不知道怎么发生的");
-            }
-        }
-
-        public void Exception_Throwing(object sender, UnhandledExceptionEventArgs e)
-        {
-            e.Handled = true;
-            ErrorInfoBar.Tag = e;
-            ErrorInfoBar.Title = "错误";
-            ErrorInfoBar.Message = e.Message;
-            ErrorInfoBar.IsOpen = true;
-        }
-
-        private void ErrorInfoBarButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (ErrorInfoBar.Tag is UnhandledExceptionEventArgs ex)
-            {
-                if (ErrorActionButton.Tag.ToString() == "false")
-                {
-                    ErrorActionButton.Tag = "true";
-                    ErrorActionButton.Content = "摘要";
-
-                    ErrorInfoBar.Title = ex.Message;
-                    ErrorInfoBar.Message = ex.Exception.ToString() + Environment.NewLine;
-                    ErrorInfoBar.IsOpen = true;
-                }
-                else
-                {
-                    ErrorActionButton.Tag = "false";
-                    ErrorActionButton.Content = "详细";
-
-                    ErrorInfoBar.Title = "错误";
-                    ErrorInfoBar.Message = ex.Message;
-                    ErrorInfoBar.IsOpen = true;
-                }
-
             }
         }
     }

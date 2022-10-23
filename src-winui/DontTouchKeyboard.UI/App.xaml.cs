@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using DontTouchKeyboard.UI.Controls;
 using DontTouchKeyboard.UI.Core;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Management.Infrastructure;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
@@ -20,6 +22,12 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
+using Microsoft.Extensions.Logging.Debug;
+using Microsoft.Extensions.Logging.Console;
+using Microsoft.Extensions.Logging.EventSource;
+using Microsoft.Extensions.Logging.Configuration;
+using DontTouchKeyboard.UI.ViewModels;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -35,34 +43,32 @@ namespace DontTouchKeyboard.UI
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
-        public App()
-        {
-            this.InitializeComponent();
-
-        }
+        public App() => InitializeComponent();
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        protected override async void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            window = new MainWindow();
-            window.Activate();
-            window.Closed += Window_Closed;
-            UnhandledException += window.Exception_Throwing;
+            var host = Host.CreateDefaultBuilder(Environment.GetCommandLineArgs())
+                           .ConfigureLogging(loggingBuilder => loggingBuilder.AddConfiguration())
+                           .ConfigureServices(services => ConfigureServices(services))
+                           .Build();
+            Ioc.Default.ConfigureServices(host.Services);
+            await host.RunAsync();
         }
 
-        private void Window_Closed(object sender, WindowEventArgs args)
+        public static void ConfigureServices(IServiceCollection services)
         {
-            args.Handled = false;
+            services.AddTransient(typeof(MainWindow));
+
+            services.AddSingleton(typeof(ShellViewModel));
+            services.AddSingleton(typeof(SystemInfoViewModel));
+
+            // AddHostedService
+            services.AddHostedService<AppHost>();
         }
-
-        private MainWindow window;
-
-        public static event EventHandler StatusChanged;
-
-        public static void OnStatusChanged() => StatusChanged?.Invoke(Current, new EventArgs());
     }
 }

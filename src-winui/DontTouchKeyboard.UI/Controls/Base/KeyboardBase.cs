@@ -15,22 +15,19 @@ namespace DontTouchKeyboard.UI.Controls.Base
     {
         public KeyboardBase()
         {
+            UpdateStates();
+
+            AppHost.StatusChanged += (s, e) => UpdateStates();
+        }
+
+        private void UpdateStates()
+        {
             CapitalLockState = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.CapitalLock);
             NumberKeyLockState = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.NumberKeyLock);
             InsertState = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Insert);
             ScrollState = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Scroll);
             ShiftState = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Shift);
             ControlState = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Control);
-
-            App.StatusChanged += (s, e) =>
-            {
-                CapitalLockState = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.CapitalLock);
-                NumberKeyLockState = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.NumberKeyLock);
-                InsertState = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Insert);
-                ScrollState = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Scroll);
-                ShiftState = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Shift);
-                ControlState = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Control);
-            };
         }
 
 

@@ -2,9 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converter="using:DontTouchKeyboard.UI.Converters"
-    xmlns:c="using:DontTouchKeyboard.UI.Controls.Base">
-
-    <converter:KeyToVisualConverter x:Key="KeyToVisualConverter"/>
+    xmlns:c="using:DontTouchKeyboard.UI.Controls.Base"
+    >
 
 
     <Style x:Key="DefaultKeyStyle" TargetType="c:KeyButton" >

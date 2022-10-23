@@ -1,0 +1,36 @@
+﻿<Window
+    x:Class="DontTouchKeyboard.UI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dtkv="using:DontTouchKeyboard.UI.Views"
+    mc:Ignorable="d"
+    >
+
+    <Grid PreviewKeyDown="Grid_PreviewKeyDown" PreviewKeyUp="Grid_PreviewKeyUp" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="AppTitleBar" Grid.Row="0" Margin="0,0,64,0" Background="Red">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Logo.ico"
+                       HorizontalAlignment="Left" 
+                       Width="16" Height="16" 
+                       Margin="8,0"/>
+                <TextBlock x:Name="AppTitleTextBlock" Text="App title"
+               TextWrapping="NoWrap"
+               Style="{StaticResource CaptionTextBlockStyle}" 
+               VerticalAlignment="Center"
+               Margin="4,0"/>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="AppContent" Grid.Row="1" >
+            <dtkv:ShellPage />
+
+            <dtkv:SystemInfoPage />
+        </Grid>
+    </Grid>
+</Window>

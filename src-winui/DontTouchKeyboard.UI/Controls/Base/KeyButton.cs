@@ -30,7 +30,7 @@ namespace DontTouchKeyboard.UI.Controls.Base
         {
             this.DefaultStyleKey = typeof(KeyButton);
             this.Style = GetSizeStyle(Size);
-            App.StatusChanged += (s, e) => KeyChanged(this, Key);
+            AppHost.StatusChanged += (s, e) => KeyChanged(this, Key);
         }
 
         protected override void OnApplyTemplate()
