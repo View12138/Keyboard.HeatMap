@@ -1,42 +1,38 @@
-﻿using System;
-using Microsoft.UI.Xaml.Data;
+﻿namespace DontTouchKeyboard.UI.Converters;
 
-namespace DontTouchKeyboard.UI.Converters
+internal class BoolToBoolConverter : IValueConverter
 {
-    internal class BoolToBoolConverter : IValueConverter
+    public object Convert(object value, Type targetType, object parameter, string language)
     {
-        public object Convert(object value, Type targetType, object parameter, string language)
+        if (value is bool val)
         {
-            if (value is bool val)
-            {
-                return !val;
-            }
-            throw new ArgumentException("不是可转换的类型", nameof(value));
+            return !val;
         }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            if (value is bool val)
-            {
-                return !val;
-            }
-            throw new ArgumentException("不是可转换的类型", nameof(value));
-        }
+        throw new ArgumentException("不是可转换的类型", nameof(value));
     }
 
-    internal class SystemInfoToMessage : IValueConverter
+    public object ConvertBack(object value, Type targetType, object parameter, string language)
     {
-        public object Convert(object value, Type targetType, object parameter, string language)
+        if (value is bool val)
         {
-            if(value is bool isDetail)
-            {
-            }
-            return null;
+            return !val;
         }
+        throw new ArgumentException("不是可转换的类型", nameof(value));
+    }
+}
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
+internal class SystemInfoToMessage : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, string language)
+    {
+        if (value is bool isDetail)
         {
-            throw new NotImplementedException();
         }
+        return null;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, string language)
+    {
+        throw new NotImplementedException();
     }
 }
