@@ -7,7 +7,7 @@ public sealed partial class ShellPage : UserControl
 {
     public ShellPage()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 
     private void TextBlock_PreviewKeyDown(object sender, KeyRoutedEventArgs e)

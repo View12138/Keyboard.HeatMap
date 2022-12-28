@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DontTouchKeyboard.UI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "DontTouchKeyboard.UI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

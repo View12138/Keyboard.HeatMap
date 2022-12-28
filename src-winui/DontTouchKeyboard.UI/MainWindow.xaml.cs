@@ -1,4 +1,20 @@
-ï»¿
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Navigation;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -9,22 +25,22 @@ namespace DontTouchKeyboard.UI;
 /// </summary>
 public sealed partial class MainWindow : Window
 {
+    private readonly AppWindow appWindow;
 
-    private AppWindow appWindow;
     public MainWindow()
     {
-        this.InitializeComponent();
+        InitializeComponent();
         var hWnd = WindowNative.GetWindowHandle(this);
         var windowId = Win32Interop.GetWindowIdFromWindow(hWnd);
         appWindow = AppWindow.GetFromWindowId(windowId);
         //appWindow.SetPresenter(AppWindowPresenterKind.Overlapped);
-        appWindow.Title = "åˆ«æ•²é”®ç›˜";
-        appWindow.SetIcon("Logo.ico");
+        //appWindow.Title = "±ğÇÃ¼üÅÌ";
+        //appWindow.SetIcon("Logo.ico");
 
         //var topWindow = AppWindow.Create(CompactOverlayPresenter.Create());
         //topWindow.Show();
 
-        //ExtendsContentIntoTitleBar = true;
+        ExtendsContentIntoTitleBar = true;
         SetTitleBar(AppTitleBar);
 
         //Task.Run(() =>
@@ -73,7 +89,7 @@ public sealed partial class MainWindow : Window
         }
         else
         {
-            throw new Exception("ä¸€ä¸ªéå¸¸éš¾ä»¥å¤„ç†çš„é”™è¯¯, å¹¶ä¸”ä¸çŸ¥é“æ€ä¹ˆå‘ç”Ÿçš„");
+            throw new Exception("Ò»¸ö·Ç³£ÄÑÒÔ´¦ÀíµÄ´íÎó, ²¢ÇÒ²»ÖªµÀÔõÃ´·¢ÉúµÄ");
         }
     }
 }
