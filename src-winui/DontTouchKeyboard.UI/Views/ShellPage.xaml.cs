@@ -1,12 +1,6 @@
 ﻿// To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-using Microsoft.UI.Composition.SystemBackdrops;
-using Microsoft.UI.Composition;
-using PIncoke;
-using Windows.UI;
-using WinRT;
-using Microsoft.UI.Xaml;
 using Windows.Graphics;
 
 namespace DontTouchKeyboard.UI.Views;
@@ -20,7 +14,7 @@ public sealed partial class ShellPage : UserControl, ICustomTitleBar
 
     private void ComboBox_Theme_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        ThemeHelpers.OnThemeChange(App.Current.MainWindow, ThemeSelector.SelectedIndex switch
+        App.Current.MainWindow.OnThemeChange(ThemeSelector.SelectedIndex switch
         {
             0 => ElementTheme.Dark,
             1 => ElementTheme.Light,
@@ -28,17 +22,12 @@ public sealed partial class ShellPage : UserControl, ICustomTitleBar
         });
     }
 
-    public FrameworkElement GetAppTitleBar()
-    {
-        return AppTitleBar;
-    }
-    public List<RectInt32> GetDragRects(Window window)
+    public FrameworkElement GetAppTitleBar() => AppTitleBar;
+    public List<RectInt32> GetDragRects(Window window, double scaleAdjustment)
     {
         var hWnd = WindowNative.GetWindowHandle(window);
         var wndId = Win32Interop.GetWindowIdFromWindow(hWnd);
         var appWindow = AppWindow.GetFromWindowId(wndId);
-
-        var scaleAdjustment = ThemeHelpers.GetScaleAdjustment(window);
 
         RightPaddingColumn.Width = new GridLength(appWindow.TitleBar.RightInset / scaleAdjustment);
         LeftPaddingColumn.Width = new GridLength(appWindow.TitleBar.LeftInset / scaleAdjustment);

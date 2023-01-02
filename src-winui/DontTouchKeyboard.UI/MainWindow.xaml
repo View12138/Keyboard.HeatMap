@@ -12,8 +12,7 @@
     xmlns:dtkv="using:DontTouchKeyboard.UI.Views"
     mc:Ignorable="d">
 
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    <Grid x:Name="RootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
           PreviewKeyDown="Grid_PreviewKeyDown" PreviewKeyUp="Grid_PreviewKeyUp" >
         <dtkv:ShellPage x:Name="ShellPage"/>
     </Grid>

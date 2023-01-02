@@ -94,7 +94,7 @@ public class KeyboardBase : UserControl
         DependencyProperty.Register(nameof(ControlState), typeof(CoreVirtualKeyStates), typeof(KeyboardBase), new PropertyMetadata(CoreVirtualKeyStates.None));
 
 
-    private IEnumerable<KeyButton> keys;
+    private IEnumerable<KeyButton>? keys;
     /// <summary>
     /// 获取当前键盘上的所有按键
     /// </summary>

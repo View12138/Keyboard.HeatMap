@@ -17,16 +17,23 @@ namespace DontTouchKeyboard.UI;
 /// </summary>
 public sealed partial class MainWindow : Window
 {
+    private FrameworkElement GetRootElement() => RootGrid;
+    private ICustomTitleBar GetCustomTitleBar() => ShellPage;
+
     public MainWindow()
     {
         InitializeComponent();
 
-        ThemeHelpers.TrySetSystemBackdrop(this, Backdrop.Auto);
+        ThemeHelpers.TrySetSystemBackdrop(this, GetRootElement(), Backdrop.Auto);
 
-        ThemeHelpers.TrySetCustomTitleBar(this, ShellPage);
+        ThemeHelpers.TrySetCustomTitleBar(this, GetRootElement(), GetCustomTitleBar());
 
-        ThemeHelpers.OnThemeChange(this);
+        ThemeHelpers.OnThemeChange(this, GetRootElement());
     }
+
+    public bool OnThemeChange(ElementTheme theme) => ThemeHelpers.OnThemeChange(this, GetRootElement(), theme);
+
+
 
     private void Grid_PreviewKeyUp(object sender, KeyRoutedEventArgs e)
     {

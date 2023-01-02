@@ -18,20 +18,6 @@
             <Setter.Value>
                 <ControlTemplate TargetType="c:KeyButton">
                     <Grid>
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="NormalState">
-                                <VisualState x:Name="Single">
-                                    <VisualState.Setters>
-                                        <!--<Setter Property="Background" Value="Red" />-->
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState x:Name="Double">
-                                    <VisualState.Setters>
-                                        <Setter Target="SecondContent.Visibility" Value="Visible" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
                         <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 CornerRadius="{ThemeResource ControlCornerRadius}"
@@ -40,16 +26,15 @@
                         <ContentControl x:Name="PrimaryContent"
                                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                            Content="{TemplateBinding Content}"  />
-                        <Ellipse Width="4" Height="4" Margin="6" 
+                                            Content="{TemplateBinding Content}" />
+                        <Ellipse x:Name="LockFlag" Width="4" Height="4" Margin="6" 
                                  VerticalAlignment="Top" HorizontalAlignment="Right" 
                                  Fill="{ThemeResource KeyLockerBursh}" 
                                  Visibility="{TemplateBinding LockVisibility}"/>
-                        <Rectangle Width="12" Height="2" RadiusX="1" RadiusY="1" Margin="3"
+                        <Rectangle x:Name="LocationFlag" Width="12" Height="2" RadiusX="1" RadiusY="1" Margin="3"
                                    VerticalAlignment="Bottom" HorizontalAlignment="Center"
                                    Fill="{ThemeResource KeyLocationBrush}"
-                                   Visibility="{TemplateBinding LocationVisibility}"
-                            />
+                                   Visibility="{TemplateBinding LocationVisibility}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

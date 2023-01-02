@@ -10,7 +10,7 @@
     DataContext="{Binding Source={StaticResource Locator}, Path=Shell}"
     mc:Ignorable="d">
 
-    <Grid >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -57,7 +57,7 @@
                     </StackPanel>
                 </Grid>
                 <StackPanel Spacing="12" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <dtkc:Keypad/>
+                    <dtkc:Keypad x:Name="Keypad" />
                 </StackPanel>
             </StackPanel>
         </Grid>

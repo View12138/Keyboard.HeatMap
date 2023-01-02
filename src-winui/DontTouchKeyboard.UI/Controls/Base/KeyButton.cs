@@ -5,8 +5,6 @@
 namespace DontTouchKeyboard.UI.Controls.Base;
 
 [ContentProperty(Name = nameof(Content))]
-[TemplateVisualState(Name = nameof(KeyType.Single), GroupName = "NormalState")]
-[TemplateVisualState(Name = nameof(KeyType.Double), GroupName = "NormalState")]
 public class KeyButton : ContentControl
 {
     public KeyButton()
