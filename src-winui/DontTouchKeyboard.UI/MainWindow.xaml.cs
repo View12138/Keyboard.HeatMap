@@ -21,7 +21,7 @@ public sealed partial class MainWindow : Window
     {
         InitializeComponent();
 
-        ThemeHelpers.TrySetSystemBackdrop(this, Backdrop.Acrylic);
+        ThemeHelpers.TrySetSystemBackdrop(this, Backdrop.Auto);
 
         ThemeHelpers.TrySetCustomTitleBar(this, ShellPage);
 

@@ -124,14 +124,9 @@ public static class ThemeHelpers
                 m_acrylicController.AddSystemBackdropTarget(window.As<ICompositionSupportsSystemBackdrop>());
                 m_acrylicController.SetSystemBackdropConfiguration(m_configurationSource);
             }
-            return true; // succeeded
+            return true;
         }
-        else
-        {
-            // 使用其它背景方案
-            return false;
-        }
-
+        return false;
 
         void SetConfigurationSourceTheme(SystemBackdropConfiguration? m_configurationSource)
         {
@@ -173,14 +168,18 @@ public static class ThemeHelpers
             }
         }
 
-
         void SetTitleBarTheme(Window window, AppWindowTitleBar titleBar)
         {
             if (titleBar != null)
             {
                 titleBar.ButtonBackgroundColor = Colors.Transparent;
                 titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-                if (((FrameworkElement)window.Content).RequestedTheme == ElementTheme.Dark)
+                ApplicationTheme currentTheme = ((FrameworkElement)window.Content).RequestedTheme == ElementTheme.Light ? ApplicationTheme.Light : ApplicationTheme.Dark;
+                if (((FrameworkElement)window.Content).RequestedTheme == ElementTheme.Default)
+                {
+                    currentTheme = GetAppTheme();
+                }
+                if (currentTheme == ApplicationTheme.Dark)
                 {
                     titleBar.ButtonForegroundColor = Colors.White;
                     titleBar.ButtonHoverForegroundColor = Colors.White;
