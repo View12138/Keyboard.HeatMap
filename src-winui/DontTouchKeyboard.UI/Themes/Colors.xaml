@@ -6,27 +6,37 @@
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Dark">
-            <SolidColorBrush x:Key="KeyButtonBackground" Color="#151515"/>
+            <SolidColorBrush x:Key="KeyButtonBackground" Color="#99151515"/>
             <SolidColorBrush x:Key="KeyButtonForeground" Color="#FFFFFF"/>
             <SolidColorBrush x:Key="SecondKeyButtonForeground" Color="#838383"/>
             <SolidColorBrush x:Key="KeyLocationBrush" Color="#373737"/>
             <SolidColorBrush x:Key="KeyLockerBursh" Color="#1CD66C"/>
             <x:Double x:Key="KeyDefaultSpacing">4</x:Double>
             <x:Double x:Key="KeyLargeSpacing">12</x:Double>
+
+            <SolidColorBrush x:Key="WindowCaptionBackground">Transparent</SolidColorBrush>
+            <SolidColorBrush x:Key="WindowCaptionBackgroundDisabled">Transparent</SolidColorBrush>
+            <SolidColorBrush x:Key="WindowCaptionForeground">#FFFFFF</SolidColorBrush>
+            <SolidColorBrush x:Key="WindowCaptionForegroundDisabled">#424242</SolidColorBrush>
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="Light">
-            <SolidColorBrush x:Key="KeyButtonBackground" Color="#EBEBEB"/>
+            <SolidColorBrush x:Key="KeyButtonBackground" Color="#99EBEBEB"/>
             <SolidColorBrush x:Key="KeyButtonForeground" Color="#000000" />
             <SolidColorBrush x:Key="SecondKeyButtonForeground" Color="#C8C8C8"/>
             <SolidColorBrush x:Key="KeyLocationBrush" Color="#C8C8C8"/>
             <SolidColorBrush x:Key="KeyLockerBursh" Color="#1CD66C"/>
             <x:Double x:Key="KeyDefaultSpacing">4</x:Double>
             <x:Double x:Key="KeyLargeSpacing">12</x:Double>
+
+            <SolidColorBrush x:Key="WindowCaptionBackground">Transparent</SolidColorBrush>
+            <SolidColorBrush x:Key="WindowCaptionBackgroundDisabled">Transparent</SolidColorBrush>
+            <SolidColorBrush x:Key="WindowCaptionForeground">#000000</SolidColorBrush>
+            <SolidColorBrush x:Key="WindowCaptionForegroundDisabled">#424242</SolidColorBrush>
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="HighContrast">
-            <SolidColorBrush x:Key="KeyButtonBackground" Color="#EBEBEB"/>
+            <SolidColorBrush x:Key="KeyButtonBackground" Color="#99EBEBEB"/>
             <SolidColorBrush x:Key="KeyButtonForeground" Color="#000000" />
             <SolidColorBrush x:Key="SecondKeyButtonForeground" Color="#C8C8C8"/>
             <SolidColorBrush x:Key="KeyLocationBrush" Color="#C8C8C8"/>

@@ -13,11 +13,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keyboard.HeatMap", "src-wpf
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src-maui", "src-maui", "{B38EA43A-C1F4-451B-B31D-F6A5A4068558}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DontTouchKeyboard.UI", "src-maui\DontTouchKeyboard.UI\DontTouchKeyboard.UI.csproj", "{44D1B944-8CF9-4165-B5DE-6568E8F1CAD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DontTouchKeyboard.UI", "src-maui\DontTouchKeyboard.UI\DontTouchKeyboard.UI.csproj", "{44D1B944-8CF9-4165-B5DE-6568E8F1CAD8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DontTouchKeyboard.UI", "src-winui\DontTouchKeyboard.UI\DontTouchKeyboard.UI.csproj", "{1B3C28B0-E5E8-4B0D-9ED0-1E7CDF88E30A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DontTouchKeyboard.Runner", "src-winui\DontTouchKeyboard.Runner\DontTouchKeyboard.Runner.csproj", "{DCA42B0A-568F-4BDB-977C-41039541B7F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configurations", "configurations", "{CD2D43CB-BF4E-478F-8DF2-F067034E5CB6}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

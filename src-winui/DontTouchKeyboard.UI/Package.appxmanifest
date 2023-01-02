@@ -31,7 +31,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="DontTouchKeyboard.UI"
+        DisplayName="别敲键盘"
         Description="DontTouchKeyboard.UI"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"

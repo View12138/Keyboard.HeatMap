@@ -1,6 +1,7 @@
 ﻿global using System;
 global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
+global using System.Runtime.InteropServices;
 global using System.Threading;
 global using System.Threading.Tasks;
 global using System.Windows.Input;

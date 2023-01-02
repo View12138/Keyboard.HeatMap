@@ -11,9 +11,12 @@ public class KeyButton : ContentControl
 {
     public KeyButton()
     {
-        this.DefaultStyleKey = typeof(KeyButton);
-        this.Style = GetSizeStyle(Size);
-        AppHost.StatusChanged += (s, e) => KeyChanged(this, Key);
+        DefaultStyleKey = typeof(KeyButton);
+        Style = GetSizeStyle(Size);
+        App.StatusChanged += (s, e) =>
+        {
+            KeyChanged(this, Key);
+        };
     }
 
     protected override void OnApplyTemplate()
@@ -29,11 +32,17 @@ public class KeyButton : ContentControl
     /// <item>当不是键码预定义的 <see cref="VirtualKey"/> 时，使用 <see cref="KeyCode"/> 代替 <see cref="Key"/></item>
     /// </list>
     /// </summary>
-    public int KeyCode { get => (int)GetValue(KeyProperty); set => SetValue(KeyProperty, (VirtualKey)value); }
+    public int KeyCode
+    {
+        get => (int)GetValue(KeyProperty); set => SetValue(KeyProperty, (VirtualKey)value);
+    }
     /// <summary>
     /// 获取或设置虚拟键码
     /// </summary>
-    public VirtualKey Key { get => (VirtualKey)GetValue(KeyProperty); set => SetValue(KeyProperty, value); }
+    public VirtualKey Key
+    {
+        get => (VirtualKey)GetValue(KeyProperty); set => SetValue(KeyProperty, value);
+    }
     // Using a DependencyProperty as the backing store for Key.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty KeyProperty =
         DependencyProperty.Register(nameof(Key), typeof(VirtualKey), typeof(KeyButton), new PropertyMetadata(VirtualKey.None,
@@ -42,7 +51,10 @@ public class KeyButton : ContentControl
     /// <summary>
     /// 获取或设置锁定状态的可见性
     /// </summary>
-    public Visibility LockVisibility { get => (Visibility)GetValue(LockVisibilityProperty); set => SetValue(LockVisibilityProperty, value); }
+    public Visibility LockVisibility
+    {
+        get => (Visibility)GetValue(LockVisibilityProperty); set => SetValue(LockVisibilityProperty, value);
+    }
     // Using a DependencyProperty as the backing store for IsLocked.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty LockVisibilityProperty =
         DependencyProperty.Register(nameof(LockVisibility), typeof(Visibility), typeof(KeyButton), new PropertyMetadata(Visibility.Collapsed));
@@ -50,7 +62,10 @@ public class KeyButton : ContentControl
     /// <summary>
     /// 获取或设置定位键标识的可见性
     /// </summary>
-    public Visibility LocationVisibility { get => (Visibility)GetValue(LocationVisibilityProperty); set => SetValue(LocationVisibilityProperty, value); }
+    public Visibility LocationVisibility
+    {
+        get => (Visibility)GetValue(LocationVisibilityProperty); set => SetValue(LocationVisibilityProperty, value);
+    }
     // Using a DependencyProperty as the backing store for IsLocked.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty LocationVisibilityProperty =
         DependencyProperty.Register(nameof(LocationVisibility), typeof(Visibility), typeof(KeyButton), new PropertyMetadata(Visibility.Collapsed));
@@ -58,7 +73,10 @@ public class KeyButton : ContentControl
     /// <summary>
     /// 按键尺寸
     /// </summary>
-    public SizeType Size { get => (SizeType)GetValue(SizeProperty); set => SetValue(SizeProperty, value); }
+    public SizeType Size
+    {
+        get => (SizeType)GetValue(SizeProperty); set => SetValue(SizeProperty, value);
+    }
     // Using a DependencyProperty as the backing store for Size.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty SizeProperty =
         DependencyProperty.Register(nameof(Size), typeof(SizeType), typeof(KeyButton), new PropertyMetadata(SizeType.Default,
@@ -68,9 +86,9 @@ public class KeyButton : ContentControl
     private static Style GetSizeStyle(SizeType size = SizeType.Default)
         => Application.Current.Resources[$"{size}KeyStyle"] as Style;
 
-    private static void KeyChanged(DependencyObject s, VirtualKey key)
+    private static void KeyChanged(DependencyObject s, VirtualKey currentKey)
     {
-        var visual = key.ToVisual(new KeyStates());
+        var visual = currentKey.ToVisual();
         if (visual != null)
         {
             s.SetValue(ContentProperty, visual);
@@ -79,7 +97,7 @@ public class KeyButton : ContentControl
 
     public override string ToString()
     {
-        return $"{Key}:{Key.ToVisual(KeyStates.Instance)}";
+        return $"{Key}:{Key.ToVisual()}";
     }
 
 }

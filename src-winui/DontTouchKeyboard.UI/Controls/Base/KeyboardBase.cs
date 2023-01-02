@@ -6,7 +6,7 @@ public class KeyboardBase : UserControl
     {
         UpdateStates();
 
-        AppHost.StatusChanged += (s, e) => UpdateStates();
+        App.StatusChanged += (s, e) => UpdateStates();
     }
 
     private void UpdateStates()
@@ -104,7 +104,7 @@ public class KeyboardBase : UserControl
     {
         if (element is Panel panel)
         {
-            foreach (UIElement child in panel.Children)
+            foreach (var child in panel.Children)
             {
                 foreach (var item in GetKeys(child))
                 {

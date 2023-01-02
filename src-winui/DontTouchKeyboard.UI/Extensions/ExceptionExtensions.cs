@@ -23,9 +23,9 @@ internal static class ExceptionExtensions
         if (!isProduction && !string.IsNullOrEmpty(ex.StackTrace))
         { message.AppendLine(ex.StackTrace); }
 
-        Exception inner = ex;
+        var inner = ex;
         var space = "   ";
-        int index = 1;
+        var index = 1;
         while (hasInner && (inner = inner.InnerException) != null)
         {
             message.AppendLine($"{space}{index}. : {inner.Message}");

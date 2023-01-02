@@ -13,30 +13,9 @@
     mc:Ignorable="d">
 
 
-    <Grid PreviewKeyDown="Grid_PreviewKeyDown" PreviewKeyUp="Grid_PreviewKeyUp" >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <Grid x:Name="AppTitleBar" Grid.Row="0" Background="Transparent">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="Logo.ico"
-                       HorizontalAlignment="Left" 
-                       Width="16" Height="16" 
-                       Margin="8,0"/>
-                <TextBlock x:Name="AppTitleTextBlock" Text="±ðÇÃ¼üÅÌ" 
-                           TextWrapping="NoWrap"
-                           Style="{StaticResource CaptionTextBlockStyle}" 
-                           VerticalAlignment="Center"
-                           Margin="4,0"/>
-            </StackPanel>
-        </Grid>
-        <Grid x:Name="AppContent" Grid.Row="1" >
-            <dtkv:ShellPage />
-
-            <dtkv:SystemInfoPage />
-        </Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          PreviewKeyDown="Grid_PreviewKeyDown" PreviewKeyUp="Grid_PreviewKeyUp" >
+        <dtkv:ShellPage x:Name="ShellPage"/>
     </Grid>
 
 </Window>

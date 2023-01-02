@@ -5,9 +5,12 @@ namespace DontTouchKeyboard.UI.ViewModels;
 internal class SystemInfoViewModel : ObservableObject
 {
 
-    private ObservableCollection<SystemInfoModel> systemInfos = new ObservableCollection<SystemInfoModel>();
+    private ObservableCollection<SystemInfoModel> systemInfos = new();
 
-    public ObservableCollection<SystemInfoModel> SystemInfos { get => systemInfos; set => SetProperty(ref systemInfos, value); }
+    public ObservableCollection<SystemInfoModel> SystemInfos
+    {
+        get => systemInfos; set => SetProperty(ref systemInfos, value);
+    }
 
     public SystemInfoViewModel()
     {
@@ -15,10 +18,14 @@ internal class SystemInfoViewModel : ObservableObject
         {
             if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
             {
-                var info = e.NewItems[0] as SystemInfoModel;
-                await Task.Delay(3000);
-                if (info.Level != InfoBarSeverity.Error)
-                { SystemInfos.Remove(info); }
+                if (e.NewItems?[0] is SystemInfoModel info)
+                {
+                    await Task.Delay(3000);
+                    if (info.Level != InfoBarSeverity.Error)
+                    {
+                        SystemInfos.Remove(info);
+                    }
+                }
             }
         };
     }
@@ -63,7 +70,10 @@ internal class SystemInfoModel : ObservableObject
 
     public DateTimeOffset Create { get; }
 
-    public bool IsHandle { get => isHandle; set => SetProperty(ref isHandle, value); }
+    public bool IsHandle
+    {
+        get => isHandle; set => SetProperty(ref isHandle, value);
+    }
 
     public bool IsDetail { get; set; }
     public string DetailContent { get => detailContent; set => SetProperty(ref detailContent, value); }
@@ -72,7 +82,7 @@ internal class SystemInfoModel : ObservableObject
     public ICommand HandleCommand => new RelayCommand(() =>
     {
         IsHandle = true;
-        Ioc.Default.GetService<SystemInfoViewModel>().SystemInfos.Remove(this);
+        Ioc.Default.GetService<SystemInfoViewModel>()?.SystemInfos.Remove(this);
     });
 
     private void SetInfo()
