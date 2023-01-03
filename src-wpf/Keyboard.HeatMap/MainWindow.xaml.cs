@@ -1,28 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
-using Keyboard.HeatMap.HookGlobal;
-using System.Windows.Media.Animation;
-using System.IO;
-using IWshRuntimeLibrary;
-using File = System.IO.File;
-using Keyboard.HeatMap.Owner;
-using Shortcut = Keyboard.HeatMap.Owner.Shortcut;
 using Keyboard.HeatMap.Controls;
+using Keyboard.HeatMap.Owner;
 using MessageBox = System.Windows.MessageBox;
+using Shortcut = Keyboard.HeatMap.Owner.Shortcut;
 
 namespace Keyboard.HeatMap
 {

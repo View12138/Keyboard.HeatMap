@@ -1,14 +1,12 @@
-﻿using Dapper;
-using Dapper.Contrib.Extensions;
-using Keyboard.HeatMap.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Dapper;
+using Keyboard.HeatMap.Models;
 
 namespace Keyboard.HeatMap.Owner
 {

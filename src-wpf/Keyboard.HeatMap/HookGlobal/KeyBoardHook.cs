@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-using System.Reflection;
-using System.Threading;
-using System.Windows.Forms;
-using System.Diagnostics;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using Keyboard.HeatMap.Common;
 
 namespace Keyboard.HeatMap.HookGlobal

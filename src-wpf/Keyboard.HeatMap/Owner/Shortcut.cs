@@ -1,11 +1,7 @@
-﻿using IWshRuntimeLibrary;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using IWshRuntimeLibrary;
 using File = System.IO.File;
 
 namespace Keyboard.HeatMap.Owner

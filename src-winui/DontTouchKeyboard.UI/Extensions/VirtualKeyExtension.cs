@@ -2,7 +2,7 @@
 
 internal static class VirtualKeyExtension
 {
-    public static string ToVisual(this VirtualKey key)
+    public static string? ToVisual(this VirtualKey key)
     {
         var status = new KeyStates();
         return key switch

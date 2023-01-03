@@ -1,15 +1,11 @@
-﻿using Dapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SQLite;
+using System.Windows.Forms;
+using Dapper;
 using Dapper.Contrib.Extensions;
 using Keyboard.HeatMap.HookGlobal;
 using Keyboard.HeatMap.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Text;
-using System.Windows.Forms;
-using System.Windows.Media;
 
 namespace Keyboard.HeatMap.Owner
 {

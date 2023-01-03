@@ -1,9 +1,9 @@
-﻿using Microsoft.UI.Composition.SystemBackdrops;
-using Microsoft.UI.Composition;
+﻿using Microsoft.UI.Composition;
+using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.Win32;
-using WinRT;
 using PIncoke;
 using Windows.UI;
+using WinRT;
 
 namespace DontTouchKeyboard.UI.Core;
 
