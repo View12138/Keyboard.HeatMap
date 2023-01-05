@@ -1,4 +1,4 @@
-﻿namespace PIncoke;
+namespace PIncoke;
 internal static class Shcore
 {
     [DllImport("Shcore.dll", SetLastError = true)]

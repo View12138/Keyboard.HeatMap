@@ -1,4 +1,4 @@
-﻿namespace DontTouchKeyboard.UI.Core;
+namespace DontTouchKeyboard.UI.Core;
 
 public class DtkKeyEventArgs : EventArgs
 {

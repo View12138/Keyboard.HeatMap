@@ -1,4 +1,4 @@
-﻿namespace DontTouchKeyboard.UI.Controls.Base;
+namespace DontTouchKeyboard.UI.Controls.Base;
 
 public class KeyboardBase : UserControl
 {

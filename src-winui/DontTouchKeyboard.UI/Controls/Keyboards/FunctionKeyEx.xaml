@@ -1,4 +1,4 @@
-﻿<base:KeyboardBase
+<base:KeyboardBase
     x:Class="DontTouchKeyboard.UI.Controls.Keyboards.FunctionKeyEx"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:DontTouchKeyboard.UI.Controls.Keyboards"
     xmlns:base="using:DontTouchKeyboard.UI.Controls.Base"
-    xmlns:ext="using:DontTouchKeyboard.UI.Extensions"
+    xmlns:ext="using:DontTouchKeyboard.UI.Core.Extensions"
     mc:Ignorable="d">
 
     <StackPanel Spacing="{ThemeResource KeyLargeSpacing}" Orientation="Horizontal">

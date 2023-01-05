@@ -1,4 +1,6 @@
-﻿namespace DontTouchKeyboard.UI.Controls.Base;
+using DontTouchKeyboard.UI.Core.Extensions;
+
+namespace DontTouchKeyboard.UI.Controls.Base;
 
 [ContentProperty(Name = nameof(Content))]
 public class KeyButton : ContentControl
@@ -77,12 +79,11 @@ public class KeyButton : ContentControl
             (s, e) => s.SetValue(StyleProperty, GetSizeStyle((SizeType)e.NewValue))));
 
 
-    private static Style GetSizeStyle(SizeType size = SizeType.Default)
-        => Application.Current.Resources[$"{size}KeyStyle"] as Style;
+    private static Style GetSizeStyle(SizeType size = SizeType.Default) => App.GetRequiredResource<Style>($"{size}KeyStyle");
 
     private static void KeyChanged(DependencyObject s, VirtualKey currentKey)
     {
-        var visual = currentKey.ToVisual();
+        string? visual = currentKey.ToVisual();
         if (visual != null)
         {
             s.SetValue(ContentProperty, visual);

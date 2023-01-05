@@ -1,10 +1,10 @@
-﻿namespace DontTouchKeyboard.UI.Controls.Keyboards;
+namespace DontTouchKeyboard.UI.Controls.Keyboards;
 
 public sealed partial class ControlKeys : KeyboardBase
 {
     public ControlKeys()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 
 

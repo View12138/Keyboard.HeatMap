@@ -1,4 +1,4 @@
-﻿namespace DontTouchKeyboard.UI.Views;
+namespace DontTouchKeyboard.UI.Views;
 
 public sealed partial class SystemInfoPage : UserControl
 {

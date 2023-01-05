@@ -1,4 +1,6 @@
-﻿namespace DontTouchKeyboard.UI.Core;
+using DontTouchKeyboard.UI.Core.Extensions;
+
+namespace DontTouchKeyboard.UI.Core;
 
 public readonly struct KeyStates
 {

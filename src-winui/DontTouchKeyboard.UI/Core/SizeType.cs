@@ -1,4 +1,4 @@
-﻿namespace DontTouchKeyboard.UI.Core;
+namespace DontTouchKeyboard.UI.Core;
 
 /// <summary>
 /// 按键尺寸

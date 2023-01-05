@@ -1,5 +1,3 @@
-﻿using PIncoke;
-
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -7,7 +5,7 @@ namespace DontTouchKeyboard.UI.Core;
 internal class WindowsSystemDispatcherQueueHelper
 {
 
-    object m_dispatcherQueueController = null;
+    object? m_dispatcherQueueController = null;
     public void EnsureWindowsSystemDispatcherQueueController()
     {
         if (DispatcherQueue.GetForCurrentThread() != null)

@@ -1,4 +1,4 @@
-﻿namespace DontTouchKeyboard.UI.Extensions;
+namespace DontTouchKeyboard.UI.Core.Extensions;
 
 internal static class DependencyObjectExtension
 {

@@ -1,11 +1,11 @@
-﻿using System.Text;
+using System.Text;
 
-namespace DontTouchKeyboard.UI.Extensions;
+namespace DontTouchKeyboard.UI.Core.Extensions;
 
 /// <summary>
 /// ExceptionExtensions
 /// </summary>
-internal static class ExceptionExtensions
+internal static class ExceptionExtension
 {
     /// <summary>
     /// 获取所有错误

@@ -1,9 +1,9 @@
-﻿namespace PIncoke;
+namespace PIncoke;
 
 internal static class CoreMessaging
 {
     [DllImport("CoreMessaging.dll")]
-    public static extern int CreateDispatcherQueueController([In] DispatcherQueueOptions options, [In, Out, MarshalAs(UnmanagedType.IUnknown)] ref object dispatcherQueueController);
+    public static extern int CreateDispatcherQueueController([In] DispatcherQueueOptions options, [In, Out, MarshalAs(UnmanagedType.IUnknown)] ref object? dispatcherQueueController);
 }
 
 

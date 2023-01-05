@@ -1,4 +1,5 @@
-﻿using Windows.Graphics;
+using Microsoft.UI.Xaml.Media.Animation;
+using Windows.Graphics;
 
 namespace DontTouchKeyboard.UI.Views;
 
@@ -7,16 +8,6 @@ public sealed partial class ShellPage : UserControl, ICustomTitleBar
     public ShellPage()
     {
         InitializeComponent();
-    }
-
-    private void ComboBox_Theme_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        App.Current.MainWindow.OnThemeChange(ThemeSelector.SelectedIndex switch
-        {
-            0 => ElementTheme.Dark,
-            1 => ElementTheme.Light,
-            _ => ElementTheme.Default,
-        });
     }
 
     public FrameworkElement GetAppTitleBar() => AppTitleBar;
@@ -53,4 +44,8 @@ public sealed partial class ShellPage : UserControl, ICustomTitleBar
         return dragRectsList;
     }
 
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        ContentFrame.Navigate(typeof(SettingPage), null, new DrillInNavigationTransitionInfo());
+    }
 }

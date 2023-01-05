@@ -5,5 +5,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///Controls/Base/KeyButton.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Settings/SettingsGroup.xaml" />
     </ResourceDictionary.MergedDictionaries>
+
 </ResourceDictionary>

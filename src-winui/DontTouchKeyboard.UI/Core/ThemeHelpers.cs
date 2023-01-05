@@ -1,13 +1,11 @@
-﻿using Microsoft.UI.Composition;
-using Microsoft.UI.Composition.SystemBackdrops;
-using Microsoft.Win32;
-using PIncoke;
-using Windows.UI;
-using WinRT;
+using System.Linq;
 
 namespace DontTouchKeyboard.UI.Core;
 
 // Based on https://stackoverflow.com/a/62811758/5001796
+/// <summary>
+/// 主题帮助类
+/// </summary>
 public static class ThemeHelpers
 {
     [DllImport("dwmapi.dll")]
@@ -26,7 +24,14 @@ public static class ThemeHelpers
         return theme == 1 ? ApplicationTheme.Light : ApplicationTheme.Dark;
     }
 
-    public static bool OnThemeChange(Window window, FrameworkElement? rootElement, ElementTheme theme = ElementTheme.Default)
+    /// <summary>
+    /// 尝试设置主题
+    /// </summary>
+    /// <param name="window">要设置主题的窗体</param>
+    /// <param name="rootElement">窗体内的根元素</param>
+    /// <param name="theme">要设置的主题</param>
+    /// <returns>是否设置成功</returns>
+    public static bool TrySetWindowTheme(Window window, FrameworkElement? rootElement, ElementTheme theme = ElementTheme.Default)
     {
         var hwnd = WindowNative.GetWindowHandle(window);
         int useImmersiveDarkMode = theme switch
@@ -35,18 +40,21 @@ public static class ThemeHelpers
             ElementTheme.Dark => 1,
             _ => GetAppTheme() == ApplicationTheme.Light ? 0 : 1,
         };
-        if (rootElement != null)
+        var result = DwmSetWindowAttribute(hwnd, DWMWAImmersiveDarkMode, ref useImmersiveDarkMode, sizeof(int)) == 0;
+        if (result && rootElement != null)
         {
             rootElement.RequestedTheme = theme;
         }
-        return DwmSetWindowAttribute(hwnd, DWMWAImmersiveDarkMode, ref useImmersiveDarkMode, sizeof(int)) == 0;
+        return result;
     }
 
     /// <summary>
     /// 尝试设置背景
     /// </summary>
-    /// <param name="window"></param>
-    /// <returns></returns>
+    /// <param name="window">要设置背景的窗体</param>
+    /// <param name="rootElement">窗体内的根元素</param>
+    /// <param name="backdrop">背景类型</param>
+    /// <returns>是否设置成功</returns>
     public static bool TrySetSystemBackdrop(Window window, FrameworkElement? rootElement, Backdrop backdrop = Backdrop.Auto)
     {
         if (backdrop == Backdrop.Custom)
@@ -64,69 +72,69 @@ public static class ThemeHelpers
             _ => false,
         };
 
-        MicaController? m_micaController = null;
-        DesktopAcrylicController? m_acrylicController = null;
+        MicaController? micaController = null;
+        DesktopAcrylicController? acrylicController = null;
         if (MicaController.IsSupported() || DesktopAcrylicController.IsSupported())
         {
-            var m_wsdqHelper = new WindowsSystemDispatcherQueueHelper();
-            m_wsdqHelper.EnsureWindowsSystemDispatcherQueueController();
+            var wsdqHelper = new WindowsSystemDispatcherQueueHelper();
+            wsdqHelper.EnsureWindowsSystemDispatcherQueueController();
 
             // Create the policy object.
-            var m_configurationSource = new SystemBackdropConfiguration();
+            var configurationSource = new SystemBackdropConfiguration();
             window.Activated += (sender, args) =>
             {
-                if (m_configurationSource != null)
+                if (configurationSource != null)
                 {
-                    m_configurationSource.IsInputActive = args.WindowActivationState != WindowActivationState.Deactivated;
+                    configurationSource.IsInputActive = args.WindowActivationState != WindowActivationState.Deactivated;
                 }
             };
             window.Closed += (sender, args) =>
             {
-                if (m_micaController != null)
+                if (micaController != null)
                 {
-                    m_micaController.Dispose();
-                    m_micaController = null;
+                    micaController.Dispose();
+                    micaController = null;
                 }
-                if (m_acrylicController != null)
+                if (acrylicController != null)
                 {
-                    m_acrylicController.Dispose();
-                    m_acrylicController = null;
+                    acrylicController.Dispose();
+                    acrylicController = null;
                 }
-                m_configurationSource = null;
+                configurationSource = null;
             };
             if (rootElement != null)
             {
-                rootElement.ActualThemeChanged += (sender, args) => SetConfigurationSourceTheme(m_configurationSource, sender);
+                rootElement.ActualThemeChanged += (sender, args) => SetConfigurationSourceTheme(configurationSource, sender);
             }
 
             // Initial configuration state.
-            m_configurationSource.IsInputActive = true;
-            SetConfigurationSourceTheme(m_configurationSource, rootElement);
+            configurationSource.IsInputActive = true;
+            SetConfigurationSourceTheme(configurationSource, rootElement);
 
             if (micaMode && MicaController.IsSupported())
             {
                 if (window.Content is Panel panel)
                 { panel.Background = null; }
 
-                m_micaController = new MicaController();
+                micaController = new MicaController();
 
-                m_micaController.AddSystemBackdropTarget(window.As<ICompositionSupportsSystemBackdrop>());
-                m_micaController.SetSystemBackdropConfiguration(m_configurationSource);
+                micaController.AddSystemBackdropTarget(window.As<ICompositionSupportsSystemBackdrop>());
+                micaController.SetSystemBackdropConfiguration(configurationSource);
             }
             else if (acrylicMode && DesktopAcrylicController.IsSupported())
             {
                 if (window.Content is Panel panel)
                 { panel.Background = null; }
 
-                m_acrylicController = new DesktopAcrylicController();
-                m_acrylicController.AddSystemBackdropTarget(window.As<ICompositionSupportsSystemBackdrop>());
-                m_acrylicController.SetSystemBackdropConfiguration(m_configurationSource);
+                acrylicController = new DesktopAcrylicController();
+                acrylicController.AddSystemBackdropTarget(window.As<ICompositionSupportsSystemBackdrop>());
+                acrylicController.SetSystemBackdropConfiguration(configurationSource);
             }
             return true;
         }
         return false;
 
-        void SetConfigurationSourceTheme(SystemBackdropConfiguration? m_configurationSource, FrameworkElement? rootElement)
+        static void SetConfigurationSourceTheme(SystemBackdropConfiguration? m_configurationSource, FrameworkElement? rootElement)
         {
             if (m_configurationSource != null)
             {
@@ -140,74 +148,86 @@ public static class ThemeHelpers
         }
     }
 
-    public static bool TrySetCustomTitleBar(Window window, FrameworkElement? rootElement, ICustomTitleBar? customTitleBar)
+    /// <summary>
+    /// 尝试设置自定义标题栏
+    /// </summary>
+    /// <param name="window">要设置自定义标题栏的窗体</param>
+    /// <param name="rootElement">窗体内的根元素</param>
+    /// <param name="customTitleBar">自定义标题栏<para>为 null 时设置为系统标题栏</para></param>
+    /// <returns>是否设置成功</returns>
+    public static bool TrySetCustomTitleBar(Window window, FrameworkElement? rootElement, ICustomTitleBar customTitleBar)
     {
         if (AppWindowTitleBar.IsCustomizationSupported())
         {
-            var hWnd = WindowNative.GetWindowHandle(window);
-            var wndId = Win32Interop.GetWindowIdFromWindow(hWnd);
-            var appWindow = AppWindow.GetFromWindowId(wndId);
+            var appWindow = window.GetAppWindows();
 
             appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
 
-            if (customTitleBar != null)
-            {
-                customTitleBar.GetAppTitleBar().Loaded += (sender, e) => SetDragRegionForCustomTitleBar(appWindow, customTitleBar);
-                customTitleBar.GetAppTitleBar().SizeChanged += (sender, e) => SetDragRegionForCustomTitleBar(appWindow, customTitleBar);
-            }
+            customTitleBar.GetAppTitleBar().Loaded += (sender, e) => SetDragRegionForCustomTitleBar(window, customTitleBar);
+            customTitleBar.GetAppTitleBar().SizeChanged += (sender, e) => SetDragRegionForCustomTitleBar(window, customTitleBar);
             if (rootElement != null)
             {
-                rootElement.ActualThemeChanged += (sender, args) => SetTitleBarTheme(window, sender, appWindow.TitleBar);
+                rootElement.ActualThemeChanged += (sender, args) => SetTitleBarTheme(window, sender);
+                SetTitleBarTheme(window, rootElement);
             }
-            SetTitleBarTheme(window, rootElement, appWindow.TitleBar);
             return true;
         }
-        return false;
-
-        void SetDragRegionForCustomTitleBar(AppWindow appWindow, ICustomTitleBar? customTitleBar)
+        else
         {
+            return false;
+        }
+
+        static void SetDragRegionForCustomTitleBar(Window window, ICustomTitleBar customTitleBar)
+        {
+            var appWindow = window.GetAppWindows();
+
             if (customTitleBar != null && appWindow.TitleBar.ExtendsContentIntoTitleBar && AppWindowTitleBar.IsCustomizationSupported())
             {
                 var scaleAdjustment = GetScaleAdjustment(window);
-                appWindow.TitleBar.SetDragRectangles(customTitleBar.GetDragRects(window, scaleAdjustment).ToArray());
+                var rects = customTitleBar.GetDragRects(window, scaleAdjustment);
+                if (rects.Any())
+                {
+                    appWindow.TitleBar.SetDragRectangles(rects.ToArray());
+                }
             }
         }
 
-        void SetTitleBarTheme(Window window, FrameworkElement? rootElement, AppWindowTitleBar titleBar)
+        static void SetTitleBarTheme(Window window, FrameworkElement rootElement)
         {
-            if (titleBar != null)
+            var appWindow = window.GetAppWindows();
+
+            var titleBar = appWindow.TitleBar;
+
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            ApplicationTheme currentTheme = rootElement.RequestedTheme == ElementTheme.Dark ? ApplicationTheme.Dark : ApplicationTheme.Light;
+            if (rootElement.RequestedTheme == ElementTheme.Default)
             {
-                titleBar.ButtonBackgroundColor = Colors.Transparent;
-                titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-                ApplicationTheme currentTheme = rootElement?.RequestedTheme == ElementTheme.Dark ? ApplicationTheme.Dark : ApplicationTheme.Light;
-                if (rootElement?.RequestedTheme == ElementTheme.Default)
-                {
-                    currentTheme = GetAppTheme();
-                }
-                if (currentTheme == ApplicationTheme.Dark)
-                {
-                    titleBar.ButtonForegroundColor = Colors.White;
-                    titleBar.ButtonHoverForegroundColor = Colors.White;
-                    titleBar.ButtonPressedForegroundColor = Colors.White;
-                    titleBar.ButtonInactiveForegroundColor = Colors.Gray;
+                currentTheme = GetAppTheme();
+            }
+            if (currentTheme == ApplicationTheme.Dark)
+            {
+                titleBar.ButtonForegroundColor = Colors.White;
+                titleBar.ButtonHoverForegroundColor = Colors.White;
+                titleBar.ButtonPressedForegroundColor = Colors.White;
+                titleBar.ButtonInactiveForegroundColor = Colors.Gray;
 
-                    titleBar.ButtonHoverBackgroundColor = Colors.Gray;
-                    titleBar.ButtonPressedBackgroundColor = Color.FromArgb(255, 96, 96, 96);
-                }
-                else
-                {
-                    titleBar.ButtonForegroundColor = Colors.Black;
-                    titleBar.ButtonHoverForegroundColor = Colors.Black;
-                    titleBar.ButtonPressedForegroundColor = Colors.Black;
-                    titleBar.ButtonInactiveForegroundColor = Colors.LightGray;
+                titleBar.ButtonHoverBackgroundColor = Colors.Gray;
+                titleBar.ButtonPressedBackgroundColor = Color.FromArgb(255, 96, 96, 96);
+            }
+            else
+            {
+                titleBar.ButtonForegroundColor = Colors.Black;
+                titleBar.ButtonHoverForegroundColor = Colors.Black;
+                titleBar.ButtonPressedForegroundColor = Colors.Black;
+                titleBar.ButtonInactiveForegroundColor = Colors.LightGray;
 
-                    titleBar.ButtonHoverBackgroundColor = Colors.LightGray;
-                    titleBar.ButtonPressedBackgroundColor = Color.FromArgb(255, 96, 96, 96);
-                }
+                titleBar.ButtonHoverBackgroundColor = Colors.LightGray;
+                titleBar.ButtonPressedBackgroundColor = Color.FromArgb(255, 96, 96, 96);
             }
         }
 
-        double GetScaleAdjustment(Window window)
+        static double GetScaleAdjustment(Window window)
         {
             var hWnd = WindowNative.GetWindowHandle(window);
             var wndId = Win32Interop.GetWindowIdFromWindow(hWnd);
@@ -218,7 +238,7 @@ public static class ThemeHelpers
             var result = Shcore.GetDpiForMonitor(hMonitor, MonitorDPIType.MDT_Default, out var dpiX, out var _);
             if (result != 0)
             {
-                throw new Exception("Could not get DPI for monitor.");
+                ThrowHelper.ThrowInvalidOperationException("Could not get DPI for monitor.");
             }
 
             var scaleFactorPercent = (uint)(((long)dpiX * 100 + (96 >> 1)) / 96);
@@ -227,11 +247,31 @@ public static class ThemeHelpers
     }
 }
 
-
+/// <summary>
+/// 窗体背景类型
+/// </summary>
 public enum Backdrop
 {
+    /// <summary>
+    /// 自动 <c>( Mica &gt; Acrylic &gt; Custom )</c>
+    /// </summary>
     Auto,
+    /// <summary>
+    /// 如果支持的话，使用 Mica 背景
+    /// </summary>
     Mica,
+    /// <summary>
+    /// 如果支持的话，使用 Acrylic 背景
+    /// </summary>
     Acrylic,
+    /// <summary>
+    /// 不设置背景
+    /// </summary>
+    Custom,
+}
+
+public enum TitleBar
+{
+    System,
     Custom,
 }

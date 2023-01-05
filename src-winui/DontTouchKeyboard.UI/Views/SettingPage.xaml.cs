@@ -9,6 +9,16 @@ public sealed partial class SettingPage : Page
 {
     public SettingPage()
     {
-        this.InitializeComponent();
+        InitializeComponent();
+    }
+
+    private void OpenColorsSettings_Click(object sender, RoutedEventArgs e)
+    {
+        StartProcessHelper.Start(OtherApp.Settings_Colors);
+    }
+
+    private void OpenBackgroundsSettings_Click(object sender, RoutedEventArgs e)
+    {
+        StartProcessHelper.Start(OtherApp.Settings_Backgrounds);
     }
 }

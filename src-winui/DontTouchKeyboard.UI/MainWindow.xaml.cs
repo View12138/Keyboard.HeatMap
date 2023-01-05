@@ -1,3 +1,6 @@
+using DontTouchKeyboard.UI.Views;
+using Microsoft.UI.Xaml.Media.Animation;
+
 namespace DontTouchKeyboard.UI;
 /// <summary>
 /// An empty window that can be used on its own or navigated to within a Frame.
@@ -15,11 +18,10 @@ public sealed partial class MainWindow : Window
 
         ThemeHelpers.TrySetCustomTitleBar(this, GetRootElement(), GetCustomTitleBar());
 
-        ThemeHelpers.OnThemeChange(this, GetRootElement());
+        ThemeHelpers.TrySetWindowTheme(this, GetRootElement());
     }
 
-    public bool OnThemeChange(ElementTheme theme) => ThemeHelpers.OnThemeChange(this, GetRootElement(), theme);
-
+    public bool TrySetWindowTheme(ElementTheme theme) => ThemeHelpers.TrySetWindowTheme(this, GetRootElement(), theme);
 
 
     private void Grid_PreviewKeyUp(object sender, KeyRoutedEventArgs e)

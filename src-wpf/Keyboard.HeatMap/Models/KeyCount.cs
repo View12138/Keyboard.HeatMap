@@ -1,4 +1,4 @@
-﻿namespace Keyboard.HeatMap.Models
+namespace Keyboard.HeatMap.Models
 {
     public class KeyCount
     {

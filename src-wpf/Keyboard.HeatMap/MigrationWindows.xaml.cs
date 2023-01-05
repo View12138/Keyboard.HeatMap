@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using Keyboard.HeatMap.Owner;
 
 namespace Keyboard.HeatMap

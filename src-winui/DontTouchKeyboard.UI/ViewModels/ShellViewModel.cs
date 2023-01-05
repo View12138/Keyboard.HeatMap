@@ -1,4 +1,4 @@
-﻿namespace DontTouchKeyboard.UI.ViewModels;
+namespace DontTouchKeyboard.UI.ViewModels;
 
 internal class ShellViewModel : ObservableObject
 {

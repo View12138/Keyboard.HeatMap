@@ -1,4 +1,4 @@
-﻿namespace DontTouchKeyboard.UI.Converters;
+namespace DontTouchKeyboard.UI.Converters;
 
 internal class BoolToBoolConverter : IValueConverter
 {
@@ -23,7 +23,7 @@ internal class BoolToBoolConverter : IValueConverter
 
 internal class SystemInfoToMessage : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, string language)
+    public object? Convert(object value, Type targetType, object parameter, string language)
     {
         if (value is bool isDetail)
         {

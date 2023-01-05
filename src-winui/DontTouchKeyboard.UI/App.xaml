@@ -23,8 +23,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <!-- Other merged dictionaries here -->
-                <ResourceDictionary Source="/Themes/Colors.xaml"/>
-                <ResourceDictionary Source="/Themes/Generic.xaml"/>
+                <ResourceDictionary Source="/Styles/Button.xaml" />
+                <ResourceDictionary Source="/Themes/Colors.xaml" />
+                <ResourceDictionary Source="/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
 
@@ -33,6 +34,8 @@
             <converter:KeyToVisualConverter x:Key="KeyToVisualConverter"/>
             <converter:BoolToBoolConverter x:Key="BoolToBoolConverter"/>
             <converter:SystemInfoToMessage x:Key="SystemInfoToMessage"/>
+            
+            <x:Double x:Key="SettingActionControlMinWidth">240</x:Double>
 
         </ResourceDictionary>
     </Application.Resources>

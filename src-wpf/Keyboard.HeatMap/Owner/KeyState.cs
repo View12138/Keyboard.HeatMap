@@ -1,4 +1,4 @@
-﻿namespace Keyboard.HeatMap.Owner
+namespace Keyboard.HeatMap.Owner
 {
     /// <summary>
     /// 记录器状态枚举

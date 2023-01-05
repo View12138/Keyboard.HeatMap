@@ -1,4 +1,4 @@
-﻿using UnhandledExceptionEventArgs = Microsoft.UI.Xaml.UnhandledExceptionEventArgs;
+using UnhandledExceptionEventArgs = Microsoft.UI.Xaml.UnhandledExceptionEventArgs;
 
 namespace DontTouchKeyboard.UI.ViewModels;
 
@@ -7,10 +7,7 @@ internal class SystemInfoViewModel : ObservableObject
 
     private ObservableCollection<SystemInfoModel> systemInfos = new();
 
-    public ObservableCollection<SystemInfoModel> SystemInfos
-    {
-        get => systemInfos; set => SetProperty(ref systemInfos, value);
-    }
+    public ObservableCollection<SystemInfoModel> SystemInfos { get => systemInfos; set => SetProperty(ref systemInfos, value); }
 
     public SystemInfoViewModel()
     {
@@ -29,6 +26,8 @@ internal class SystemInfoViewModel : ObservableObject
             }
         };
     }
+
+    public void Add(SystemInfoModel info) => SystemInfos.Add(info);
 }
 
 internal class SystemInfoModel : ObservableObject
@@ -43,10 +42,10 @@ internal class SystemInfoModel : ObservableObject
 
     public SystemInfoModel(string title, string message, InfoBarSeverity level)
     {
-        Title = title;
-        Message = message;
-        Level = level;
-        IsHandle = false;
+        this.title = title;
+        this.message = message;
+        this.level = level;
+        isHandle = false;
         IsDetail = false;
     }
 
@@ -62,7 +61,7 @@ internal class SystemInfoModel : ObservableObject
         args.Handled = true;
     }
 
-    public Exception Exception { get; }
+    public Exception? Exception { get; }
 
     public string Title { get => title; set => SetProperty(ref title, value); }
     public string Message { get => message; set => SetProperty(ref message, value); }
@@ -70,10 +69,7 @@ internal class SystemInfoModel : ObservableObject
 
     public DateTimeOffset Create { get; }
 
-    public bool IsHandle
-    {
-        get => isHandle; set => SetProperty(ref isHandle, value);
-    }
+    public bool IsHandle { get => isHandle; set => SetProperty(ref isHandle, value); }
 
     public bool IsDetail { get; set; }
     public string DetailContent { get => detailContent; set => SetProperty(ref detailContent, value); }
@@ -82,11 +78,6 @@ internal class SystemInfoModel : ObservableObject
     public ICommand HandleCommand => new RelayCommand(() =>
     {
         IsHandle = true;
-        Ioc.Default.GetService<SystemInfoViewModel>()?.SystemInfos.Remove(this);
+        Ioc.Default.GetRequiredService<SystemInfoViewModel>().SystemInfos.Remove(this);
     });
-
-    private void SetInfo()
-    {
-
-    }
 }
