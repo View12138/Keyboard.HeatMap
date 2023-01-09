@@ -12,13 +12,11 @@ public sealed partial class SettingPage : Page
         InitializeComponent();
     }
 
-    private void OpenColorsSettings_Click(object sender, RoutedEventArgs e)
+    private void Setting_Appearance_Backdrop_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        StartProcessHelper.Start(OtherApp.Settings_Colors);
-    }
-
-    private void OpenBackgroundsSettings_Click(object sender, RoutedEventArgs e)
-    {
-        StartProcessHelper.Start(OtherApp.Settings_Backgrounds);
+        if (sender is ComboBox comboBox)
+        {
+            Setting_Appearance_Backdrop.IsExpanded = comboBox.SelectedIndex == 2;
+        }
     }
 }

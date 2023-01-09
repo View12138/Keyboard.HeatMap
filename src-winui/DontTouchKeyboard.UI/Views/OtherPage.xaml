@@ -1,0 +1,34 @@
+<!-- Copyright (c) Microsoft Corporation and Contributors. -->
+<!-- Licensed under the MIT License. -->
+
+<Page
+    x:Class="DontTouchKeyboard.UI.Views.OtherPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DontTouchKeyboard.UI.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helper="using:DontTouchKeyboard.UI.Core"
+    xmlns:views="using:DontTouchKeyboard.UI.Views"
+    mc:Ignorable="d"
+    NavigationCacheMode="Enabled">
+    <NavigationView PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" IsSettingsVisible="False" SelectionFollowsFocus="Enabled" 
+                    SelectionChanged="NavigationView_SelectionChanged">
+        <NavigationView.MenuItems>
+            <NavigationViewItem Icon="Setting" Content="设置" helper:NavHelper.NavigateTo="views:SettingPage" IsSelected="True"/>
+            <NavigationViewItem Icon="ViewAll" Content="插件" helper:NavHelper.NavigateTo="views:PluginPage" />
+            <NavigationViewItem Content="自定义键盘" helper:NavHelper.NavigateTo="views:CustomKeyboardPage">
+                <NavigationViewItem.Icon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE08F;" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+        <Frame x:Name="OtherFrame">
+            <!--<Frame.ContentTransitions>
+                <TransitionCollection>
+                    <NavigationThemeTransition  />
+                </TransitionCollection>
+            </Frame.ContentTransitions>-->
+        </Frame>
+    </NavigationView>
+</Page>

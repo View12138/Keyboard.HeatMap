@@ -6,9 +6,18 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:dtkc="using:DontTouchKeyboard.UI.Controls.Keyboards"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:helpers="using:DontTouchKeyboard.UI.Core"
+    xmlns:views="using:DontTouchKeyboard.UI.Views"
+    xmlns:converters="using:CommunityToolkit.WinUI.UI.Converters"
     RequestedTheme="Default"
-    DataContext="{Binding Source={StaticResource Locator}, Path=Shell}"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converters:BoolToObjectConverter x:Key="BoolToIconConverter" TrueValue="&#xE72B;" FalseValue="&#xE115;"/>
+        <converters:BoolToObjectConverter x:Key="BoolToIconSizeConverter" TrueValue="11" FalseValue="13"/>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -18,21 +27,29 @@
         </Grid.RowDefinitions>
         <Grid x:Name="AppTitleBar"  Height="48">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="LeftPaddingColumn" Width="0"/>
-                <ColumnDefinition x:Name="IconColumn" Width="Auto"/>
+                <ColumnDefinition x:Name="LeftInsetColumn" Width="0"/>
+                <ColumnDefinition x:Name="ActionColumn" Width="Auto"/>
                 <ColumnDefinition x:Name="TitleColumn" Width="Auto"/>
                 <ColumnDefinition x:Name="LeftDragColumn" Width="*"/>
                 <ColumnDefinition x:Name="SearchColumn" Width="Auto"/>
                 <ColumnDefinition x:Name="RightDragColumn" Width="*"/>
-                <ColumnDefinition x:Name="RightPaddingColumn" Width="0"/>
+                <ColumnDefinition x:Name="RightInsetColumn" Width="0"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="TitleBarIcon" Source="/Assets/Square44x44Logo.scale-200.png" 
-                   Grid.Column="1" Width="16" Height="16" Margin="8,0,0,0"/>
-            <TextBlock x:Name="TitleTextBlock" Text="别敲键盘" 
-                       Style="{StaticResource CaptionTextBlockStyle}"
-                       Grid.Column="2" VerticalAlignment="Center" Margin="4,0,0,0"/>
-            <AutoSuggestBox Grid.Column="4" QueryIcon="Keyboard" PlaceholderText="在此处测试输入"
-                    VerticalAlignment="Center" Width="360" Margin="4,0"/>
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="4,0,0,0">
+                <Button BorderThickness="0" Background="{ThemeResource WindowCaptionBackground}" IsTabStop="False" Width="40" Height="36"
+                        Click="ActionButton_Clicked">
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}"
+                              Glyph="{Binding CanGoBack, ElementName=ContentFrame, Converter={StaticResource BoolToIconConverter}}" 
+                              FontSize="{Binding CanGoBack, ElementName=ContentFrame, Converter={StaticResource BoolToIconSizeConverter}}" />
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" >
+                <Image Source="/Assets/SSmallTile.png" Width="16" Height="16" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                <TextBlock Text="别敲键盘" Margin="4,0,0,0" Style="{StaticResource CaptionTextBlockStyle}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="4" VerticalAlignment="Center">
+                <AutoSuggestBox QueryIcon="Keyboard" PlaceholderText="在此处测试输入" VerticalAlignment="Center" Width="360" />
+            </StackPanel>
         </Grid>
 
         <Grid x:Name="AppContent" Grid.Row="1" >
@@ -42,32 +59,7 @@
                         <NavigationThemeTransition  />
                     </TransitionCollection>
                 </Frame.ContentTransitions>
-                <Page>
-                    <Grid>
-                        <Button Click="Button_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="6">
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE115;" />
-                        </Button>
-
-                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Spacing="12">
-                            <StackPanel Spacing="12" HorizontalAlignment="Center">
-                                <dtkc:FunctionKeys/>
-                                <dtkc:Keyboard/>
-                            </StackPanel>
-                            <Grid>
-                                <StackPanel Spacing="12" HorizontalAlignment="Center">
-                                    <dtkc:FunctionKeyEx/>
-                                    <dtkc:ControlKeys/>
-                                </StackPanel>
-                                <StackPanel VerticalAlignment="Bottom">
-                                    <dtkc:ArrowKeys/>
-                                </StackPanel>
-                            </Grid>
-                            <StackPanel Spacing="12" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                                <dtkc:Keypad x:Name="Keypad" />
-                            </StackPanel>
-                        </StackPanel>
-                    </Grid>
-                </Page>
+                <!--<views:StandardKeyboardPage/>-->
             </Frame>
         </Grid>
     </Grid>

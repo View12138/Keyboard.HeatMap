@@ -11,70 +11,122 @@
     xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     xmlns:ui="using:CommunityToolkit.WinUI.UI"
     xmlns:controls="using:DontTouchKeyboard.UI.Controls.Settings"
+    xmlns:converters="using:DontTouchKeyboard.UI.Converters"
     mc:Ignorable="d"
-    DataContext="{Binding Source={StaticResource Locator}, Path=Setting}">
+    DataContext="{Binding Source={StaticResource Locator}, Path=Setting}"
+    NavigationCacheMode="Enabled">
 
+    <Page.Resources>
+        <converters:IndexToVisibility x:Key="CustomBackdrop_IndexToVisibility" VisibleValue="2"/>
+        <converters:IndexToBool x:Key="CustomBackdrop_IndexToBool" TrueValue="2"/>
+    </Page.Resources>
 
-    <controls:SettingsPageControl
-        ModuleImageSource="ms-appx:///Assets/StoreLogo.png"
-        ModuleTitle="别敲键盘"
-        ModuleDescription="也许你不知道，你都敲了多少次键盘，也许你也根本不关心。但是现在你可以，为了键盘的健康，让我们一起别敲键盘吧！"
-        SecondaryLinksHeader="相关信息">
-
+    <controls:SettingsPageControl x:Uid="Setting_About" ModuleImageSource="ms-appx:///Assets/LargeTile.png">
         <controls:SettingsPageControl.ModuleContent>
             <StackPanel Orientation="Vertical">
-                <controls:SettingsGroup Header="基础" >
-                    <labs:SettingsCard
-                        Header="{Binding CurrentVersion}"
-                        Description="{Binding VersionDate}">
-                        <labs:SettingsCard.HeaderIcon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE895;" />
-                        </labs:SettingsCard.HeaderIcon>
-
+                <!--基础-->
+                <controls:SettingsGroup x:Uid="Setting_Basic">
+                    <labs:SettingsCard x:Uid="Setting_Basic_Version"
+                                       HeaderIcon="{ui:FontIcon FontFamily={StaticResource SymbolThemeFontFamily}, Glyph=&#xE895;}">
                         <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Right">
-                            <Button Content="评价" Command="{Binding EvaluateCommand}"/>
-                            <Button Content="检查更新" Command="{Binding CheckUpdateCommand}"/>
+                            <Button x:Uid="Setting_Basic_Version_Evaluate" Command="{Binding EvaluateCommand}"/>
+                            <Button x:Uid="Setting_Basic_Version_Update" Command="{Binding CheckUpdateCommand}"/>
                         </StackPanel>
                     </labs:SettingsCard>
                 </controls:SettingsGroup>
 
-                <controls:SettingsGroup Header="外观" >
-                    <labs:SettingsCard Header="应用主题">
-                        <labs:SettingsCard.HeaderIcon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE790;" />
-                        </labs:SettingsCard.HeaderIcon>
+                <!--外观-->
+                <controls:SettingsGroup x:Uid="Setting_Appearance" >
+                    <labs:SettingsCard x:Uid="Setting_Appearance_Theme" 
+                                       HeaderIcon="{ui:FontIcon FontFamily={StaticResource SymbolThemeFontFamily}, Glyph=&#xE790;}">
                         <labs:SettingsCard.Description>
-                            <HyperlinkButton Content="Windows 颜色设置" Click="OpenColorsSettings_Click" />
+                            <HyperlinkButton x:Uid="Setting_Appearance_Theme_WindowsColor" Command="{Binding OpenColorsSettingsCommand}"/>
                         </labs:SettingsCard.Description>
 
-                        <ComboBox
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            SelectedIndex="{Binding ThemeIndex, Mode=TwoWay}" >
-                            <ComboBoxItem Content="深色"/>
-                            <ComboBoxItem Content="浅色"/>
-                            <ComboBoxItem Content="Windows 默认"/>
+                        <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}" SelectedIndex="{Binding ThemeIndex, Mode=TwoWay}" >
+                            <ComboBoxItem x:Uid="Setting_Appearance_Theme_Dark" />
+                            <ComboBoxItem x:Uid="Setting_Appearance_Theme_Light" />
+                            <ComboBoxItem x:Uid="Setting_Appearance_Theme_Default" />
                         </ComboBox>
                     </labs:SettingsCard>
 
-                    <labs:SettingsCard Header="应用背景">
-                        <labs:SettingsCard.HeaderIcon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE91B;" />
-                        </labs:SettingsCard.HeaderIcon>
-                        <labs:SettingsCard.Description>
-                            <HyperlinkButton Content="Windows 背景设置" Click="OpenBackgroundsSettings_Click" />
-                        </labs:SettingsCard.Description>
-                        <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}" SelectedIndex="{Binding BackdropIndex, Mode=TwoWay}" >
-                            <ComboBoxItem Content="云母"/>
-                            <ComboBoxItem Content="亚克力"/>
-                            <ComboBoxItem Content="自定义"/>
-                            <ComboBoxItem Content="Windows 默认"/>
+                    <labs:SettingsExpander x:Uid="Setting_Appearance_Backdrop" x:Name="Setting_Appearance_Backdrop"
+                                           HeaderIcon="{ui:FontIcon FontFamily={StaticResource SymbolThemeFontFamily}, Glyph=&#xE91B;}">
+                        <labs:SettingsExpander.Description>
+                            <HyperlinkButton x:Uid="Setting_Appearance_Backdrop_WindowsBackdrop" 
+                                             Command="{Binding OpenBackgroundsSettingsCommand}" />
+                        </labs:SettingsExpander.Description>
+                        <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}" 
+                                  SelectedIndex="{Binding BackdropIndex, Mode=TwoWay}" 
+                                  SelectionChanged="Setting_Appearance_Backdrop_SelectionChanged">
+                            <ComboBoxItem x:Uid="Setting_Appearance_Backdrop_Mica"/>
+                            <ComboBoxItem x:Uid="Setting_Appearance_Backdrop_Acrylic"/>
+                            <ComboBoxItem x:Uid="Setting_Appearance_Backdrop_Custom"/>
                         </ComboBox>
-                    </labs:SettingsCard>
-
+                        <labs:SettingsExpander.Items>
+                            <labs:SettingsCard x:Uid="Setting_Appearance_Backdrop_Custom_BackgroundImage"
+                                               IsEnabled="{Binding BackdropIndex, Converter={StaticResource CustomBackdrop_IndexToBool}}">
+                                <StackPanel
+                                    HorizontalAlignment="Right"
+                                    Orientation="Horizontal"
+                                    Spacing="8">
+                                    <TextBlock
+                                        x:Name="pathTextBlock"
+                                        Width="350"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        IsTextSelectionEnabled="True"
+                                        Text="{Binding BackgroundPath, Mode=TwoWay}"
+                                        TextAlignment="Right"
+                                        TextTrimming="CharacterEllipsis">
+                                        <ToolTipService.ToolTip>
+                                            <ToolTip IsEnabled="{Binding ElementName=pathTextBlock, Path=IsTextTrimmed}">
+                                                <TextBlock Text="{Binding BackgroundPath, Mode=OneWay}" />
+                                            </ToolTip>
+                                        </ToolTipService.ToolTip>
+                                    </TextBlock>
+                                    <Button Command="{Binding SelectBackgroundImageCommand}"
+                                        Content="{ui:FontIcon FontFamily={StaticResource SymbolThemeFontFamily}, Glyph=&#xe8da;}">
+                                        <ToolTipService.ToolTip>
+                                            <ToolTip>
+                                                <TextBlock x:Uid="Setting_Appearance_Backdrop_Custom_SelectBackground" />
+                                            </ToolTip>
+                                        </ToolTipService.ToolTip>
+                                    </Button>
+                                </StackPanel>
+                            </labs:SettingsCard>
+                            <labs:SettingsCard x:Uid="Setting_Appearance_Backdrop_Custom_BackgroundBlur" 
+                                               IsEnabled="{Binding BackdropIndex, Converter={StaticResource CustomBackdrop_IndexToBool}}">
+                                <Slider
+                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    Maximum="100"
+                                    Minimum="1"
+                                    Value="100" />
+                            </labs:SettingsCard>
+                        </labs:SettingsExpander.Items>
+                    </labs:SettingsExpander>
                 </controls:SettingsGroup>
 
-                <controls:SettingsGroup Header="行为">
-                    <labs:SettingsExpander Header="以管理员身份运行" Description="以便'别敲键盘'在具有管理员权限的窗口也能工作">
+                <!--行为-->
+                <controls:SettingsGroup x:Uid="Setting_Behavior" >
+                    <labs:SettingsExpander x:Uid="Setting_Behavior_RunAdAdmin">
+                        <labs:SettingsExpander.HeaderIcon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE7EF;" />
+                        </labs:SettingsExpander.HeaderIcon>
+                        <Button Content="以管理员身份重启" Command="{Binding RestartElevatedCommand}" IsEnabled="{Binding Mode=OneWay, Path=IsAdminEnabled}" />
+                        <labs:SettingsExpander.Items>
+                            <labs:SettingsCard Header="始终以管理员身份运行" Description="需要以管理员身份运行来使用此设置" IsEnabled="{Binding Mode=OneWay, Path=IsElevated}">
+                                <ToggleSwitch IsOn="{Binding Mode=TwoWay, Path=RunElevated}" />
+                            </labs:SettingsCard>
+                            <labs:SettingsCard Header="随 Windows 启动" Description="'别敲键盘'将在 Windows 启动时自动运行">
+                                <ToggleSwitch IsOn="False" />
+                            </labs:SettingsCard>
+                        </labs:SettingsExpander.Items>
+                    </labs:SettingsExpander>
+
+                    <labs:SettingsExpander x:Uid="StorageMode">
                         <labs:SettingsExpander.HeaderIcon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE7EF;" />
                         </labs:SettingsExpander.HeaderIcon>

@@ -22,6 +22,7 @@ global using Microsoft.UI.Xaml.Markup;
 global using Microsoft.Win32;
 global using PIncoke;
 global using Windows.System;
+global using Windows.Graphics;
 global using Windows.UI;
 global using Windows.UI.Core;
 global using WinRT;

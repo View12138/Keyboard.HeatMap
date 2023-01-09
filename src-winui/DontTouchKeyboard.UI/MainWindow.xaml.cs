@@ -14,15 +14,18 @@ public sealed partial class MainWindow : Window
     {
         InitializeComponent();
 
-        ThemeHelpers.TrySetSystemBackdrop(this, GetRootElement(), Backdrop.Auto);
+        var settings = Ioc.Default.GetRequiredService<SettingViewModel>();
 
-        ThemeHelpers.TrySetCustomTitleBar(this, GetRootElement(), GetCustomTitleBar());
+        this.TrySetSystemBackdrop(GetRootElement(), settings.GetBackdrop());
 
-        ThemeHelpers.TrySetWindowTheme(this, GetRootElement());
+        this.TrySetCustomTitleBar(GetRootElement(), GetCustomTitleBar());
+
+        this.TrySetWindowTheme(GetRootElement(), settings.GetTheme());
     }
 
-    public bool TrySetWindowTheme(ElementTheme theme) => ThemeHelpers.TrySetWindowTheme(this, GetRootElement(), theme);
+    public bool TrySetWindowTheme(ElementTheme theme) => this.TrySetWindowTheme(GetRootElement(), theme);
 
+    public bool TrySetSystemBackdrop(Backdrop backdrop) => this.TrySetSystemBackdrop(GetRootElement(), backdrop);
 
     private void Grid_PreviewKeyUp(object sender, KeyRoutedEventArgs e)
     {

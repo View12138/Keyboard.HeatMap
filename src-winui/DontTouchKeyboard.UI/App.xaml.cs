@@ -36,7 +36,8 @@ public partial class App : Application
     }
 
     public static bool TrySetWindowTheme(ElementTheme theme) => mainWindow?.TrySetWindowTheme(theme) ?? false;
-
+    public static bool TrySetSystemBackdrop(Backdrop backdrop) => mainWindow?.TrySetSystemBackdrop(backdrop) ?? false;
+    
     public static T? GetResource<T>(string name) where T : class
     {
         if (Current.Resources.TryGetValue(name, out object resource))
@@ -63,7 +64,6 @@ public partial class App : Application
     {
         IServiceCollection services = new ServiceCollection();
 
-        services.AddSingleton(typeof(ShellViewModel));
         services.AddSingleton(typeof(SystemInfoViewModel));
         services.AddSingleton(typeof(SettingViewModel));
 

@@ -1,4 +1,6 @@
 using System.Linq;
+using Microsoft.Extensions.Configuration;
+using Microsoft.UI.Composition.SystemBackdrops;
 
 namespace DontTouchKeyboard.UI.Core;
 
@@ -31,7 +33,7 @@ public static class ThemeHelpers
     /// <param name="rootElement">窗体内的根元素</param>
     /// <param name="theme">要设置的主题</param>
     /// <returns>是否设置成功</returns>
-    public static bool TrySetWindowTheme(Window window, FrameworkElement? rootElement, ElementTheme theme = ElementTheme.Default)
+    public static bool TrySetWindowTheme(this Window window, FrameworkElement? rootElement, ElementTheme theme = ElementTheme.Default)
     {
         var hwnd = WindowNative.GetWindowHandle(window);
         int useImmersiveDarkMode = theme switch
@@ -48,6 +50,10 @@ public static class ThemeHelpers
         return result;
     }
 
+
+    private static SystemBackdropConfiguration? configurationSource = null;
+    private static MicaController? micaController = null;
+    private static DesktopAcrylicController? acrylicController = null;
     /// <summary>
     /// 尝试设置背景
     /// </summary>
@@ -55,63 +61,46 @@ public static class ThemeHelpers
     /// <param name="rootElement">窗体内的根元素</param>
     /// <param name="backdrop">背景类型</param>
     /// <returns>是否设置成功</returns>
-    public static bool TrySetSystemBackdrop(Window window, FrameworkElement? rootElement, Backdrop backdrop = Backdrop.Auto)
+    public static bool TrySetSystemBackdrop(this Window window, FrameworkElement? rootElement, Backdrop backdrop = Backdrop.Mica)
     {
+        micaController?.Dispose();
+        micaController = null;
+        acrylicController?.Dispose();
+        acrylicController = null;
+        window.Activated -= Window_Activated;
+        window.Closed -= Window_Closed;
+        if (rootElement != null)
+        {
+            rootElement.ActualThemeChanged -= RootElement_ActualThemeChanged;
+        }
+        configurationSource = null;
+
         if (backdrop == Backdrop.Custom)
         {
             return true;
         }
-        bool micaMode = backdrop switch
-        {
-            Backdrop.Auto or Backdrop.Mica => true,
-            _ => false,
-        };
-        bool acrylicMode = backdrop switch
-        {
-            Backdrop.Auto or Backdrop.Acrylic => true,
-            _ => false,
-        };
-
-        MicaController? micaController = null;
-        DesktopAcrylicController? acrylicController = null;
         if (MicaController.IsSupported() || DesktopAcrylicController.IsSupported())
         {
+            configurationSource = new SystemBackdropConfiguration();
             var wsdqHelper = new WindowsSystemDispatcherQueueHelper();
             wsdqHelper.EnsureWindowsSystemDispatcherQueueController();
 
             // Create the policy object.
-            var configurationSource = new SystemBackdropConfiguration();
-            window.Activated += (sender, args) =>
-            {
-                if (configurationSource != null)
-                {
-                    configurationSource.IsInputActive = args.WindowActivationState != WindowActivationState.Deactivated;
-                }
-            };
-            window.Closed += (sender, args) =>
-            {
-                if (micaController != null)
-                {
-                    micaController.Dispose();
-                    micaController = null;
-                }
-                if (acrylicController != null)
-                {
-                    acrylicController.Dispose();
-                    acrylicController = null;
-                }
-                configurationSource = null;
-            };
+            window.Activated += Window_Activated;
+            window.Closed += Window_Closed;
             if (rootElement != null)
             {
-                rootElement.ActualThemeChanged += (sender, args) => SetConfigurationSourceTheme(configurationSource, sender);
+                rootElement.ActualThemeChanged += RootElement_ActualThemeChanged;
             }
 
             // Initial configuration state.
             configurationSource.IsInputActive = true;
-            SetConfigurationSourceTheme(configurationSource, rootElement);
+            if (rootElement != null)
+            {
+                RootElement_ActualThemeChanged(rootElement, new object());
+            }
 
-            if (micaMode && MicaController.IsSupported())
+            if (backdrop == Backdrop.Mica && MicaController.IsSupported())
             {
                 if (window.Content is Panel panel)
                 { panel.Background = null; }
@@ -121,7 +110,7 @@ public static class ThemeHelpers
                 micaController.AddSystemBackdropTarget(window.As<ICompositionSupportsSystemBackdrop>());
                 micaController.SetSystemBackdropConfiguration(configurationSource);
             }
-            else if (acrylicMode && DesktopAcrylicController.IsSupported())
+            else if (backdrop == Backdrop.Acrylic && DesktopAcrylicController.IsSupported())
             {
                 if (window.Content is Panel panel)
                 { panel.Background = null; }
@@ -134,15 +123,38 @@ public static class ThemeHelpers
         }
         return false;
 
-        static void SetConfigurationSourceTheme(SystemBackdropConfiguration? m_configurationSource, FrameworkElement? rootElement)
+        static void Window_Activated(object sender, Microsoft.UI.Xaml.WindowActivatedEventArgs args)
         {
-            if (m_configurationSource != null)
+            if (configurationSource != null)
             {
-                switch (rootElement?.ActualTheme)
+                configurationSource.IsInputActive = args.WindowActivationState != WindowActivationState.Deactivated;
+            }
+        }
+
+        static void Window_Closed(object sender, WindowEventArgs args)
+        {
+            if (micaController != null)
+            {
+                micaController.Dispose();
+                micaController = null;
+            }
+            if (acrylicController != null)
+            {
+                acrylicController.Dispose();
+                acrylicController = null;
+            }
+            configurationSource = null;
+        }
+
+        static void RootElement_ActualThemeChanged(FrameworkElement sender, object args)
+        {
+            if (configurationSource != null)
+            {
+                switch (sender.ActualTheme)
                 {
-                    case ElementTheme.Dark: m_configurationSource.Theme = SystemBackdropTheme.Dark; break;
-                    case ElementTheme.Light: m_configurationSource.Theme = SystemBackdropTheme.Light; break;
-                    case ElementTheme.Default: m_configurationSource.Theme = SystemBackdropTheme.Default; break;
+                    case ElementTheme.Dark: configurationSource.Theme = SystemBackdropTheme.Dark; break;
+                    case ElementTheme.Light: configurationSource.Theme = SystemBackdropTheme.Light; break;
+                    case ElementTheme.Default: configurationSource.Theme = SystemBackdropTheme.Default; break;
                 }
             }
         }
@@ -155,7 +167,7 @@ public static class ThemeHelpers
     /// <param name="rootElement">窗体内的根元素</param>
     /// <param name="customTitleBar">自定义标题栏<para>为 null 时设置为系统标题栏</para></param>
     /// <returns>是否设置成功</returns>
-    public static bool TrySetCustomTitleBar(Window window, FrameworkElement? rootElement, ICustomTitleBar customTitleBar)
+    public static bool TrySetCustomTitleBar(this Window window, FrameworkElement? rootElement, ICustomTitleBar customTitleBar)
     {
         if (AppWindowTitleBar.IsCustomizationSupported())
         {
@@ -245,6 +257,47 @@ public static class ThemeHelpers
             return scaleFactorPercent / 100.0;
         }
     }
+
+    public static IEnumerable<RectInt32> Clip(this RectInt32 parentRect, IEnumerable<RectInt32> childRects)
+    {
+        var _childRects = childRects.OrderBy(x => x.X).ToArray();
+        List<RectInt32> results = new List<RectInt32>();
+        if (!childRects.Any()) { return results; }
+        for (int index = 0; index <= childRects.Count(); index++)
+        {
+            if (index != childRects.Count())
+            {
+                results.Add(new(_childRects[index].X, parentRect.Y,
+                    _childRects[index].Width, parentRect.Height - _childRects[index].Y));
+                results.Add(new(_childRects[index].X, _childRects[index].Y + _childRects[index].Height,
+                    _childRects[index].Width, parentRect.Height - _childRects[index].Y - _childRects[index].Height));
+            }
+
+            if (index == 0)
+            {
+                results.Add(new(parentRect.X, parentRect.Y, _childRects[index].X, parentRect.Height));
+            }
+            else if (index == childRects.Count())
+            {
+                results.Add(new(_childRects[index - 1].X + _childRects[index - 1].Width, parentRect.Y,
+                    parentRect.Width - _childRects[index - 1].X - _childRects[index - 1].Width, parentRect.Height));
+            }
+            else
+            {
+                results.Add(new(_childRects[index - 1].X + _childRects[index - 1].Width, parentRect.Y,
+                    _childRects[index].X - _childRects[index - 1].X - _childRects[index - 1].Width, parentRect.Height));
+            }
+        }
+        return results;
+    }
+
+    private static bool Contains(this RectInt32 parentRect, RectInt32 childRect)
+    {
+        return childRect.X >= parentRect.X &&
+            childRect.Y >= parentRect.Y &&
+            childRect.Width <= parentRect.Width &&
+            childRect.Height <= parentRect.Height;
+    }
 }
 
 /// <summary>
@@ -252,10 +305,6 @@ public static class ThemeHelpers
 /// </summary>
 public enum Backdrop
 {
-    /// <summary>
-    /// 自动 <c>( Mica &gt; Acrylic &gt; Custom )</c>
-    /// </summary>
-    Auto,
     /// <summary>
     /// 如果支持的话，使用 Mica 背景
     /// </summary>
