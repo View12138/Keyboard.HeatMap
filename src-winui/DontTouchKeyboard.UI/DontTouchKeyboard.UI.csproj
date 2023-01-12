@@ -1,72 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<TargetFramework>net7.0-windows10.0.22621.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>DontTouchKeyboard.UI</RootNamespace>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<Platforms>x86;x64;ARM64</Platforms>
 		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
 		<PublishProfile>win10-$(Platform).pubxml</PublishProfile>
 		<UseWinUI>true</UseWinUI>
 		<EnableMsixTooling>true</EnableMsixTooling>
 		<DefaultLanguage>zh-cn</DefaultLanguage>
+		<PackageOutputPath>bin\package\$(Configuration)\$(Platform)</PackageOutputPath>
+		<ApplicationIcon>Assets\Logo\Logo.ico</ApplicationIcon>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
 	</PropertyGroup>
-	<ItemGroup>
-	  <Content Remove="Assets\BadgeLogo.scale-100.png" />
-	</ItemGroup>
-	<ItemGroup>
-	  <None Remove="Assets\LargeTile.scale-100.png" />
-	  <None Remove="Assets\LargeTile.scale-200.png" />
-	  <None Remove="Assets\LargeTile.scale-400.png" />
-	  <None Remove="Assets\SmallTile.scale-100.png" />
-	  <None Remove="Assets\SmallTile.scale-200.png" />
-	  <None Remove="Assets\SmallTile.scale-400.png" />
-	  <None Remove="Assets\SplashScreen.scale-100.png" />
-	  <None Remove="Assets\SplashScreen.scale-200.png" />
-	  <None Remove="Assets\SplashScreen.scale-400.png" />
-	  <None Remove="Assets\Square150x150Logo.scale-100.png" />
-	  <None Remove="Assets\Square150x150Logo.scale-200.png" />
-	  <None Remove="Assets\Square150x150Logo.scale-400.png" />
-	  <None Remove="Assets\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
-	  <None Remove="Assets\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
-	  <None Remove="Assets\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
-	  <None Remove="Assets\Square44x44Logo.altform-unplated_targetsize-16.png" />
-	  <None Remove="Assets\Square44x44Logo.altform-unplated_targetsize-256.png" />
-	  <None Remove="Assets\Square44x44Logo.altform-unplated_targetsize-48.png" />
-	  <None Remove="Assets\Square44x44Logo.scale-100.png" />
-	  <None Remove="Assets\Square44x44Logo.scale-200.png" />
-	  <None Remove="Assets\Square44x44Logo.scale-400.png" />
-	  <None Remove="Assets\Square44x44Logo.targetsize-16.png" />
-	  <None Remove="Assets\Square44x44Logo.targetsize-256.png" />
-	  <None Remove="Assets\Square44x44Logo.targetsize-48.png" />
-	  <None Remove="Assets\StoreLogo.scale-100.png" />
-	  <None Remove="Assets\StoreLogo.scale-200.png" />
-	  <None Remove="Assets\StoreLogo.scale-400.png" />
-	  <None Remove="Assets\Wide310x150Logo.scale-100.png" />
-	  <None Remove="Assets\Wide310x150Logo.scale-200.png" />
-	  <None Remove="Assets\Wide310x150Logo.scale-400.png" />
-	  <None Remove="Controls\Base\KeyButton.xaml" />
-	  <None Remove="Controls\Keyboards\ArrowKeys.xaml" />
-	  <None Remove="Controls\Keyboards\ControlKeys.xaml" />
-	  <None Remove="Controls\Keyboards\FunctionKeyEx.xaml" />
-	  <None Remove="Controls\Keyboards\FunctionKeys.xaml" />
-	  <None Remove="Controls\Keyboards\Keyboard.xaml" />
-	  <None Remove="Controls\Keyboards\Keypad.xaml" />
-	  <None Remove="Controls\Settings\SettingsGroup.xaml" />
-	  <None Remove="Controls\Settings\SettingsPageControl.xaml" />
-	  <None Remove="Styles\Button.xaml" />
-	  <None Remove="Themes\Colors.xaml" />
-	  <None Remove="Themes\Generic.xaml" />
-	  <None Remove="Views\CustomKeyboardPage.xaml" />
-	  <None Remove="Views\OtherPage.xaml" />
-	  <None Remove="Views\PluginPage.xaml" />
-	  <None Remove="Views\SettingPage.xaml" />
-	  <None Remove="Views\ShellPage.xaml" />
-	  <None Remove="Views\StandardKeyboardPage.xaml" />
-	  <None Remove="Views\SystemInfoPage.xaml" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Labs.WinUI.SettingsControls" Version="0.0.7" />
@@ -77,112 +25,11 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Management.Infrastructure" Version="2.0.0" />
+		<PackageReference Include="PInvoke.SHCore" Version="0.7.124" />
 		<PackageReference Include="PInvoke.User32" Version="0.7.124" />
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221209.1" />
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
-		<Manifest Include="$(ApplicationManifest)" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
 	</ItemGroup>
-
-	<!-- 
-    Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
-    Tools extension to be activated for this project even if the Windows App SDK Nuget
-    package has not yet been restored.
-  -->
-	<ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-		<ProjectCapability Include="Msix" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Page Update="Views\CustomKeyboardPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
-	</ItemGroup>
-	<ItemGroup>
-	  <Page Update="Views\PluginPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
-	</ItemGroup>
-	<ItemGroup>
-	  <Page Update="Views\OtherPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
-	</ItemGroup>
-	<ItemGroup>
-	  <Page Update="Views\StandardKeyboardPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
-	</ItemGroup>
-	<ItemGroup>
-	  <Page Update="Controls\Settings\SettingsPageControl.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
-	</ItemGroup>
-	<ItemGroup>
-	  <Page Update="Controls\SettingsGroups\SettingsGroup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
-	  <Page Update="Styles\Button.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
-	</ItemGroup>
-	<ItemGroup>
-	  <Page Update="Views\SettingPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
-	</ItemGroup>
-	<ItemGroup>
-	  <Page Update="Controls\Base\KeyButton.xaml">
-	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	    <SubType>Designer</SubType>
-	  </Page>
-	  <Page Update="Controls\Keyboards\ArrowKeys.xaml">
-	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	    <SubType>Designer</SubType>
-	  </Page>
-	  <Page Update="Controls\Keyboards\ControlKeys.xaml">
-	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	    <SubType>Designer</SubType>
-	  </Page>
-	  <Page Update="Controls\Keyboards\FunctionKeyEx.xaml">
-	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	    <SubType>Designer</SubType>
-	  </Page>
-	  <Page Update="Controls\Keyboards\FunctionKeys.xaml">
-	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	    <SubType>Designer</SubType>
-	  </Page>
-	  <Page Update="Controls\Keyboards\Keyboard.xaml">
-	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	    <SubType>Designer</SubType>
-	  </Page>
-	  <Page Update="Controls\Keyboards\Keypad.xaml">
-	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	    <SubType>Designer</SubType>
-	  </Page>
-	  <Page Update="Themes\Colors.xaml">
-	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	    <SubType>Designer</SubType>
-	  </Page>
-	  <Page Update="Themes\Generic.xaml">
-	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	    <SubType>Designer</SubType>
-	  </Page>
-	  <Page Update="Views\ShellPage.xaml">
-	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	    <SubType>Designer</SubType>
-	  </Page>
-	  <Page Update="Views\SystemInfoPage.xaml">
-	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	    <SubType>Designer</SubType>
-	  </Page>
-	</ItemGroup>
-
-	<!-- 
-    Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution 
-    Explorer "Package and Publish" context menu entry to be enabled for this project even if 
-    the Windows App SDK Nuget package has not yet been restored.
-  -->
-	<PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-		<HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
-	</PropertyGroup>
+	
 </Project>

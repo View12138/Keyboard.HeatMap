@@ -1,5 +1,4 @@
 #pragma warning disable CA1822 // Mark members as static
-
 namespace DontTouchKeyboard.UI.ViewModels;
 
 internal partial class SettingViewModel : ObservableObject
@@ -24,6 +23,11 @@ internal partial class SettingViewModel : ObservableObject
     };
     partial void OnBackdropIndexChanged(int value) => App.TrySetSystemBackdrop(GetBackdrop());
 
+    [ObservableProperty] private Visibility micaSupported = MicaController.IsSupported() ? Visibility.Collapsed : Visibility.Visible;
+
+    [ObservableProperty] private Visibility acrylicSupported = DesktopAcrylicController.IsSupported() ? Visibility.Collapsed : Visibility.Visible;
+
+
     [ObservableProperty] private bool isAdminEnabled = false;
 
     [ObservableProperty] private bool isElevated = false;
@@ -35,30 +39,19 @@ internal partial class SettingViewModel : ObservableObject
 
     }
 
-    [ObservableProperty] private string? backgroundPath;
+    [ObservableProperty] private StorageFile? backgroundPath;
 
     // Commands
 
     [RelayCommand] public void OpenColorsSettings() => StartProcessHelper.Start(OtherApp.Settings_Colors);
     [RelayCommand] public void OpenBackgroundsSettings() => StartProcessHelper.Start(OtherApp.Settings_Backgrounds);
 
-    [RelayCommand] public void SelectBackgroundImage() { }
+    [RelayCommand] public void Evaluate() => StartProcessHelper.Start(OtherApp.Store_Review);
+    [RelayCommand] public void CheckUpdate() => StartProcessHelper.Start(OtherApp.Store_Update);
 
-    [RelayCommand]
-    public void CheckUpdate()
-    {
 
-    }
+    [RelayCommand] public async void SelectBackgroundImage() => BackgroundPath = await App.PickSingleFileDialog();
+    [RelayCommand] public void RestartElevated() { }
 
-    [RelayCommand]
-    public void Evaluate()
-    {
 
-    }
-
-    [RelayCommand]
-    public void RestartElevated()
-    {
-
-    }
 }

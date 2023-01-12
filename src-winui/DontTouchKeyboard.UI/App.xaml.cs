@@ -1,6 +1,3 @@
-using DontTouchKeyboard.UI.Views;
-using Microsoft.UI.Xaml.Media.Animation;
-
 namespace DontTouchKeyboard.UI;
 /// <summary>
 /// Provides application-specific behavior to supplement the default Application class.
@@ -12,6 +9,12 @@ public partial class App : Application
     public static event EventHandler<DtkKeyEventArgs>? StatusChanged;
     public static void OnStatusChanged(object source, VirtualKey key) => StatusChanged?.Invoke(source, new DtkKeyEventArgs(key));
     public static new App Current => (App)Application.Current;
+
+#if DEBUG
+    public static string ProductId => "9WZDNCRFHVJL"; // OneNote
+#else
+    public static string ProductId => "9P7G9DHQ9CPP";
+#endif
 
     private static MainWindow? mainWindow;
 
@@ -37,7 +40,22 @@ public partial class App : Application
 
     public static bool TrySetWindowTheme(ElementTheme theme) => mainWindow?.TrySetWindowTheme(theme) ?? false;
     public static bool TrySetSystemBackdrop(Backdrop backdrop) => mainWindow?.TrySetSystemBackdrop(backdrop) ?? false;
-    
+
+    public static async Task<StorageFile?> PickSingleFileDialog()
+    {
+        if (mainWindow != null)
+        {
+            var openPicker = new FileOpenPicker(); // FolderPicker
+            var hwnd = WindowNative.GetWindowHandle(mainWindow);
+            InitializeWithWindow.Initialize(openPicker, hwnd);
+            openPicker.FileTypeFilter.Add(".jpg");
+            openPicker.FileTypeFilter.Add(".png");
+            return await openPicker.PickSingleFileAsync();
+        }
+        return null;
+    }
+
+
     public static T? GetResource<T>(string name) where T : class
     {
         if (Current.Resources.TryGetValue(name, out object resource))
@@ -47,7 +65,7 @@ public partial class App : Application
         return null;
     }
 
-    public static T GetRequiredResource<T>(string name) where T : class
+    public static T GetRequiredResource<T>(string name)
     {
         if (!Current.Resources.TryGetValue(name, out object resource))
         {

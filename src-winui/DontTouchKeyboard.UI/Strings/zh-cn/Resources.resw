@@ -136,8 +136,11 @@
   <data name="Setting_Appearance_Backdrop.Header" xml:space="preserve">
     <value>应用背景</value>
   </data>
-  <data name="Setting_Appearance_Backdrop_Acrylic.Content" xml:space="preserve">
+  <data name="Setting_Appearance_Backdrop_Acrylic.Text" xml:space="preserve">
     <value>亚克力</value>
+  </data>
+  <data name="Setting_Appearance_Backdrop_Acrylic_Tips.Content" xml:space="preserve">
+    <value>当前不支持亚克力背景，此选项无效</value>
   </data>
   <data name="Setting_Appearance_Backdrop_Custom.Content" xml:space="preserve">
     <value>自定义</value>
@@ -151,8 +154,11 @@
   <data name="Setting_Appearance_Backdrop_Custom_SelectBackground.Text" xml:space="preserve">
     <value>选择自定义背景图片</value>
   </data>
-  <data name="Setting_Appearance_Backdrop_Mica.Content" xml:space="preserve">
+  <data name="Setting_Appearance_Backdrop_Mica.Text" xml:space="preserve">
     <value>云母</value>
+  </data>
+  <data name="Setting_Appearance_Backdrop_Mica_Tips.Content" xml:space="preserve">
+    <value>当前不支持云母背景，此选项无效</value>
   </data>
   <data name="Setting_Appearance_Backdrop_WindowsBackdrop.Content" xml:space="preserve">
     <value>Windows 背景设置</value>

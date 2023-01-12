@@ -25,7 +25,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="AppTitleBar"  Height="48">
+        <Grid x:Name="AppTitleBar"  Height="48" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="LeftInsetColumn" Width="0"/>
                 <ColumnDefinition x:Name="ActionColumn" Width="Auto"/>
@@ -44,7 +44,7 @@
                 </Button>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" >
-                <Image Source="/Assets/SSmallTile.png" Width="16" Height="16" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                <Image Source="ms-appx:///Assets/Logo/SmallLogo.png" Width="16" Height="16" Margin="8,0,0,0" VerticalAlignment="Center"/>
                 <TextBlock Text="别敲键盘" Margin="4,0,0,0" Style="{StaticResource CaptionTextBlockStyle}"/>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="4" VerticalAlignment="Center">

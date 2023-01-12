@@ -1,0 +1,79 @@
+<svg id="图层_2" data-name="图层 2" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 400 400">
+    <defs>
+        <style>
+            .cls-1{fill:#2d2525;}.cls-2,.cls-3{fill:#e44110;}.cls-2{filter:url(#filter);}.cls-3{filter:url(#filter-2);}.cls-4,.cls-5{fill:#eaa892;}.cls-4{filter:url(#filter-3);}.cls-5{filter:url(#filter-4);}.cls-6,.cls-7,.cls-8{fill:#ec8664;}.cls-6{filter:url(#filter-5);}.cls-7{filter:url(#filter-6);}.cls-8{filter:url(#filter-7);}.cls-9{fill:#ea4f1f;filter:url(#filter-8);}</style>
+        <filter id="filter" x="28.68" y="96.61" width="56" height="56" filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-2" x="314.92" y="96.61" width="56" height="56"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-2" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-2" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-3" x="124.09" y="96.61" width="56" height="56"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-3" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-3" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-4" x="219.5" y="96.61" width="56" height="56"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-4" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-4" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-5" x="171.37" y="172.25" width="56" height="56"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-5" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-5" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-6" x="28.82" y="173.25" width="97.44" height="56"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-6" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-6" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-7" x="272.47" y="170.4" width="98.35" height="55.68"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-7" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-7" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-8" x="28.82" y="244.18" width="342" height="56"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-8" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-8" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+    </defs>
+    <rect class="cls-1" x="6.82" y="45.39" width="387" height="308.29" rx="12" />
+    <rect class="cls-2" x="28.68" y="96.61" width="56" height="56" rx="11" />
+    <rect class="cls-3" x="314.92" y="96.61" width="56" height="56" rx="11" />
+    <rect class="cls-4" x="124.09" y="96.61" width="56" height="56" rx="11" />
+    <rect class="cls-5" x="219.5" y="96.61" width="56" height="56" rx="11" />
+    <rect class="cls-6" x="171.37" y="172.25" width="56" height="56" rx="11" />
+    <rect class="cls-7" x="28.82" y="173.25" width="97.44" height="56" rx="11" />
+    <rect class="cls-8" x="272.47" y="170.4" width="98.35" height="55.68" rx="11" />
+    <rect class="cls-9" x="28.82" y="244.18" width="342" height="56" rx="11" />
+</svg>

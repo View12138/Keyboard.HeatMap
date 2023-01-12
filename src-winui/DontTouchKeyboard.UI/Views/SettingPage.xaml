@@ -21,7 +21,7 @@
         <converters:IndexToBool x:Key="CustomBackdrop_IndexToBool" TrueValue="2"/>
     </Page.Resources>
 
-    <controls:SettingsPageControl x:Uid="Setting_About" ModuleImageSource="ms-appx:///Assets/LargeTile.png">
+    <controls:SettingsPageControl x:Uid="Setting_About" ModuleImageSource="ms-appx:///Assets/Logo/LargeLogo.png">
         <controls:SettingsPageControl.ModuleContent>
             <StackPanel Orientation="Vertical">
                 <!--基础-->
@@ -56,11 +56,31 @@
                             <HyperlinkButton x:Uid="Setting_Appearance_Backdrop_WindowsBackdrop" 
                                              Command="{Binding OpenBackgroundsSettingsCommand}" />
                         </labs:SettingsExpander.Description>
-                        <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}" 
+                        <ComboBox MinWidth="{StaticResource SettingActionControlMinWidthSp}" 
                                   SelectedIndex="{Binding BackdropIndex, Mode=TwoWay}" 
                                   SelectionChanged="Setting_Appearance_Backdrop_SelectionChanged">
-                            <ComboBoxItem x:Uid="Setting_Appearance_Backdrop_Mica"/>
-                            <ComboBoxItem x:Uid="Setting_Appearance_Backdrop_Acrylic"/>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                                    <TextBlock x:Uid="Setting_Appearance_Backdrop_Mica" />
+                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE7BA;" FontSize="14" 
+                                              Visibility="{Binding MicaSupported}">
+                                        <ToolTipService.ToolTip>
+                                            <ToolTip x:Uid="Setting_Appearance_Backdrop_Mica_Tips" />
+                                        </ToolTipService.ToolTip>
+                                    </FontIcon>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem >
+                                <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                                    <TextBlock x:Uid="Setting_Appearance_Backdrop_Acrylic" />
+                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE7BA;" FontSize="14" 
+                                              Visibility="{Binding AcrylicSupported}">
+                                        <ToolTipService.ToolTip>
+                                            <ToolTip x:Uid="Setting_Appearance_Backdrop_Acrylic_Tips" />
+                                        </ToolTipService.ToolTip>
+                                    </FontIcon>
+                                </StackPanel>
+                            </ComboBoxItem>
                             <ComboBoxItem x:Uid="Setting_Appearance_Backdrop_Custom"/>
                         </ComboBox>
                         <labs:SettingsExpander.Items>
@@ -78,12 +98,12 @@
                                         FontSize="12"
                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         IsTextSelectionEnabled="True"
-                                        Text="{Binding BackgroundPath, Mode=TwoWay}"
+                                        Text="{Binding BackgroundPath.Path, Mode=TwoWay}"
                                         TextAlignment="Right"
                                         TextTrimming="CharacterEllipsis">
                                         <ToolTipService.ToolTip>
                                             <ToolTip IsEnabled="{Binding ElementName=pathTextBlock, Path=IsTextTrimmed}">
-                                                <TextBlock Text="{Binding BackgroundPath, Mode=OneWay}" />
+                                                <TextBlock Text="{Binding BackgroundPath.Path, Mode=OneWay}" />
                                             </ToolTip>
                                         </ToolTipService.ToolTip>
                                     </TextBlock>
@@ -115,7 +135,7 @@
                         <labs:SettingsExpander.HeaderIcon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE7EF;" />
                         </labs:SettingsExpander.HeaderIcon>
-                        <Button Content="以管理员身份重启" Command="{Binding RestartElevatedCommand}" IsEnabled="{Binding Mode=OneWay, Path=IsAdminEnabled}" />
+                        <Button Content="以管理员身份重启" Command="{Binding RestartElevatedCommand}" MinWidth="{StaticResource SettingActionControlMinWidthSp}" IsEnabled="{Binding Mode=OneWay, Path=IsAdminEnabled}" />
                         <labs:SettingsExpander.Items>
                             <labs:SettingsCard Header="始终以管理员身份运行" Description="需要以管理员身份运行来使用此设置" IsEnabled="{Binding Mode=OneWay, Path=IsElevated}">
                                 <ToggleSwitch IsOn="{Binding Mode=TwoWay, Path=RunElevated}" />
@@ -130,7 +150,7 @@
                         <labs:SettingsExpander.HeaderIcon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE7EF;" />
                         </labs:SettingsExpander.HeaderIcon>
-                        <Button Content="以管理员身份重启" Command="{Binding RestartElevatedCommand}" IsEnabled="{Binding Mode=OneWay, Path=IsAdminEnabled}" />
+                        <Button Content="以管理员身份重启" Command="{Binding RestartElevatedCommand}" MinWidth="{StaticResource SettingActionControlMinWidthSp}" IsEnabled="{Binding Mode=OneWay, Path=IsAdminEnabled}" />
                         <labs:SettingsExpander.Items>
                             <labs:SettingsCard Header="始终以管理员身份运行" Description="需要以管理员身份运行来使用此设置" IsEnabled="{Binding Mode=OneWay, Path=IsElevated}">
                                 <ToggleSwitch IsOn="{Binding Mode=TwoWay, Path=RunElevated}" />

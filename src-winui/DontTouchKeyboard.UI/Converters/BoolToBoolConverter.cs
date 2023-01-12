@@ -8,7 +8,7 @@ internal class BoolToBoolConverter : IValueConverter
         {
             return !val;
         }
-        throw new ArgumentException("不是可转换的类型", nameof(value));
+        return ThrowHelper.ThrowArgumentException<object>("不是可转换的类型", nameof(value));
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -17,7 +17,8 @@ internal class BoolToBoolConverter : IValueConverter
         {
             return !val;
         }
-        throw new ArgumentException("不是可转换的类型", nameof(value));
+
+        return ThrowHelper.ThrowArgumentException<object>("不是可转换的类型", nameof(value));
     }
 }
 
@@ -33,7 +34,7 @@ internal class SystemInfoToMessage : IValueConverter
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)
     {
-        throw new NotImplementedException();
+        return ThrowHelper.ThrowNotSupportedException<object>("不支持的转换");
     }
 }
 
@@ -67,7 +68,7 @@ internal class IndexToVisibility : DependencyObject, IValueConverter
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)
     {
-        throw new NotImplementedException();
+        return ThrowHelper.ThrowNotSupportedException<object>("不支持的转换");
     }
 }
 
@@ -101,6 +102,6 @@ internal class IndexToBool : DependencyObject, IValueConverter
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)
     {
-        throw new NotImplementedException();
+        return ThrowHelper.ThrowNotSupportedException<object>("不支持的转换");
     }
 }

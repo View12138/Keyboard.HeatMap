@@ -1,5 +1,6 @@
-using DontTouchKeyboard.UI.Views;
-using Microsoft.UI.Xaml.Media.Animation;
+using System.IO;
+using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace DontTouchKeyboard.UI;
 /// <summary>
@@ -7,7 +8,7 @@ namespace DontTouchKeyboard.UI;
 /// </summary>
 public sealed partial class MainWindow : Window
 {
-    private FrameworkElement GetRootElement() => RootGrid;
+    private Panel GetRootElement() => RootGrid;
     private ICustomTitleBar GetCustomTitleBar() => ShellPage;
 
     public MainWindow()
@@ -16,16 +17,35 @@ public sealed partial class MainWindow : Window
 
         var settings = Ioc.Default.GetRequiredService<SettingViewModel>();
 
-        this.TrySetSystemBackdrop(GetRootElement(), settings.GetBackdrop());
+        //this.GetAppWindows().SetIcon("ms-appx:///Assets/SmallTile.png");
+
+        TrySetSystemBackdrop(settings.GetBackdrop());
 
         this.TrySetCustomTitleBar(GetRootElement(), GetCustomTitleBar());
 
-        this.TrySetWindowTheme(GetRootElement(), settings.GetTheme());
+        TrySetWindowTheme(settings.GetTheme());
     }
 
     public bool TrySetWindowTheme(ElementTheme theme) => this.TrySetWindowTheme(GetRootElement(), theme);
 
-    public bool TrySetSystemBackdrop(Backdrop backdrop) => this.TrySetSystemBackdrop(GetRootElement(), backdrop);
+    public bool TrySetSystemBackdrop(Backdrop backdrop) => this.TrySetSystemBackdrop(GetRootElement(), backdrop, SetBackgroundImage);
+
+    public async void SetBackgroundImage()
+    {
+        var settings = Ioc.Default.GetRequiredService<SettingViewModel>();
+        if (settings.BackgroundPath != null && File.Exists(settings.BackgroundPath.Path))
+        {
+            using var fileStream = await settings.BackgroundPath?.OpenReadAsync();
+            BitmapImage bitmapImage = new();
+            await bitmapImage.SetSourceAsync(fileStream);
+            GaussianBlurEffect blurEffect = new GaussianBlurEffect();
+            var brush = new ImageBrush()
+            {
+                ImageSource = bitmapImage
+            };
+            RootGrid.Background = brush;
+        }
+    }
 
     private void Grid_PreviewKeyUp(object sender, KeyRoutedEventArgs e)
     {

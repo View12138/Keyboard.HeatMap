@@ -1,8 +1,3 @@
-using System.Linq;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Media.Animation;
-using Windows.Graphics;
-
 namespace DontTouchKeyboard.UI.Views;
 
 public sealed partial class ShellPage : UserControl, ICustomTitleBar
@@ -22,11 +17,6 @@ public sealed partial class ShellPage : UserControl, ICustomTitleBar
 
         LeftInsetColumn.Width = new GridLength(appWindow.TitleBar.LeftInset / scaleAdjustment);
         RightInsetColumn.Width = new GridLength(appWindow.TitleBar.RightInset / scaleAdjustment);
-
-        //var parentRect = new RectInt32(0, 0, (int)(AppTitleBar.ActualWidth * scaleAdjustment), (int)(AppTitleBar.ActualHeight * scaleAdjustment));
-        //return parentRect.Clip(new List<RectInt32>()
-        //{
-        //}).ToList();
 
         List<RectInt32> dragRectsList = new();
 

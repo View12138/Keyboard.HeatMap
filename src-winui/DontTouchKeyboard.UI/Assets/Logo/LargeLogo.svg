@@ -1,0 +1,182 @@
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 400 400">
+    <defs>
+        <style>
+            .cls-1{fill:#141414;opacity:0.8;}
+            .cls-2,.cls-3{fill:#e44110;}
+            .cls-2{filter:url(#filter);}
+            .cls-3{filter:url(#filter-2);}
+            .cls-17,.cls-4,.cls-5,.cls-6,.cls-7{fill:#eaa892;}
+            .cls-4{filter:url(#filter-3);}
+            .cls-5{filter:url(#filter-4);}
+            .cls-6{filter:url(#filter-5);}
+            .cls-7{filter:url(#filter-6);}
+            .cls-10,.cls-11,.cls-12,.cls-8,.cls-9{fill:#ec8664;}
+            .cls-8{filter:url(#filter-7);}
+            .cls-9{filter:url(#filter-8);}
+            .cls-10{filter:url(#filter-9);}
+            .cls-11{filter:url(#filter-10);}
+            .cls-12{filter:url(#filter-11);}
+            .cls-13,.cls-14,.cls-15,.cls-16,.cls-18{fill:#ea4f1f;}
+            .cls-13{filter:url(#filter-12);}
+            .cls-14{filter:url(#filter-13);}
+            .cls-15{filter:url(#filter-14);}
+            .cls-16{filter:url(#filter-15);}
+            .cls-17{filter:url(#filter-16);}
+            .cls-19{fill:url(#未命名的渐变_28);}
+        </style>
+        <filter id="filter" x="30.85" y="81.34" width="31.01" height="30.35"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-2" x="340.44" y="81.34" width="31.01" height="30.35"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-2" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-2" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-3" x="92.77" y="81.34" width="31.01" height="30.35"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-3" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-3" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-4" x="278.52" y="81.34" width="31.01" height="30.35"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-4" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-4" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-5" x="216.6" y="81.34" width="31.01" height="30.35"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-5" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-5" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-6" x="154.69" y="81.34" width="31.01" height="30.35"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-6" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-6" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-7" x="185.41" y="129.15" width="31.01" height="30.35"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-7" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-7" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-8" x="243.66" y="129.15" width="31.01" height="30.35"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-8" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-8" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-9" x="124.34" y="129.15" width="31.01" height="30.35"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-9" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-9" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-10" x="30.38" y="129.15" width="62.01" height="30.35"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-10" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-10" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-11" x="310.37" y="129.15" width="62.01" height="30.35"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-11" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-11" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-12" x="123.4" y="179.47" width="155.03" height="30.35"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-12" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-12" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-13" x="293.69" y="179.47" width="77.51" height="30.35"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-13" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-13" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-14" x="30.43" y="179.44" width="77.51" height="30.35"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-14" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-14" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-15" x="123.38" y="253.96" width="155" height="68"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-15" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-15" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <filter id="filter-16" x="128.38" y="258.96" width="145" height="58"
+            filterUnits="userSpaceOnUse">
+            <feOffset dx="7" dy="7" input="SourceAlpha" />
+            <feGaussianBlur stdDeviation="5" result="blur-16" />
+            <feFlood flood-color="#e0aaaa" />
+            <feComposite operator="in" in2="blur-16" />
+            <feComposite in="SourceGraphic" />
+        </filter>
+        <linearGradient id="未命名的渐变_28" x1="106.38" y1="136.96" x2="294.38" y2="324.96"
+            gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#ea4f1f" />
+            <stop offset="1" stop-color="#fff" />
+        </linearGradient>
+    </defs>
+    <rect class="cls-1" x="13" y="59" width="374" height="282" rx="12" />
+    <rect class="cls-2" x="30.85" y="81.34" width="31.01" height="30.35" rx="7" />
+    <rect class="cls-3" x="340.44" y="81.34" width="31.01" height="30.35" rx="7" />
+    <rect class="cls-4" x="92.77" y="81.34" width="31.01" height="30.35" rx="7" />
+    <rect class="cls-5" x="278.52" y="81.34" width="31.01" height="30.35" rx="7" />
+    <rect class="cls-6" x="216.6" y="81.34" width="31.01" height="30.35" rx="7" />
+    <rect class="cls-7" x="154.69" y="81.34" width="31.01" height="30.35" rx="7" />
+    <rect class="cls-8" x="185.41" y="129.15" width="31.01" height="30.35" rx="7" />
+    <rect class="cls-9" x="243.66" y="129.15" width="31.01" height="30.35" rx="7" />
+    <rect class="cls-10" x="124.34" y="129.15" width="31.01" height="30.35" rx="7" />
+    <rect class="cls-11" x="30.38" y="129.15" width="62.01" height="30.35" rx="7" />
+    <rect class="cls-12" x="310.37" y="129.15" width="62.01" height="30.35" rx="7" />
+    <rect class="cls-13" x="123.4" y="179.47" width="155.03" height="30.35" rx="7" />
+    <rect class="cls-14" x="293.69" y="179.47" width="77.51" height="30.35" rx="7" />
+    <rect class="cls-15" x="30.43" y="179.44" width="77.51" height="30.35" rx="7" />
+    <rect class="cls-16" x="123.38" y="253.96" width="155" height="68" rx="7" />
+    <rect class="cls-17" x="128.38" y="258.96" width="145" height="58" rx="5" />
+    <path class="cls-18"
+        d="M200.88,301h0a2,2,0,0,1,2,2v14a0,0,0,0,1,0,0h-4a0,0,0,0,1,0,0V303A2,2,0,0,1,200.88,301Z" />
+    <rect class="cls-19" x="13.38" y="229.96" width="374" height="2" />
+</svg>

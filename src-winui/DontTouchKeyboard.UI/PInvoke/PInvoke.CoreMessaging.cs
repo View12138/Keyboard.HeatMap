@@ -1,4 +1,4 @@
-namespace PIncoke;
+namespace PInvoke;
 
 internal static class CoreMessaging
 {

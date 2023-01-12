@@ -11,7 +11,7 @@ public static class StartProcessHelper
 }
 
 
-public class OtherApp
+public sealed class OtherApp
 {
     private OtherApp() => ThrowHelper.ThrowInvalidOperationException();
     private OtherApp(string process)
@@ -20,8 +20,10 @@ public class OtherApp
     }
 
     public static OtherApp Settings_Colors => new("ms-settings:colors");
-
     public static OtherApp Settings_Backgrounds => new("ms-settings:personalization-background");
+
+    public static OtherApp Store_Review => new($"ms-windows-store://review/?ProductId={App.ProductId}&mode=mini");
+    public static OtherApp Store_Update => new($"ms-windows-store://pdp/?ProductId={App.ProductId}&mode=mini");
 
     public string Process { get; }
 }

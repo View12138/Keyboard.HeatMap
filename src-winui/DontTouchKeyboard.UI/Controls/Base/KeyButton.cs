@@ -1,5 +1,3 @@
-using DontTouchKeyboard.UI.Core.Extensions;
-
 namespace DontTouchKeyboard.UI.Controls.Base;
 
 [ContentProperty(Name = nameof(Content))]

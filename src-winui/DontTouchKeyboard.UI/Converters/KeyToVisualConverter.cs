@@ -1,5 +1,3 @@
-using DontTouchKeyboard.UI.Core.Extensions;
-
 namespace DontTouchKeyboard.UI.Converters;
 
 public class KeyToVisualConverter : IValueConverter
@@ -15,7 +13,7 @@ public class KeyToVisualConverter : IValueConverter
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)
     {
-        throw new NotSupportedException("不支持的转换");
+        return ThrowHelper.ThrowNotSupportedException<object>("不支持的转换");
     }
 
 

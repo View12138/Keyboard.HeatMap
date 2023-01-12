@@ -9,16 +9,7 @@
     xmlns:converter="using:DontTouchKeyboard.UI.Converters"
     xmlns:converters="using:CommunityToolkit.WinUI.UI.Converters"
     xmlns:dtk="using:DontTouchKeyboard.UI">
-    <!--<Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
-                --><!-- Other merged dictionaries here --><!--
-            </ResourceDictionary.MergedDictionaries>
-            --><!-- Other app resources here --><!--
-        </ResourceDictionary>
-    </Application.Resources>-->
-
+    
     <Application.Resources>
         <ResourceDictionary x:Key="res">
             <ResourceDictionary.MergedDictionaries>
@@ -36,7 +27,8 @@
             <converter:BoolToBoolConverter x:Key="BoolToBoolConverter"/>
             <converter:SystemInfoToMessage x:Key="SystemInfoToMessage"/>
 
-            <x:Double x:Key="SettingActionControlMinWidth">240</x:Double>
+            <x:Double x:Key="SettingActionControlMinWidth">180</x:Double>
+            <x:Double x:Key="SettingActionControlMinWidthSp">152</x:Double>
 
         </ResourceDictionary>
     </Application.Resources>

@@ -1,5 +1,3 @@
-using Windows.Graphics;
-
 namespace DontTouchKeyboard.UI.Core;
 
 /// <summary>
