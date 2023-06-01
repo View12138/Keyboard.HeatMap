@@ -10,6 +10,7 @@
     xmlns:helpers="using:DontTouchKeyboard.UI.Core"
     xmlns:views="using:DontTouchKeyboard.UI.Views"
     xmlns:converters="using:CommunityToolkit.WinUI.UI.Converters"
+    xmlns:behaviors="using:CommunityToolkit.WinUI.UI.Behaviors"
     RequestedTheme="Default"
     mc:Ignorable="d">
 
@@ -19,7 +20,7 @@
         <converters:BoolToObjectConverter x:Key="BoolToIconSizeConverter" TrueValue="11" FalseValue="13"/>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>

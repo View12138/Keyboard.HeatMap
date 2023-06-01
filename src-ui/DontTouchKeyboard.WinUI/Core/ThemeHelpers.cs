@@ -51,6 +51,7 @@ public static class ThemeHelpers
     private static MicaController? micaController = null;
     private static DesktopAcrylicController? acrylicController = null;
     private static Action? setBackground = null;
+
     /// <summary>
     /// 尝试设置背景
     /// </summary>

@@ -6,6 +6,7 @@ internal partial class SettingViewModel : ObservableObject
     // Properties
 
     [ObservableProperty] private int themeIndex = 2;
+#pragma warning disable MVVMTK0034 // Direct field reference to [ObservableProperty] backing field
     public ElementTheme GetTheme() => themeIndex switch
     {
         0 => ElementTheme.Dark,
@@ -21,6 +22,7 @@ internal partial class SettingViewModel : ObservableObject
         1 => Backdrop.Acrylic,
         _ => Backdrop.Custom,
     };
+#pragma warning restore MVVMTK0034 // Direct field reference to [ObservableProperty] backing field
     partial void OnBackdropIndexChanged(int value) => App.TrySetSystemBackdrop(GetBackdrop());
 
     [ObservableProperty] private Visibility micaSupported = MicaController.IsSupported() ? Visibility.Collapsed : Visibility.Visible;

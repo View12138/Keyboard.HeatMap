@@ -8,8 +8,8 @@
 
   <Identity
     Name="45005591-e6e8-4d92-94b7-c3eb838de6f5"
-    Publisher="CN=ms_vi"
-    Version="1.0.0.0" />
+    Publisher="CN=view"
+    Version="0.1.0.0" />
 
   <Properties>
     <DisplayName>DontTouchKeyboard.UI</DisplayName>
