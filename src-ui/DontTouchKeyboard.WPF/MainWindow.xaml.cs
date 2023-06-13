@@ -92,8 +92,8 @@ namespace Keyboard.HeatMap
             {
                 if (check.HasValue)
                 {
-                    Properties.Settings.Default.StartWithWindows = check.Value;
-                    Properties.Settings.Default.Save();
+					DontTouchKeyboard.WPF.Properties.Settings.Default.StartWithWindows = check.Value;
+					DontTouchKeyboard.WPF.Properties.Settings.Default.Save();
                     if (check.Value)
                     {
                         Shortcut.CreateShortcut(ShortcutType.Startup);
@@ -108,16 +108,16 @@ namespace Keyboard.HeatMap
             {
                 if (check.HasValue)
                 {
-                    Properties.Settings.Default.BackgroundRun = check.Value;
-                    Properties.Settings.Default.Save();
+					DontTouchKeyboard.WPF.Properties.Settings.Default.BackgroundRun = check.Value;
+					DontTouchKeyboard.WPF.Properties.Settings.Default.Save();
                 }
             };
             KeyBoardControl.AutoPlayChanged += (check) =>
             {
                 if (check.HasValue)
                 {
-                    Properties.Settings.Default.AutoPlay = check.Value;
-                    Properties.Settings.Default.Save();
+                    DontTouchKeyboard.WPF.Properties.Settings.Default.AutoPlay = check.Value;
+					DontTouchKeyboard.WPF.Properties.Settings.Default.Save();
                 }
             };
 
@@ -142,7 +142,7 @@ namespace Keyboard.HeatMap
                 {
                     TodayKeyUpList.Add(e.KeyCode, 1);
                 }
-                double timeSpan = Properties.Settings.Default.RefreshTimeSpan;
+                double timeSpan = DontTouchKeyboard.WPF.Properties.Settings.Default.RefreshTimeSpan;
                 if (timeSpan < 0)
                 { return; }
                 if (timeSpan == 0)
@@ -199,20 +199,20 @@ namespace Keyboard.HeatMap
             };
 
             {
-                if (Properties.Settings.Default.Version == 0)
+                if (DontTouchKeyboard.WPF.Properties.Settings.Default.Version == 0)
                 {
                     MigrationWindows migration = new MigrationWindows();
                     migration.ShowDialog();
-                    Properties.Settings.Default.Version = 1;
-                    Properties.Settings.Default.Save();
+                    DontTouchKeyboard.WPF.Properties.Settings.Default.Version = 1;
+					DontTouchKeyboard.WPF.Properties.Settings.Default.Save();
                 }
-                if (Properties.Settings.Default.FirstRun)
+                if (DontTouchKeyboard.WPF.Properties.Settings.Default.FirstRun)
                 {
                     string content = "也许你不知道，你都敲了多少次键盘，也许你也根本不关心。但是现在你可以，为了键盘的健康，让我们一起别敲键盘吧！";
                     string title = " —— 《 别敲键盘 》";
                     if (MessageBox.Show(content, $"您好{title}", MessageBoxButton.OK) == MessageBoxResult.OK)
                     {
-                        Properties.Settings.Default.FirstRun = false;
+						DontTouchKeyboard.WPF.Properties.Settings.Default.FirstRun = false;
 
                         if (!Shortcut.GetShortcut(ShortcutType.Desktop))
                         {
@@ -223,12 +223,12 @@ namespace Keyboard.HeatMap
                         {
                             if (MessageBox.Show("让我们每天都记录一下键盘的敲击情况，怎么样？\r\n\r\n【这需要让我随 Windows 一起启动，但您仍然可以稍后在程序中设置此选项】", $"马上就好{title}", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                             {
-                                Properties.Settings.Default.StartWithWindows = Shortcut.CreateShortcut(ShortcutType.Startup);
+								DontTouchKeyboard.WPF.Properties.Settings.Default.StartWithWindows = Shortcut.CreateShortcut(ShortcutType.Startup);
                             }
                             else
-                            { Properties.Settings.Default.StartWithWindows = false; }
+                            { DontTouchKeyboard.WPF.Properties.Settings.Default.StartWithWindows = false; }
                         }
-                        Properties.Settings.Default.Save();
+						DontTouchKeyboard.WPF.Properties.Settings.Default.Save();
                         Show();
 
                         Activate();
@@ -239,10 +239,10 @@ namespace Keyboard.HeatMap
                         Close();
                     }
                 }
-                bool asAdmin = Properties.Settings.Default.AsAdmin;
-                bool startWithWindows = Properties.Settings.Default.StartWithWindows;
-                bool backgroundRun = Properties.Settings.Default.BackgroundRun;
-                bool autoPlay = Properties.Settings.Default.AutoPlay;
+                bool asAdmin = DontTouchKeyboard.WPF.Properties.Settings.Default.AsAdmin;
+                bool startWithWindows = DontTouchKeyboard.WPF.Properties.Settings.Default.StartWithWindows;
+                bool backgroundRun = DontTouchKeyboard.WPF.Properties.Settings.Default.BackgroundRun;
+                bool autoPlay = DontTouchKeyboard.WPF.Properties.Settings.Default.AutoPlay;
                 if (startWithWindows)
                 {
                     if (!Shortcut.GetShortcut(ShortcutType.Startup))
