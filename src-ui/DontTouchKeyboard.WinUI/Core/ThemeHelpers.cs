@@ -277,12 +277,11 @@ public static class ThemeHelpers
         }
     }
 
-
     public static T? GetResource<T>(this FrameworkElement element, string name) where T : class
     {
         if (element.Resources.TryGetValue(name, out object resource))
         {
-            return (T?)resource;
+            return resource as T;
         }
         return null;
     }

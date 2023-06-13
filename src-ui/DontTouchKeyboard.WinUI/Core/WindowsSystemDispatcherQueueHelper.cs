@@ -16,10 +16,12 @@ internal class WindowsSystemDispatcherQueueHelper
 
         if (m_dispatcherQueueController == null)
         {
-            DispatcherQueueOptions options;
-            options.dwSize = Marshal.SizeOf(typeof(DispatcherQueueOptions));
-            options.threadType = 2;    // DQTYPE_THREAD_CURRENT
-            options.apartmentType = 2; // DQTAT_COM_STA
+            DispatcherQueueOptions options = new()
+            {
+                dwSize = Marshal.SizeOf(typeof(DispatcherQueueOptions)),
+                threadType = 2,    // DQTYPE_THREAD_CURRENT
+                apartmentType = 2 // DQTAT_COM_STA
+            };
 
             _ = CoreMessaging.CreateDispatcherQueueController(options, ref m_dispatcherQueueController);
         }
