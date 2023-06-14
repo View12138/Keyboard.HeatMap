@@ -103,10 +103,6 @@ public enum Keys
     /// The Kana symbol key-shift button
     /// </summary>
     Kana = 21,
-    /// <summary>
-    /// The Hangul symbol key-shift button.
-    /// </summary>
-    Hangul = 21,
     ImeOn = 22,
     /// <summary>
     /// The Junja symbol key-shift button.
@@ -120,10 +116,6 @@ public enum Keys
     /// The Hanja symbol key shift button.
     /// </summary>
     Hanja = 25,
-    /// <summary>
-    /// The Kanji symbol key-shift button.
-    /// </summary>
-    Kanji = 25,
     ImeOff = 26,
     /// <summary>
     /// The Esc key.
@@ -671,17 +663,13 @@ public enum Keys
     /// </summary>
     OemSemicolon = 186,
     /// <summary>
-    /// The OEM 1 key.
-    /// </summary>
-    Oem1 = 186,
-    /// <summary>
     /// The OEM plus key on any country/region keyboard.
     /// </summary>
-    Oemplus = 187,
+    OemPlus = 187,
     /// <summary>
     /// The OEM comma key on any country/region keyboard.
     /// </summary>
-    Oemcomma = 188,
+    OemComma = 188,
     /// <summary>
     /// The OEM minus key on any country/region keyboard.
     /// </summary>
@@ -695,17 +683,9 @@ public enum Keys
     /// </summary>
     OemQuestion = 191,
     /// <summary>
-    /// The OEM 2 key.
-    /// </summary>
-    Oem2 = 191,
-    /// <summary>
     /// The OEM tilde key on a US standard keyboard.
     /// </summary>
-    Oemtilde = 192,
-    /// <summary>
-    /// The OEM 3 key.
-    /// </summary>
-    Oem3 = 192,
+    OemTilde = 192,
     /// <summary>
     /// The gamepad A button.
     [SupportedOSPlatform("Windows10.0.10240.0")]
@@ -807,33 +787,17 @@ public enum Keys
     /// </summary>
     OemOpenBrackets = 219,
     /// <summary>
-    /// The OEM 4 key.
-    /// </summary>
-    Oem4 = 219,
-    /// <summary>
     /// The OEM pipe key on a US standard keyboard.
     /// </summary>
     OemPipe = 220,
-    /// <summary>
-    /// The OEM 5 key.
-    /// </summary>
-    Oem5 = 220,
     /// <summary>
     /// The OEM close bracket key on a US standard keyboard.
     /// </summary>
     OemCloseBrackets = 221,
     /// <summary>
-    /// The OEM 6 key.
-    /// </summary>
-    Oem6 = 221,
-    /// <summary>
     /// The OEM singled/double quote key on a US standard keyboard.
     /// </summary>
     OemQuotes = 222,
-    /// <summary>
-    /// The OEM 7 key.
-    /// </summary>
-    Oem7 = 222,
     /// <summary>
     /// The OEM 8 key.
     /// </summary>
@@ -842,10 +806,6 @@ public enum Keys
     /// The OEM angle bracket or backslash key on the RT 102 key keyboard.
     /// </summary>
     OemBackslash = 226,
-    /// <summary>
-    /// The OEM 102 key.
-    /// </summary>
-    Oem102 = 226,
     /// <summary>
     /// The PROCESS KEY key.
     /// </summary>

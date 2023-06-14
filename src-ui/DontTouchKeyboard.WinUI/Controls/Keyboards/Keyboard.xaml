@@ -53,7 +53,7 @@
             <base:KeyButton KeyCode="220" />
         </StackPanel>
         <StackPanel Spacing="4" Orientation="Horizontal">
-            <base:KeyButton Key="CapitalLock" Size="CapsLock" FontSize="12" LockVisibility="{x:Bind ext:CoreVirtualKeyStatesExtension.ToLockedVisibility(CapitalLockState), Mode=OneWay}" />
+            <base:KeyButton Key="CapitalLock" Size="CapsLock" FontSize="12" LockVisibility="{x:Bind ext:KeyStateStatesExtension.ToLockedVisibility(CapitalLockState), Mode=OneWay}" />
             <base:KeyButton Key="A" />
             <base:KeyButton Key="S" />
             <base:KeyButton Key="D" />

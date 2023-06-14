@@ -12,7 +12,7 @@
     <StackPanel Spacing="{ThemeResource KeyLargeSpacing}" Orientation="Horizontal">
         <StackPanel Spacing="{ThemeResource KeyDefaultSpacing}" Orientation="Horizontal">
             <base:KeyButton Key="Print" Size="Function" />
-            <base:KeyButton Key="Scroll" Size="Function" LockVisibility="{x:Bind ext:CoreVirtualKeyStatesExtension.ToLockedVisibility(ScrollState), Mode=OneWay}" />
+            <base:KeyButton Key="Scroll" Size="Function" LockVisibility="{x:Bind ext:KeyStateStatesExtension.ToLockedVisibility(ScrollState), Mode=OneWay}" />
             <base:KeyButton Key="Pause" Size="Function" />
         </StackPanel>
     </StackPanel>

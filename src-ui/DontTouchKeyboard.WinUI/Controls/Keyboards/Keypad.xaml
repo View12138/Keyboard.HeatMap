@@ -26,7 +26,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <base:KeyButton Key="NumberKeyLock" Grid.Row="0" Grid.Column="0" FontSize="10" LockVisibility="{x:Bind ext:CoreVirtualKeyStatesExtension.ToLockedVisibility(NumberKeyLockState), Mode=OneWay}" />
+        <base:KeyButton Key="NumberKeyLock" Grid.Row="0" Grid.Column="0" FontSize="10" LockVisibility="{x:Bind ext:KeyStateStatesExtension.ToLockedVisibility(NumberKeyLockState), Mode=OneWay}" />
         <base:KeyButton Key="Divide" Grid.Row="0" Grid.Column="1" />
         <base:KeyButton Key="Multiply" Grid.Row="0" Grid.Column="2" />
         <base:KeyButton Key="Subtract" Grid.Row="0" Grid.Column="3" />

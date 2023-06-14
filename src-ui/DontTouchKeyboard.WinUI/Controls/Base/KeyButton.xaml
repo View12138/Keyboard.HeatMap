@@ -6,6 +6,7 @@
     xmlns:controls="using:DontTouchKeyboard.UI.Controls.Settings"
     >
 
+    <converter:VisibleTypeToVisibility x:Key="VisibleTypeToVisibility"/>
 
     <Style x:Key="DefaultKeyStyle" TargetType="c:KeyButton" >
         <Setter Property="Width" Value="59" />
@@ -31,11 +32,11 @@
                         <Ellipse x:Name="LockFlag" Width="4" Height="4" Margin="6" 
                                  VerticalAlignment="Top" HorizontalAlignment="Right" 
                                  Fill="{ThemeResource KeyLockerBursh}" 
-                                 Visibility="{TemplateBinding LockVisibility}"/>
+                                 Visibility="{Binding LockVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource VisibleTypeToVisibility}}"/>
                         <Rectangle x:Name="LocationFlag" Width="12" Height="2" RadiusX="1" RadiusY="1" Margin="3"
                                    VerticalAlignment="Bottom" HorizontalAlignment="Center"
                                    Fill="{ThemeResource KeyLocationBrush}"
-                                   Visibility="{TemplateBinding LocationVisibility}" />
+                                   Visibility="{Binding LocationVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource VisibleTypeToVisibility}}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

@@ -9,15 +9,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configurations", "configura
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		ContributionGuide.md = ContributionGuide.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A9FFD110-0C98-48A5-AB67-69A9D2AFD2D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DontTouchKeyboard.Core", "src\DontTouchKeyboard.Core\DontTouchKeyboard.Core.csproj", "{9E9C951F-E296-4831-A4EF-191781557B3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DontTouchKeyboard.Core", "src\DontTouchKeyboard.Core\DontTouchKeyboard.Core.csproj", "{9E9C951F-E296-4831-A4EF-191781557B3D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DontTouchKeyboard.Plugs", "src\DontTouchKeyboard.Plugs\DontTouchKeyboard.Plugs.csproj", "{325BAA0A-A3AA-46EA-A520-5EB2B3D5BCEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DontTouchKeyboard.WPF", "src-ui\DontTouchKeyboard.WPF\DontTouchKeyboard.WPF.csproj", "{E5374F6D-6858-40EB-B730-BA79A7C75965}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DontTouchKeyboard.WPF", "src-ui\DontTouchKeyboard.WPF\DontTouchKeyboard.WPF.csproj", "{E5374F6D-6858-40EB-B730-BA79A7C75965}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DontTouchKeyboard.WinUI", "src-ui\DontTouchKeyboard.WinUI\DontTouchKeyboard.WinUI.csproj", "{E46237FD-BB76-4560-8660-1214628099D3}"
 EndProject

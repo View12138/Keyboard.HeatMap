@@ -11,7 +11,7 @@
 
     <StackPanel Spacing="{ThemeResource KeyDefaultSpacing}" Orientation="Horizontal">
         <StackPanel Spacing="{ThemeResource KeyDefaultSpacing}" >
-            <base:KeyButton Key="Insert" FontSize="12" LockVisibility="{x:Bind ext:CoreVirtualKeyStatesExtension.ToLockedVisibility(InsertState), Mode=OneWay}" />
+            <base:KeyButton Key="Insert" FontSize="12" LockVisibility="{x:Bind ext:KeyStateStatesExtension.ToLockedVisibility(InsertState), Mode=OneWay}" />
             <base:KeyButton Key="Delete" FontSize="12" />
         </StackPanel>
         <StackPanel Spacing="{ThemeResource KeyDefaultSpacing}">
