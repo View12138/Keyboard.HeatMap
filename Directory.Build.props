@@ -1,0 +1,63 @@
+<Project>
+
+	<!--#region Global Constants-->
+	<PropertyGroup>
+		<CompanyName>View</CompanyName>
+		<CurrentVersion>2.0.0-dev1</CurrentVersion>
+		<RootPath>$(MSBuildThisFileDirectory)</RootPath>
+		<AssetsPath>$(RootPath)assets\</AssetsPath>
+	</PropertyGroup>
+	<!--#endregion-->
+
+	<!--#region Common Properties-->
+	<PropertyGroup>
+		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
+		<RootNamespace>$(AssemblyName)</RootNamespace>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Version>$(CurrentVersion)</Version>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<UseIWshRuntimeLibrary>false</UseIWshRuntimeLibrary>
+		<UseCommunityToolkit>false</UseCommunityToolkit>
+		<UseMSUnitTest>false</UseMSUnitTest>
+	</PropertyGroup>
+	<!--#endregion-->
+
+	<!--#region UnitTest Properties-->
+	<PropertyGroup Condition="$(UseMSUnitTest) == 'true'">
+		<IsPackable>false</IsPackable>
+		<IsTestProject>true</IsTestProject>
+	</PropertyGroup>
+	<ItemGroup Condition="$(UseMSUnitTest) == 'true'">
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
+		<PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
+		<PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
+		<PackageReference Include="coverlet.collector" Version="3.1.2" />
+	</ItemGroup>
+	<!--#endregion-->
+
+	<!--#region IWshRuntimeLibrary Properties-->
+	<ItemGroup Condition="$(UseIWshRuntimeLibrary) == 'true'">
+		<COMReference Include="IWshRuntimeLibrary">
+			<WrapperTool>tlbimp</WrapperTool>
+			<VersionMinor>0</VersionMinor>
+			<VersionMajor>1</VersionMajor>
+			<Guid>f935dc20-1cf0-11d0-adb9-00c04fd58a0b</Guid>
+			<Lcid>0</Lcid>
+			<Isolated>false</Isolated>
+			<EmbedInteropTypes>true</EmbedInteropTypes>
+		</COMReference>
+	</ItemGroup>
+	<!--#endregion-->
+
+	<!--#region CommunityToolkit Properties-->
+	<ItemGroup Condition="$(UseCommunityToolkit) == 'true'">
+		<PackageReference Include="CommunityToolkit.Common" Version="8.2.0" />
+		<PackageReference Include="CommunityToolkit.Diagnostics" Version="8.2.0" />
+		<PackageReference Include="CommunityToolkit.HighPerformance" Version="8.2.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+	</ItemGroup>
+	<!--#endregion-->
+
+</Project>

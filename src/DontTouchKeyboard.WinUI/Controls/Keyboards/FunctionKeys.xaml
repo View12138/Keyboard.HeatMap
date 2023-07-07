@@ -1,0 +1,40 @@
+<base:KeyboardBase
+    x:Class="DontTouchKeyboard.WinUI.Controls.Keyboards.FunctionKeys"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:DontTouchKeyboard.WinUI.Controls.Keyboards"
+    xmlns:base="using:DontTouchKeyboard.WinUI.Controls.Base"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="{ThemeResource KeyLargeSpacing}" Orientation="Horizontal">
+        <StackPanel Spacing="{ThemeResource KeyDefaultSpacing}" Orientation="Horizontal">
+            <base:KeyButton Key="Escape" Size="FunctionMedium" />
+        </StackPanel>
+
+        <StackPanel Spacing="{ThemeResource KeyDefaultSpacing}" Orientation="Horizontal">
+            <base:KeyButton Key="F1" Size="Function" />
+            <base:KeyButton Key="F2" Size="Function" />
+            <base:KeyButton Key="F3" Size="Function" />
+        </StackPanel>
+        
+        <StackPanel Spacing="{ThemeResource KeyDefaultSpacing}" Orientation="Horizontal">
+            <base:KeyButton Key="F4" Size="Function" />
+            <base:KeyButton Key="F5" Size="Function" />
+            <base:KeyButton Key="F6" Size="Function" />
+        </StackPanel>
+        
+        <StackPanel Spacing="{ThemeResource KeyDefaultSpacing}" Orientation="Horizontal">
+            <base:KeyButton Key="F7" Size="Function" />
+            <base:KeyButton Key="F8" Size="Function" />
+            <base:KeyButton Key="F9" Size="Function" />
+        </StackPanel>
+
+        <StackPanel Spacing="{ThemeResource KeyDefaultSpacing}" Orientation="Horizontal">
+            <base:KeyButton Key="F10" Size="Function" />
+            <base:KeyButton Key="F11" Size="Function" />
+            <base:KeyButton Key="F12" Size="Function" />
+        </StackPanel>
+    </StackPanel>
+</base:KeyboardBase>

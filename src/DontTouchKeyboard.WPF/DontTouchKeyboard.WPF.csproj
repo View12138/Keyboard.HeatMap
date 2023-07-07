@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<UseWPF>true</UseWPF>
+		<UseIWshRuntimeLibrary>true</UseIWshRuntimeLibrary>
+
+		<Title>别敲键盘</Title>
+		<Description>一款帮助你记录每天键盘按键情况的App。</Description>
+		<Company>View;丑萌气质狗</Company>
+		<Product>Keyboard.HeatMap</Product>
+		<Copyright>Copyright ©  2023</Copyright>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Include="System.Windows.Forms" Alias="WinForms" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Dapper" Version="2.0.123" />
+		<PackageReference Include="Dapper.Contrib" Version="2.0.78" />
+		<PackageReference Include="System.Data.SQLite" Version="1.0.118" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Properties\Settings.Designer.cs" DesignTimeSharedInput="True" AutoGen="True" DependentUpon="Settings.settings" />
+		<Compile Update="Properties\Resources.Designer.cs" DesignTimeSharedInput="True" AutoGen="True" DependentUpon="Resources.resx" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
+
+</Project>
