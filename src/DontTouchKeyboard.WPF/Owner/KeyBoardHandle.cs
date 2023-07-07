@@ -20,11 +20,11 @@ public class KeyBoardHandle : IDisposable
     /// <summary>
     /// 按键按下事件
     /// </summary>
-    public event WinForms.KeyEventHandler KeyDown;
+    public event System.Windows.Forms.KeyEventHandler KeyDown;
     /// <summary>
     /// 按键抬起事件
     /// </summary>
-    public event WinForms.KeyEventHandler KeyUp;
+    public event System.Windows.Forms.KeyEventHandler KeyUp;
     /// <summary>
     /// 状态改变时发生
     /// </summary>
@@ -92,7 +92,7 @@ public class KeyBoardHandle : IDisposable
 
     // event handle
 
-    private void Hook_OnKeyDownEvent(object sender, WinForms.KeyEventArgs e)
+    private void Hook_OnKeyDownEvent(object sender, System.Windows.Forms.KeyEventArgs e)
     {
         KeyData keyData = new KeyData()
         {
@@ -113,7 +113,7 @@ public class KeyBoardHandle : IDisposable
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void Hook_OnKeyUpEvent(object sender, WinForms.KeyEventArgs e)
+    private void Hook_OnKeyUpEvent(object sender, System.Windows.Forms.KeyEventArgs e)
     {
         KeyData keyData = new KeyData()
         {
@@ -165,15 +165,15 @@ public class KeyBoardHandle : IDisposable
     /// <param name="start"></param>
     /// <param name="end"></param>
     /// <returns></returns>
-    public Dictionary<Keys, long> Count(DateTime start, DateTime end)
+    public Dictionary<System.Windows.Forms.Keys, long> Count(DateTime start, DateTime end)
     {
         if (start == end)
-        { return new Dictionary<Keys, long>(); }
+        { return new Dictionary<System.Windows.Forms.Keys, long>(); }
         var min = start < end ? start : end;
         var max = start > end ? start : end;
         string sql = $"select Code,count(*) as Count from vk_key where Status=2 and Time between '{start:yyyy-MM-dd HH:mm:ss}' and '{end:yyyy-MM-dd HH:mm:ss}' group by Code;";
 
-        Dictionary<Keys, long> vals = new Dictionary<Keys, long>();
+        Dictionary<System.Windows.Forms.Keys, long> vals = new Dictionary<System.Windows.Forms.Keys, long>();
         using (DbHandle handle = new DbHandle(start, end))
         {
             foreach (var date in handle.GetDates())
@@ -184,7 +184,7 @@ public class KeyBoardHandle : IDisposable
                 _db.Close();
                 foreach (var data in datas)
                 {
-                    Keys key = (Keys)data.Code;
+                    System.Windows.Forms.Keys key = (System.Windows.Forms.Keys)data.Code;
 
                     if (vals.ContainsKey(key))
                     { vals[key] += data.Count; }
@@ -199,11 +199,11 @@ public class KeyBoardHandle : IDisposable
     /// 获取每个键的所有击键记录数。
     /// </summary>
     /// <returns></returns>
-    public Dictionary<Keys, long> Count()
+    public Dictionary<System.Windows.Forms.Keys, long> Count()
     {
         string sql = $"select Code,count(*) as Count from vk_key where Status=2 group by Code;";
 
-        Dictionary<Keys, long> vals = new Dictionary<Keys, long>();
+        Dictionary<System.Windows.Forms.Keys, long> vals = new Dictionary<System.Windows.Forms.Keys, long>();
         var dbs = DbHandle.GetAllConnections();
         foreach (var db in dbs)
         {
@@ -213,7 +213,7 @@ public class KeyBoardHandle : IDisposable
             db.Dispose();
             foreach (var data in datas)
             {
-                Keys key = (Keys)data.Code;
+                System.Windows.Forms.Keys key = (System.Windows.Forms.Keys)data.Code;
 
                 if (vals.ContainsKey(key))
                 { vals[key] += data.Count; }
@@ -231,7 +231,7 @@ public class KeyBoardHandle : IDisposable
     /// <param name="start">开始时间</param>
     /// <param name="end">结束时间</param>
     /// <returns></returns>
-    public long KeyCounts(Keys keys, DateTime start, DateTime end)
+    public long KeyCounts(System.Windows.Forms.Keys keys, DateTime start, DateTime end)
     {
         if (start == end)
         { return 0L; }
@@ -257,7 +257,7 @@ public class KeyBoardHandle : IDisposable
     /// </summary>
     /// <param name="keys">指定按键</param>
     /// <returns></returns>
-    public long KeyCounts(Keys keys)
+    public long KeyCounts(System.Windows.Forms.Keys keys)
     {
         string sql = $"select count(*) as Count from vk_key where Status=2 and Code={(int)keys};";
         long count = 0;

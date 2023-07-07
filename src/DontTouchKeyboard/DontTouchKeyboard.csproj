@@ -4,14 +4,11 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<UseIWshRuntimeLibrary>true</UseIWshRuntimeLibrary>
 		<UseCommunityToolkit>true</UseCommunityToolkit>
+		<UsePInvoke>true</UsePInvoke>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
-		<PackageReference Include="PInvoke.DwmApi" Version="0.7.124" />
-		<PackageReference Include="PInvoke.Kernel32" Version="0.7.124" />
-		<PackageReference Include="PInvoke.SHCore" Version="0.7.124" />
-		<PackageReference Include="PInvoke.User32" Version="0.7.124" />
 	</ItemGroup>
 
 </Project>

@@ -26,11 +26,11 @@ public partial class MainWindow : Window
     /// <summary>
     /// 任务栏图标
     /// </summary>
-    private WinForms.NotifyIcon notifyIcon;
+    private System.Windows.Forms.NotifyIcon notifyIcon;
     /// <summary>
     /// 开始统计时间 到 目前的按键统计数据
     /// </summary>
-    private Dictionary<WinForms.Keys, long> TodayKeyUpList;
+    private Dictionary<System.Windows.Forms.Keys, long> TodayKeyUpList;
 
     /// <summary>
     /// 初始化
@@ -64,8 +64,8 @@ public partial class MainWindow : Window
         Shortcut = new Shortcut("别敲键盘");
         KeyBoard = new KeyBoardHandle();
         Menu = new TaskMenu();
-        notifyIcon = new WinForms.NotifyIcon();
-        TodayKeyUpList = new Dictionary<WinForms.Keys, long>();
+        notifyIcon = new System.Windows.Forms.NotifyIcon();
+        TodayKeyUpList = new Dictionary<System.Windows.Forms.Keys, long>();
 
         KeyBoardControl.CloseKeyClick += (s, e) =>
         {
@@ -177,7 +177,7 @@ public partial class MainWindow : Window
         notifyIcon.Visible = true;
         notifyIcon.MouseClick += (s, e) =>
         {
-            if (e.Button == WinForms.MouseButtons.Right)
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
                 Menu.ShowMenu();
             }

@@ -57,7 +57,7 @@ public class DbHandle : IDisposable
     private string GetDbName(DbDate date = default)
     {
         if (date == default) { date = DateTime.Now; }
-        string dbFloder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), WinForms.Application.ProductName, "Database");
+        string dbFloder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), System.Windows.Forms.Application.ProductName, "Database");
         if (!Directory.Exists(dbFloder))
         { Directory.CreateDirectory(dbFloder); }
         string dbName = Path.Combine(dbFloder, date.ToString() + ".db");
@@ -94,7 +94,7 @@ public class DbHandle : IDisposable
     {
         List<DbDate> dates = new List<DbDate>();
         int toatlMonth = ((endTime.Year - startTime.Year) * 12) + (endTime.Month - startTime.Month);
-        string dbFloder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), WinForms.Application.ProductName, "Database");
+        string dbFloder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), System.Windows.Forms.Application.ProductName, "Database");
         if (toatlMonth == 0)
         {
             //string dbName = GetDbName(endTime);
@@ -142,7 +142,7 @@ public class DbHandle : IDisposable
     /// <returns>所有本地存在的数据库连接</returns>
     public static List<SQLiteConnection> GetAllConnections()
     {
-        string dbFloder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), WinForms.Application.ProductName, "Database");
+        string dbFloder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), System.Windows.Forms.Application.ProductName, "Database");
         var dbNames = Directory.GetFiles(dbFloder).Where(x => Path.GetExtension(x).EndsWith("db")).ToList();
         List<SQLiteConnection> connections = new List<SQLiteConnection>();
         foreach (var dbName in dbNames)
@@ -156,7 +156,7 @@ public class DbHandle : IDisposable
     {
         await Task.Run(() =>
         {
-            string dbFloder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), WinForms.Application.ProductName, "Database");
+            string dbFloder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), System.Windows.Forms.Application.ProductName, "Database");
             var dbNames = Directory.GetFiles(dbFloder).Where(x => Path.GetExtension(x).EndsWith("db")).ToList();
             foreach (var dbName in dbNames)
             {

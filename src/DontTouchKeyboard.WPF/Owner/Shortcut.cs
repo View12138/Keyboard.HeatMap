@@ -1,3 +1,6 @@
+using IWshRuntimeLibrary;
+using File = System.IO.File;
+
 namespace Keyboard.HeatMap.Owner;
 
 public class Shortcut
@@ -9,8 +12,8 @@ public class Shortcut
     /// </summary>
     public Shortcut()
     {
-        productName = WinForms.Application.ProductName;
-        exePath = WinForms.Application.ExecutablePath;
+        productName = System.Windows.Forms.Application.ProductName;
+        exePath = System.Windows.Forms.Application.ExecutablePath;
     }
     /// <summary>
     /// 初始化快捷方式
@@ -20,7 +23,7 @@ public class Shortcut
     public Shortcut(string productName)
     {
         this.productName = productName;
-        exePath = WinForms.Application.ExecutablePath;
+        exePath = System.Windows.Forms.Application.ExecutablePath;
     }
 
     public string ProductName { get => productName; }

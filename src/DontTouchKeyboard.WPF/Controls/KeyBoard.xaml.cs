@@ -148,7 +148,7 @@ public partial class KeyBoard : UserControl
     /// 设置按键热力值
     /// </summary>
     /// <param name="hotDatas"></param>
-    public void SetKeyListHot(Dictionary<Keys, long> hotDatas)
+    public void SetKeyListHot(Dictionary<System.Windows.Forms.Keys, long> hotDatas)
     {
         if (hotDatas.Count <= 0)
         { return; }
@@ -221,7 +221,7 @@ public partial class KeyBoard : UserControl
     /// 设置某个按键按下
     /// </summary>
     /// <param name="keys"></param>
-    public void SetDown(Keys keys)
+    public void SetDown(System.Windows.Forms.Keys keys)
     {
         var button = GetButtonByKeys(keys);
         if (button != null)
@@ -234,7 +234,7 @@ public partial class KeyBoard : UserControl
     /// 设置某个按键释放
     /// </summary>
     /// <param name="keys"></param>
-    public void SetUp(Keys keys)
+    public void SetUp(System.Windows.Forms.Keys keys)
     {
         var button = GetButtonByKeys(keys);
         if (button != null)
@@ -250,7 +250,7 @@ public partial class KeyBoard : UserControl
     /// </summary>
     /// <param name="keys"></param>
     /// <returns></returns>
-    private Button GetButtonByKeys(Keys keys)
+    private Button GetButtonByKeys(System.Windows.Forms.Keys keys)
     {
         int keyCode = (int)keys;
         if (Buttons.ContainsKey(keyCode))
@@ -313,7 +313,7 @@ public partial class KeyBoard : UserControl
     public event EventHandler ResetClick;
 
     // notify event
-    private void Close_Click(object sender, RoutedEventArgs e) => CloseKeyClick?.Invoke(this, new System.Windows.Forms.KeyEventArgs(Keys.None));
+    private void Close_Click(object sender, RoutedEventArgs e) => CloseKeyClick?.Invoke(this, new System.Windows.Forms.KeyEventArgs(System.Windows.Forms.Keys.None));
     private void AsAdmin_Click(object sender, RoutedEventArgs e) => AsAdminChanged?.Invoke(AsAdmin.IsChecked);
     private void StartWithWindows_Click(object sender, RoutedEventArgs e) => StartWithWindowsChanged?.Invoke(StartWithWindows.IsChecked);
     private void BackgroundRun_Click(object sender, RoutedEventArgs e) => BackgroundRunChanged?.Invoke(BackgroundRun.IsChecked);

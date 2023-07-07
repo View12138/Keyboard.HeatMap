@@ -19,15 +19,15 @@ public class KeyBoardHook : IDisposable
     /// <summary>
     /// keyDown
     /// </summary>
-    public event WinForms.KeyEventHandler OnKeyDownEvent;
+    public event System.Windows.Forms.KeyEventHandler OnKeyDownEvent;
     /// <summary>
     /// KeyUp
     /// </summary>
-    public event WinForms.KeyEventHandler OnKeyUpEvent;
+    public event System.Windows.Forms.KeyEventHandler OnKeyUpEvent;
     /// <summary>
     /// KeyPress
     /// </summary>
-    public event WinForms.KeyPressEventHandler OnKeyPressEvent;
+    public event System.Windows.Forms.KeyPressEventHandler OnKeyPressEvent;
 
     /// <summary>
     /// 键盘钩子句柄
@@ -37,7 +37,7 @@ public class KeyBoardHook : IDisposable
     /// <summary>
     /// 先前按下的键
     /// </summary>
-    private List<WinForms.Keys> preKeys = new List<WinForms.Keys>();
+    private List<System.Windows.Forms.Keys> preKeys = new List<System.Windows.Forms.Keys>();
 
     private HookProc KeyboardHookProc;
     private bool disposed = false;
@@ -102,7 +102,7 @@ public class KeyBoardHook : IDisposable
             //中的对应的键增加                  
             if (wParam == WM_KeyDown || wParam == WM_SysKeyDown)
             {
-                WinForms.Keys keyData = (WinForms.Keys)param.vkCode;
+                System.Windows.Forms.Keys keyData = (System.Windows.Forms.Keys)param.vkCode;
                 if (IsCtrlAltShiftKeys(keyData) && preKeys.IndexOf(keyData) == -1)
                 {
                     preKeys.Add(keyData);
@@ -111,8 +111,8 @@ public class KeyBoardHook : IDisposable
             //引发OnKeyDownEvent
             if (wParam == WM_KeyDown || wParam == WM_SysKeyDown)
             {
-                WinForms.Keys keyData = (WinForms.Keys)param.vkCode;
-                WinForms.KeyEventArgs e = new WinForms.KeyEventArgs(GetDownKeys(keyData));
+                System.Windows.Forms.Keys keyData = (System.Windows.Forms.Keys)param.vkCode;
+                System.Windows.Forms.KeyEventArgs e = new System.Windows.Forms.KeyEventArgs(GetDownKeys(keyData));
 
                 OnKeyDownEvent?.Invoke(this, e);
             }
@@ -130,7 +130,7 @@ public class KeyBoardHook : IDisposable
                 inBuffer,
                 param.flags) == 1)
                 {
-                    WinForms.KeyPressEventArgs e = new WinForms.KeyPressEventArgs((char)inBuffer[0]);
+                    System.Windows.Forms.KeyPressEventArgs e = new System.Windows.Forms.KeyPressEventArgs((char)inBuffer[0]);
                     OnKeyPressEvent?.Invoke(this, e);
                 }
             }
@@ -139,7 +139,7 @@ public class KeyBoardHook : IDisposable
             //中的对应的键删除
             if (wParam == WM_KeyUp || wParam == WM_SysKeyUp)
             {
-                WinForms.Keys keyData = (WinForms.Keys)param.vkCode;
+                System.Windows.Forms.Keys keyData = (System.Windows.Forms.Keys)param.vkCode;
                 if (IsCtrlAltShiftKeys(keyData))
                 {
                     for (int i = preKeys.Count - 1; i >= 0; i--)
@@ -154,32 +154,32 @@ public class KeyBoardHook : IDisposable
             //引发OnKeyUpEvent
             if (wParam == WM_KeyUp || wParam == WM_SysKeyUp)
             {
-                WinForms.Keys keyData = (WinForms.Keys)param.vkCode;
-                WinForms.KeyEventArgs e = new WinForms.KeyEventArgs(GetDownKeys(keyData));
+                System.Windows.Forms.Keys keyData = (System.Windows.Forms.Keys)param.vkCode;
+                System.Windows.Forms.KeyEventArgs e = new System.Windows.Forms.KeyEventArgs(GetDownKeys(keyData));
                 OnKeyUpEvent?.Invoke(this, e);
             }
         }
         return Win32.CallNextHookEx(IdHook.KeyboardLL, nCode, wParam, lParam);
     }
 
-    private WinForms.Keys GetDownKeys(WinForms.Keys key)
+    private System.Windows.Forms.Keys GetDownKeys(System.Windows.Forms.Keys key)
     {
-        WinForms.Keys rtnKey = WinForms.Keys.None;
-        foreach (WinForms.Keys keyTemp in preKeys)
+        System.Windows.Forms.Keys rtnKey = System.Windows.Forms.Keys.None;
+        foreach (System.Windows.Forms.Keys keyTemp in preKeys)
         {
             switch (keyTemp)
             {
-                case WinForms.Keys.LControlKey:
-                case WinForms.Keys.RControlKey:
-                    rtnKey |= WinForms.Keys.Control;
+                case System.Windows.Forms.Keys.LControlKey:
+                case System.Windows.Forms.Keys.RControlKey:
+                    rtnKey |= System.Windows.Forms.Keys.Control;
                     break;
-                case WinForms.Keys.LMenu:
-                case WinForms.Keys.RMenu:
-                    rtnKey |= WinForms.Keys.Alt;
+                case System.Windows.Forms.Keys.LMenu:
+                case System.Windows.Forms.Keys.RMenu:
+                    rtnKey |= System.Windows.Forms.Keys.Alt;
                     break;
-                case WinForms.Keys.LShiftKey:
-                case WinForms.Keys.RShiftKey:
-                    rtnKey |= WinForms.Keys.Shift;
+                case System.Windows.Forms.Keys.LShiftKey:
+                case System.Windows.Forms.Keys.RShiftKey:
+                    rtnKey |= System.Windows.Forms.Keys.Shift;
                     break;
                 default:
                     break;
@@ -189,16 +189,16 @@ public class KeyBoardHook : IDisposable
         return rtnKey;
     }
 
-    private bool IsCtrlAltShiftKeys(WinForms.Keys key)
+    private bool IsCtrlAltShiftKeys(System.Windows.Forms.Keys key)
     {
         switch (key)
         {
-            case WinForms.Keys.LControlKey:
-            case WinForms.Keys.RControlKey:
-            case WinForms.Keys.LMenu:
-            case WinForms.Keys.RMenu:
-            case WinForms.Keys.LShiftKey:
-            case WinForms.Keys.RShiftKey:
+            case System.Windows.Forms.Keys.LControlKey:
+            case System.Windows.Forms.Keys.RControlKey:
+            case System.Windows.Forms.Keys.LMenu:
+            case System.Windows.Forms.Keys.RMenu:
+            case System.Windows.Forms.Keys.LShiftKey:
+            case System.Windows.Forms.Keys.RShiftKey:
                 return true;
             default:
                 return false;

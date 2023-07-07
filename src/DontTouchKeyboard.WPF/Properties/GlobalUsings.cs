@@ -1,6 +1,5 @@
 global using Dapper;
 global using Dapper.Contrib.Extensions;
-global using IWshRuntimeLibrary;
 global using Keyboard.HeatMap.Common;
 global using Keyboard.HeatMap.Controls;
 global using Keyboard.HeatMap.HookGlobal;
@@ -20,5 +19,3 @@ global using System.Windows.Controls;
 global using System.Windows.Input;
 global using System.Windows.Media;
 global using System.Windows.Media.Animation;
-global using File = System.IO.File;
-global using Keys = System.Windows.Forms.Keys;

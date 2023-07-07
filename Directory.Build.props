@@ -18,9 +18,10 @@
 		<Nullable>enable</Nullable>
 		<Version>$(CurrentVersion)</Version>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<UseMSUnitTest>false</UseMSUnitTest>
 		<UseIWshRuntimeLibrary>false</UseIWshRuntimeLibrary>
 		<UseCommunityToolkit>false</UseCommunityToolkit>
-		<UseMSUnitTest>false</UseMSUnitTest>
+		<UsePInvoke>false</UsePInvoke>
 	</PropertyGroup>
 	<!--#endregion-->
 
@@ -57,6 +58,15 @@
 		<PackageReference Include="CommunityToolkit.Diagnostics" Version="8.2.0" />
 		<PackageReference Include="CommunityToolkit.HighPerformance" Version="8.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+	</ItemGroup>
+	<!--#endregion-->
+
+	<!--#region PInvoke Properties-->
+	<ItemGroup Condition="$(UsePInvoke) == 'true'">
+		<PackageReference Include="PInvoke.DwmApi" Version="0.7.124" />
+		<PackageReference Include="PInvoke.Kernel32" Version="0.7.124" />
+		<PackageReference Include="PInvoke.SHCore" Version="0.7.124" />
+		<PackageReference Include="PInvoke.User32" Version="0.7.124" />
 	</ItemGroup>
 	<!--#endregion-->
 
